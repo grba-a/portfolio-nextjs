@@ -3,7 +3,7 @@
 import { useState, FormEvent } from "react";
 
 export default function Contact() {
-  const [hint, setHint] = useState("Fill the form and send.");
+  const [hint, setHint] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -19,7 +19,7 @@ export default function Contact() {
       });
 
       if (res.ok) {
-        setHint("Message sent. I'll get back to you soon.");
+        setHint("Message sent. I'll get back to you within 24 hours.");
         form.reset();
       } else {
         setHint("Something went wrong. Please email me directly.");
@@ -33,7 +33,10 @@ export default function Contact() {
     <section className="contact section" id="contact">
       <div className="container">
         <h2>Contact</h2>
-        <p className="muted">Send a message. I reply fast.</p>
+        <p className="muted">
+          Have a project in mind, or just want to explore options? Send a message —
+          I reply within 24 hours.
+        </p>
 
         <form className="form" onSubmit={handleSubmit}>
           <input type="hidden" name="_subject" value="New message from portfolio" />
@@ -56,8 +59,8 @@ export default function Contact() {
           </div>
 
           <div className="actions">
-            <button className="btn" type="submit">Send</button>
-            <p className="hint">{hint}</p>
+            <button className="btn" type="submit">Send message</button>
+            {hint && <p className="hint">{hint}</p>}
           </div>
         </form>
 
