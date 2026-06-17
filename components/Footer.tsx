@@ -1,3 +1,7 @@
+"use client";
+
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+
 const socialLinks = [
   {
     label: "Email",
@@ -45,30 +49,32 @@ const socialLinks = [
   },
 ];
 
-const navLinks = [
-  { href: "#about",          label: "About" },
-  { href: "#services",       label: "Services" },
-  { href: "#process",        label: "Process" },
-  { href: "#projects",       label: "Projects" },
-  { href: "#certifications", label: "Certifications" },
-  { href: "#contact",        label: "Contact" },
-];
-
 export default function Footer() {
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { href: "#about",          label: t.nav.about },
+    { href: "#services",       label: t.nav.services },
+    { href: "#process",        label: t.nav.process },
+    { href: "#projects",       label: t.nav.projects },
+    { href: "#certifications", label: t.nav.certifications },
+    { href: "#contact",        label: t.nav.contact },
+  ];
+
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer-cta">
-          <p className="footer-cta-label">Ready to start?</p>
+          <p className="footer-cta-label">{t.footer.ctaLabel}</p>
           <a href="#contact" className="footer-cta-link">
-            Let&apos;s work together <span aria-hidden="true">→</span>
+            {t.footer.ctaLink} <span aria-hidden="true">→</span>
           </a>
         </div>
         <div className="footer-divider" />
         <div className="footer-body">
           <div className="footer-brand">
             <span className="footer-name">Petar Grbić</span>
-            <span className="footer-tagline muted">Full-Service Digital Freelancer</span>
+            <span className="footer-tagline muted">{t.footer.tagline}</span>
           </div>
           <nav className="footer-nav" aria-label="Footer navigation">
             {navLinks.map((link) => (
@@ -92,8 +98,8 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p className="muted">© {new Date().getFullYear()} Petar Grbić. All rights reserved.</p>
-          <a href="#top" className="to-top" aria-label="Back to top">↑ Top</a>
+          <p className="muted">© {new Date().getFullYear()} Petar Grbić. {t.footer.copyright}</p>
+          <a href="#top" className="to-top" aria-label={t.footer.backToTopLabel}>{t.footer.backToTop}</a>
         </div>
       </div>
     </footer>

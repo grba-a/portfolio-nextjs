@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
 import AnimationObserver from "@/components/AnimationObserver";
+import Providers from "@/components/Providers";
 
 const rubik = Rubik({
   variable: "--font-rubik",
@@ -48,8 +49,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={rubik.variable}>
       <body>
-        <AnimationObserver />
-        {children}
+        <Providers>
+          <AnimationObserver />
+          {children}
+        </Providers>
       </body>
     </html>
   );

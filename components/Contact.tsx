@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function Contact() {
   const [hint, setHint] = useState("");
+  const { t } = useLanguage();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setHint("Sending...");
+    setHint(t.contact.sending);
     const form = e.currentTarget;
     const data = new FormData(form);
 
@@ -19,24 +21,21 @@ export default function Contact() {
       });
 
       if (res.ok) {
-        setHint("Message sent. I'll get back to you within 24 hours.");
+        setHint(t.contact.success);
         form.reset();
       } else {
-        setHint("Something went wrong. Please email me directly.");
+        setHint(t.contact.errorServer);
       }
     } catch {
-      setHint("Network error. Please email me directly.");
+      setHint(t.contact.errorNetwork);
     }
   }
 
   return (
     <section className="contact section" id="contact">
       <div className="container">
-        <h2>Contact</h2>
-        <p className="muted">
-          Have a project in mind, or just want to explore options? Send a message —
-          I reply within 24 hours.
-        </p>
+        <h2>{t.contact.heading}</h2>
+        <p className="muted">{t.contact.sub}</p>
 
         <form className="form" onSubmit={handleSubmit}>
           <input type="hidden" name="_subject" value="New message from portfolio" />
@@ -44,22 +43,22 @@ export default function Contact() {
           <input type="text" name="_gotcha" style={{ display: "none" }} />
 
           <div className="field">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">{t.contact.name}</label>
             <input id="name" name="name" type="text" autoComplete="name" required />
           </div>
 
           <div className="field">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{t.contact.email}</label>
             <input id="email" name="email" type="email" autoComplete="email" required />
           </div>
 
           <div className="field">
-            <label htmlFor="message">Message</label>
+            <label htmlFor="message">{t.contact.message}</label>
             <textarea id="message" name="message" rows={5} required />
           </div>
 
           <div className="actions">
-            <button className="btn" type="submit">Send message</button>
+            <button className="btn" type="submit">{t.contact.send}</button>
             {hint && <p className="hint">{hint}</p>}
           </div>
         </form>

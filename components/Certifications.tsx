@@ -1,4 +1,7 @@
-import Image from "next/image";
+"use client";
+
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import CertCarousel from "./CertCarousel";
 
 const certGroups = [
   {
@@ -17,7 +20,7 @@ const certGroups = [
   },
   {
     platform: "Google Analytics",
-    accent: "rgba(124, 219, 255, 0.9)",
+    accent: "rgba(255, 209, 102, 0.9)",
     certs: [
       { name: "Google Analytics", file: "/certs/analytics.png" },
     ],
@@ -33,45 +36,26 @@ const certGroups = [
   },
 ];
 
+const allCerts = certGroups.flatMap((group) =>
+  group.certs.map((cert) => ({
+    ...cert,
+    platform: group.platform,
+    accent: group.accent,
+  }))
+);
+
 export default function Certifications() {
+  const { t } = useLanguage();
+
   return (
     <section className="certs section" id="certifications">
       <div className="container">
-        <h2 data-animate>Certifications</h2>
+        <h2 data-animate>{t.certifications.heading}</h2>
         <p className="muted" data-animate data-delay="100">
-          12 completed certifications from Google and HubSpot. Click any to view full certificate.
+          {t.certifications.sub}
         </p>
-        <div className="cert-groups">
-          {certGroups.map((group) => (
-            <div key={group.platform} className="cert-group" data-animate>
-              <p className="cert-platform" style={{ color: group.accent }}>
-                {group.platform}
-              </p>
-              <div className="cert-images">
-                {group.certs.map((cert, i) => (
-                  <a
-                    key={cert.name}
-                    href={cert.file}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="cert-img-wrap"
-                    title={`${cert.name} Certificate`}
-                    data-animate
-                    data-delay={i * 60}
-                  >
-                    <Image
-                      src={cert.file}
-                      alt={`${cert.name} certificate`}
-                      width={180}
-                      height={126}
-                      style={{ objectFit: "cover" }}
-                    />
-                    <span className="cert-img-label">{cert.name}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))}
+        <div data-animate data-delay="150">
+          <CertCarousel certs={allCerts} certificateLabel={t.certifications.certificate} />
         </div>
       </div>
     </section>

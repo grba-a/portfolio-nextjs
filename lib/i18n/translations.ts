@@ -1,0 +1,386 @@
+export type Lang = "en" | "hr";
+
+export const translations = {
+  en: {
+    nav: {
+      about: "About",
+      services: "Services",
+      process: "Process",
+      projects: "Projects",
+      certifications: "Certifications",
+      certs: "Certs",
+      contact: "Contact",
+      closeMenu: "Close menu",
+      openMenu: "Open menu",
+    },
+    hero: {
+      badge: "Available for new projects",
+      sub: "Web development, paid ads, SEO, content, and branding — handled end to end. One contact, full execution.",
+      statLiveProjects: "Live projects",
+      statServiceAreas: "Service areas",
+      statCertifications: "Certifications",
+      statEnglish: "English",
+      btnOffer: "See what I offer",
+      btnCV: "Download CV",
+    },
+    about: {
+      heading: "About me",
+      p1: "I\u2019m Petar \u2014 23, from Dubrovnik. Second year of Digital Marketing at Sveu\u010dili\u0161te Algebra Bernays, Zagreb.",
+      p2: "I work as a full-service digital freelancer: one point of contact for everything digital \u2014 website, ads, SEO, content, and branding. You brief me once, I handle the rest.",
+      p3: "12 Google & HubSpot certifications. Four live projects built from scratch. Military-trained discipline applied to every deadline.",
+      btnTalk: "Let\u2019s talk",
+      btnCV: "Download CV",
+    },
+    services: {
+      heading: "Services",
+      sub: "One point of contact \u2014 web, ads, SEO, content, branding, and strategy, all handled end to end.",
+      btnCTA: "Discuss your project",
+      featured: [
+        {
+          label: "Web & Tech",
+          title: "Web Development",
+          items: [
+            "Web design & development",
+            "E-commerce & online stores",
+            "Web maintenance & hosting setup",
+            "Performance & page speed optimization",
+            "Mobile-first optimization",
+            "Analytics setup (GA4, Tag Manager)",
+          ],
+        },
+        {
+          label: "Paid Advertising",
+          title: "Paid Ads",
+          items: [
+            "Google Ads (Search, Display, Video, Shopping)",
+            "Meta Ads (Facebook & Instagram)",
+            "TikTok Ads",
+            "YouTube Ads",
+            "Retargeting campaigns",
+          ],
+        },
+      ],
+      secondary: [
+        {
+          label: "SEO",
+          title: "Search Optimization",
+          items: [
+            "On-page SEO",
+            "Technical SEO",
+            "Local SEO & Google Business",
+            "Keyword research",
+          ],
+        },
+        {
+          label: "Content & Email",
+          title: "Content Marketing",
+          items: [
+            "Content strategy",
+            "Blog writing & management",
+            "Email marketing & automation",
+            "Copywriting (web, ads, email)",
+          ],
+        },
+        {
+          label: "Design & Branding",
+          title: "Brand Identity",
+          items: [
+            "Logo & visual identity",
+            "Brand guidelines",
+            "Graphic design",
+            "UI/UX design",
+          ],
+        },
+        {
+          label: "Strategy & Consulting",
+          title: "Digital Strategy",
+          items: [
+            "Digital marketing strategy",
+            "Funnel design & optimization",
+            "Competitor & market analysis",
+            "Marketing audit",
+          ],
+        },
+      ],
+    },
+    process: {
+      heading: "How it works",
+      sub: "A simple, transparent process from first message to launch.",
+      btnCTA: "Start with a free call",
+      steps: [
+        {
+          num: "01",
+          title: "Discovery",
+          desc: "We talk about your project, goals, and budget. No forms, no pressure \u2014 just a straightforward conversation to make sure we\u2019re the right fit.",
+        },
+        {
+          num: "02",
+          title: "Proposal",
+          desc: "You receive a clear proposal \u2014 scope, timeline, and price. Everything agreed in writing before any work begins. No hidden costs.",
+        },
+        {
+          num: "03",
+          title: "Build & Review",
+          desc: "I execute and keep you in the loop at every stage. You review, give feedback, and we refine until it\u2019s exactly right.",
+        },
+        {
+          num: "04",
+          title: "Launch",
+          desc: "We go live. You get full ownership \u2014 files, accounts, access to everything. I stay available after launch for questions and adjustments.",
+        },
+      ],
+    },
+    projects: {
+      heading: "Projects",
+      sub: "Every project below is fully my own work \u2014 designed, built, and launched from scratch.",
+      visitSite: "Visit site \u2192",
+      viewInstagram: "View Instagram \u2192",
+      items: [
+        {
+          title: "Apartments Grbi\u0107",
+          description: "Booking-focused website for a family accommodation business on the Adriatic coast.",
+          tags: ["Web Design & Development", "SEO", "Content Marketing"],
+        },
+        {
+          title: "Studio Amage",
+          description: "Clean, modern website for a hair studio in Split, Croatia.",
+          tags: ["Web Design & Development", "SEO", "Paid Ads"],
+        },
+        {
+          title: "GRBI\u0106 d.o.o.",
+          description: "Corporate website for a crane and heavy equipment company.",
+          tags: ["In Early Development"],
+        },
+        {
+          title: "VK Festanjuli",
+          description: "Website for an amateur water polo team — Dubrovnik locals playing out of Zagreb.",
+          tags: ["In Early Development"],
+        },
+      ],
+    },
+    certifications: {
+      heading: "Certifications",
+      sub: "12 completed certifications from Google and HubSpot.",
+      certificate: "Certificate",
+    },
+    testimonials: {
+      heading: "What clients say",
+      sub: "Testimonials coming soon \u2014 reach out if you\u2019d like to be the first.",
+      placeholderQuote: "Testimonial coming soon.",
+      placeholderName: "Client name",
+      placeholderRole: "Business owner",
+    },
+    contact: {
+      heading: "Contact",
+      sub: "Have a project in mind, or just want to explore options? Send a message \u2014 I reply within 24 hours.",
+      name: "Name",
+      email: "Email",
+      message: "Message",
+      send: "Send message",
+      sending: "Sending...",
+      success: "Message sent. I\u2019ll get back to you within 24 hours.",
+      errorServer: "Something went wrong. Please email me directly.",
+      errorNetwork: "Network error. Please email me directly.",
+    },
+    footer: {
+      ctaLabel: "Ready to start?",
+      ctaLink: "Let\u2019s work together",
+      tagline: "Full-Service Digital Freelancer",
+      copyright: "All rights reserved.",
+      backToTop: "\u2191 Top",
+      backToTopLabel: "Back to top",
+    },
+  },
+  hr: {
+    nav: {
+      about: "O meni",
+      services: "Usluge",
+      process: "Proces",
+      projects: "Projekti",
+      certifications: "Certifikati",
+      certs: "Certi",
+      contact: "Kontakt",
+      closeMenu: "Zatvori izbornik",
+      openMenu: "Otvori izbornik",
+    },
+    hero: {
+      badge: "Dostupan za nove projekte",
+      sub: "Web razvoj, pla\u0107ene reklame, SEO, sadr\u017eaj i branding \u2014 sve na jednom mjestu. Jedan kontakt, potpuna izvedba.",
+      statLiveProjects: "Aktivnih projekata",
+      statServiceAreas: "Podru\u010dja usluga",
+      statCertifications: "Certifikata",
+      statEnglish: "Engleski",
+      btnOffer: "Pogledaj \u0161to nudim",
+      btnCV: "Preuzmi CV",
+    },
+    about: {
+      heading: "O meni",
+      p1: "Ja sam Petar \u2014 23 godine, iz Dubrovnika. Druga godina Digitalnog marketinga na Sveu\u010dili\u0161tu Algebra Bernays, Zagreb.",
+      p2: "Radim kao full-service digitalni freelancer: jedan kontakt za sve digitalno \u2014 web, oglasi, SEO, sadr\u017eaj i branding. Daj mi upute jednom, a ja se brinem za ostalo.",
+      p3: "12 Google i HubSpot certifikata. Četiri aktivna projekta izgra\u0111ena od nule. Vojni\u010dka disciplina primijenjena na svaki rok.",
+      btnTalk: "Porazgovarajmo",
+      btnCV: "Preuzmi CV",
+    },
+    services: {
+      heading: "Usluge",
+      sub: "Jedan kontakt \u2014 web, oglasi, SEO, sadr\u017eaj, branding i strategija, sve na jednom mjestu.",
+      btnCTA: "Razgovarajmo o projektu",
+      featured: [
+        {
+          label: "Web & Tech",
+          title: "Web razvoj",
+          items: [
+            "Web dizajn i razvoj",
+            "E-commerce i online trgovine",
+            "Web odr\u017eavanje i postavljanje hostinga",
+            "Optimizacija performansi i brzine stranice",
+            "Mobile-first optimizacija",
+            "Postavljanje analitike (GA4, Tag Manager)",
+          ],
+        },
+        {
+          label: "Pla\u0107eno ogla\u0161avanje",
+          title: "Pla\u0107eni oglasi",
+          items: [
+            "Google Ads (Search, Display, Video, Shopping)",
+            "Meta Ads (Facebook i Instagram)",
+            "TikTok oglasi",
+            "YouTube oglasi",
+            "Retargeting kampanje",
+          ],
+        },
+      ],
+      secondary: [
+        {
+          label: "SEO",
+          title: "Optimizacija za tra\u017eilice",
+          items: [
+            "On-page SEO",
+            "Tehni\u010dki SEO",
+            "Lokalni SEO i Google Business",
+            "Istra\u017eivanje klju\u010dnih rije\u010di",
+          ],
+        },
+        {
+          label: "Sadr\u017eaj i e-mail",
+          title: "Content marketing",
+          items: [
+            "Strategija sadr\u017eaja",
+            "Pisanje i upravljanje blogom",
+            "E-mail marketing i automatizacija",
+            "Copywriting (web, oglasi, e-mail)",
+          ],
+        },
+        {
+          label: "Dizajn i branding",
+          title: "Vizualni identitet",
+          items: [
+            "Logo i vizualni identitet",
+            "Brand smjernice",
+            "Grafi\u010dki dizajn",
+            "UI/UX dizajn",
+          ],
+        },
+        {
+          label: "Strategija i savjetovanje",
+          title: "Digitalna strategija",
+          items: [
+            "Strategija digitalnog marketinga",
+            "Dizajn i optimizacija funnela",
+            "Analiza konkurencije i tr\u017ei\u0161ta",
+            "Marketing audit",
+          ],
+        },
+      ],
+    },
+    process: {
+      heading: "Kako funkcionira",
+      sub: "Jednostavan, transparentan proces od prve poruke do lansiranja.",
+      btnCTA: "Po\u010dni s besplatnim pozivom",
+      steps: [
+        {
+          num: "01",
+          title: "Otkrivanje",
+          desc: "Razgovaramo o tvom projektu, ciljevima i bud\u017eetu. Bez formulara, bez pritiska \u2014 samo iskren razgovor da vidimo jesmo li pravi spoj.",
+        },
+        {
+          num: "02",
+          title: "Ponuda",
+          desc: "Dobiva\u0161 jasnu ponudu \u2014 opseg, vremenski okvir i cijenu. Sve dogovoreno pismeno prije nego \u0161to po\u010dne bilo kakav rad. Nema skrivenih tro\u0161kova.",
+        },
+        {
+          num: "03",
+          title: "Izrada i pregled",
+          desc: "Izvr\u0161avam i dr\u017eim te u tijeku u svakoj fazi. Ti pregledava\u0161, daje\u0161 povratne informacije, a mi usavr\u0161avamo dok nije to\u010dno kako treba.",
+        },
+        {
+          num: "04",
+          title: "Lansiranje",
+          desc: "Idemo live. Dobiva\u0161 puno vlasni\u0161tvo \u2014 datoteke, ra\u010dune, pristup svemu. Ostajem dostupan i nakon lansiranja za pitanja i prilagodbe.",
+        },
+      ],
+    },
+    projects: {
+      heading: "Projekti",
+      sub: "Svaki projekt ispod je u potpunosti moj vlastiti rad \u2014 dizajniran, izgra\u0111en i lansiran od nule.",
+      visitSite: "Posjeti stranicu \u2192",
+      viewInstagram: "Pogledaj Instagram \u2192",
+      items: [
+        {
+          title: "Apartments Grbi\u0107",
+          description: "Web stranica fokusirana na rezervacije za obiteljski smje\u0161taj na Jadranskoj obali.",
+          tags: ["Web dizajn i razvoj", "SEO", "Content marketing"],
+        },
+        {
+          title: "Studio Amage",
+          description: "\u010cista, moderna web stranica za frizerski studio u Splitu, Hrvatska.",
+          tags: ["Web dizajn i razvoj", "SEO", "Pla\u0107eni oglasi"],
+        },
+        {
+          title: "GRBI\u0106 d.o.o.",
+          description: "Korporativna web stranica za tvrtku za dizalice i te\u0161ku opremu.",
+          tags: ["U ranoj fazi izrade"],
+        },
+        {
+          title: "VK Festanjuli",
+          description: "Web stranica za amatersku vaterpolo ekipu \u2014 Dubrov\u010dani sa zagreba\u010dkom adresom.",
+          tags: ["U ranoj fazi izrade"],
+        },
+      ],
+    },
+    certifications: {
+      heading: "Certifikati",
+      sub: "12 zavr\u0161enih certifikata od Googlea i HubSpota.",
+      certificate: "Certifikat",
+    },
+    testimonials: {
+      heading: "\u0160to klijenti ka\u017eu",
+      sub: "Svjedo\u010danstva uskoro \u2014 javi se ako \u017eeli\u0161 biti prvi.",
+      placeholderQuote: "Svjedo\u010danstvo uskoro.",
+      placeholderName: "Ime klijenta",
+      placeholderRole: "Vlasnik tvrtke",
+    },
+    contact: {
+      heading: "Kontakt",
+      sub: "Ima\u0161 projekt na umu ili samo \u017eeli\u0161 istra\u017eiti opcije? Po\u0161alji poruku \u2014 odgovaram unutar 24 sata.",
+      name: "Ime",
+      email: "E-mail",
+      message: "Poruka",
+      send: "Po\u0161alji poruku",
+      sending: "Slanje...",
+      success: "Poruka poslana. Javit \u0107u se unutar 24 sata.",
+      errorServer: "Ne\u0161to je po\u0161lo po krivu. Molim po\u0161alji mi e-mail direktno.",
+      errorNetwork: "Mre\u017ena gre\u0161ka. Molim po\u0161alji mi e-mail direktno.",
+    },
+    footer: {
+      ctaLabel: "Spreman za po\u010detak?",
+      ctaLink: "Radimo zajedno",
+      tagline: "Full-Service Digitalni Freelancer",
+      copyright: "Sva prava pridr\u017eana.",
+      backToTop: "\u2191 Gore",
+      backToTopLabel: "Natrag na vrh",
+    },
+  },
+};
+
+export type Translations = typeof translations.en;

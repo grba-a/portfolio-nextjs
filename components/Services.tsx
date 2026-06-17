@@ -1,104 +1,23 @@
-const featured = [
-  {
-    id: "s1",
-    label: "Web & Tech",
-    title: "Web Development",
-    color: "rgba(124, 219, 255, 0.9)",
-    border: "rgba(124, 219, 255, 0.22)",
-    glow: "rgba(124, 219, 255, 0.12)",
-    items: [
-      "Web design & development",
-      "E-commerce & online stores",
-      "Web maintenance & hosting setup",
-      "Performance & page speed optimization",
-      "Mobile-first optimization",
-      "Analytics setup (GA4, Tag Manager)",
-    ],
-  },
-  {
-    id: "s2",
-    label: "Paid Advertising",
-    title: "Paid Ads",
-    color: "rgba(180, 120, 255, 0.9)",
-    border: "rgba(180, 120, 255, 0.22)",
-    glow: "rgba(180, 120, 255, 0.12)",
-    items: [
-      "Google Ads (Search, Display, Video, Shopping)",
-      "Meta Ads (Facebook & Instagram)",
-      "TikTok Ads",
-      "YouTube Ads",
-      "Retargeting campaigns",
-    ],
-  },
-];
+"use client";
 
-const secondary = [
-  {
-    id: "s3",
-    label: "SEO",
-    title: "Search Optimization",
-    color: "rgba(120, 255, 200, 0.9)",
-    border: "rgba(120, 255, 200, 0.22)",
-    glow: "rgba(120, 255, 200, 0.1)",
-    items: [
-      "On-page SEO",
-      "Technical SEO",
-      "Local SEO & Google Business",
-      "Keyword research",
-    ],
-  },
-  {
-    id: "s4",
-    label: "Content & Email",
-    title: "Content Marketing",
-    color: "rgba(255, 184, 120, 0.9)",
-    border: "rgba(255, 184, 120, 0.22)",
-    glow: "rgba(255, 184, 120, 0.1)",
-    items: [
-      "Content strategy",
-      "Blog writing & management",
-      "Email marketing & automation",
-      "Copywriting (web, ads, email)",
-    ],
-  },
-  {
-    id: "s5",
-    label: "Design & Branding",
-    title: "Brand Identity",
-    color: "rgba(255, 120, 180, 0.9)",
-    border: "rgba(255, 120, 180, 0.22)",
-    glow: "rgba(255, 120, 180, 0.1)",
-    items: [
-      "Logo & visual identity",
-      "Brand guidelines",
-      "Graphic design",
-      "UI/UX design",
-    ],
-  },
-  {
-    id: "s6",
-    label: "Strategy & Consulting",
-    title: "Digital Strategy",
-    color: "rgba(120, 156, 255, 0.9)",
-    border: "rgba(120, 156, 255, 0.22)",
-    glow: "rgba(120, 156, 255, 0.1)",
-    items: [
-      "Digital marketing strategy",
-      "Funnel design & optimization",
-      "Competitor & market analysis",
-      "Marketing audit",
-    ],
-  },
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+
+const colors = [
+  { color: "rgba(124, 219, 255, 0.9)", border: "rgba(124, 219, 255, 0.22)", glow: "rgba(124, 219, 255, 0.12)" },
+  { color: "rgba(180, 120, 255, 0.9)", border: "rgba(180, 120, 255, 0.22)", glow: "rgba(180, 120, 255, 0.12)" },
+  { color: "rgba(120, 255, 200, 0.9)", border: "rgba(120, 255, 200, 0.22)", glow: "rgba(120, 255, 200, 0.1)" },
+  { color: "rgba(255, 184, 120, 0.9)", border: "rgba(255, 184, 120, 0.22)", glow: "rgba(255, 184, 120, 0.1)" },
+  { color: "rgba(255, 120, 180, 0.9)", border: "rgba(255, 120, 180, 0.22)", glow: "rgba(255, 120, 180, 0.1)" },
+  { color: "rgba(120, 156, 255, 0.9)", border: "rgba(120, 156, 255, 0.22)", glow: "rgba(120, 156, 255, 0.1)" },
 ];
 
 type ServiceItem = {
-  id: string;
   label: string;
   title: string;
+  items: readonly string[];
   color: string;
   border: string;
   glow: string;
-  items: string[];
 };
 
 function ServiceCard({
@@ -133,27 +52,32 @@ function ServiceCard({
 }
 
 export default function Services() {
+  const { t } = useLanguage();
+
+  const featured = t.services.featured.map((s, i) => ({ ...s, ...colors[i] }));
+  const secondary = t.services.secondary.map((s, i) => ({ ...s, ...colors[i + 2] }));
+
   return (
     <section className="services section" id="services">
       <div className="container">
-        <h2 data-animate>Services</h2>
+        <h2 data-animate>{t.services.heading}</h2>
         <p className="muted" data-animate data-delay="100">
-          One point of contact — web, ads, SEO, content, branding, and strategy, all handled end to end.
+          {t.services.sub}
         </p>
         <div className="services-layout">
           <div className="services-featured-row">
             {featured.map((s, i) => (
-              <ServiceCard key={s.id} s={s} featured delay={i * 100} />
+              <ServiceCard key={s.title} s={s} featured delay={i * 100} />
             ))}
           </div>
           <div className="services-secondary-row">
             {secondary.map((s, i) => (
-              <ServiceCard key={s.id} s={s} delay={i * 80} />
+              <ServiceCard key={s.title} s={s} delay={i * 80} />
             ))}
           </div>
         </div>
         <div className="services-cta" data-animate>
-          <a className="btn btn-primary-glow" href="#contact">Discuss your project</a>
+          <a className="btn btn-primary-glow" href="#contact">{t.services.btnCTA}</a>
         </div>
       </div>
     </section>

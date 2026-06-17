@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function About() {
+  const { t } = useLanguage();
+
   return (
     <section className="about section" id="about">
       <div className="container two-col">
@@ -10,21 +15,12 @@ export default function About() {
           </div>
         </div>
         <div className="content" data-animate data-delay="150">
-          <h2>About me</h2>
-          <p>
-            I&apos;m Petar — 23, from Dubrovnik. Second year of Digital Marketing at
-            Sveučilište Algebra Bernays, Zagreb.
-          </p>
-          <p>
-            I work as a full-service digital freelancer: one point of contact for everything
-            digital — website, ads, SEO, content, and branding. You brief me once, I handle the rest.
-          </p>
-          <p className="muted about-note">
-            12 Google & HubSpot certifications. Three live projects built from scratch.
-            Military-trained discipline applied to every deadline.
-          </p>
+          <h2>{t.about.heading}</h2>
+          <p>{t.about.p1}</p>
+          <p>{t.about.p2}</p>
+          <p className="muted about-note">{t.about.p3}</p>
           <div className="about-actions">
-            <a className="btn btn-primary-glow" href="#contact">Let&apos;s talk</a>
+            <a className="btn btn-primary-glow" href="#contact">{t.about.btnTalk}</a>
             <a
               className="btn btn-ghost"
               href="/PetarGrbic_CV.pdf"
@@ -32,7 +28,7 @@ export default function About() {
               rel="noopener noreferrer"
               download
             >
-              Download CV
+              {t.about.btnCV}
             </a>
           </div>
         </div>

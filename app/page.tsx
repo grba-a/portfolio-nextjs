@@ -5,7 +5,8 @@ import Services from "@/components/Services";
 import Process from "@/components/Process";
 import Projects from "@/components/Projects";
 import Certifications from "@/components/Certifications";
-import Testimonials from "@/components/Testimonials";
+// Hidden until real testimonials are ready — uncomment to restore.
+// import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -21,7 +22,8 @@ export default function Home() {
         <Process />
         <Projects />
         <Certifications />
-        <Testimonials />
+        {/* Hidden until real testimonials are ready — uncomment to restore. */}
+        {/* <Testimonials /> */}
         <Contact />
       </main>
       <Footer />

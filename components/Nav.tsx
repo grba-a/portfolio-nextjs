@@ -1,18 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-const links = [
-  { href: "#about",          label: "About" },
-  { href: "#services",       label: "Services" },
-  { href: "#process",        label: "Process" },
-  { href: "#projects",       label: "Projects" },
-  { href: "#certifications", label: "Certifications" },
-  { href: "#contact",        label: "Contact" },
-];
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import LanguageToggle from "@/components/LanguageToggle";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const links = [
+    { href: "#about",          label: t.nav.about },
+    { href: "#services",       label: t.nav.services },
+    { href: "#process",        label: t.nav.process },
+    { href: "#projects",       label: t.nav.projects },
+    { href: "#certifications", label: t.nav.certifications },
+    { href: "#contact",        label: t.nav.contact },
+  ];
 
   useEffect(() => {
     const onResize = () => { if (window.innerWidth > 768) setOpen(false); };
@@ -31,15 +34,16 @@ export default function Nav() {
         <nav className="nav container">
           {/* Desktop */}
           <ul className="navbar navbar-center navbar-desktop">
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#process">Process</a></li>
+            <li><a href="#about">{t.nav.about}</a></li>
+            <li><a href="#services">{t.nav.services}</a></li>
+            <li><a href="#process">{t.nav.process}</a></li>
             <li className="nav-brand">
               <a href="#top" className="brand">Petar Grbić</a>
             </li>
-            <li><a href="#certifications">Certs</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#certifications">{t.nav.certs}</a></li>
+            <li><a href="#projects">{t.nav.projects}</a></li>
+            <li><a href="#contact">{t.nav.contact}</a></li>
+            <li><LanguageToggle /></li>
           </ul>
 
           {/* Mobile bar */}
@@ -47,16 +51,19 @@ export default function Nav() {
             <a href="#top" className="brand" onClick={() => setOpen(false)}>
               Petar Grbić
             </a>
-            <button
-              className={`hamburger${open ? " is-open" : ""}`}
-              onClick={() => setOpen(!open)}
-              aria-label={open ? "Close menu" : "Open menu"}
-              aria-expanded={open}
-            >
-              <span className="hb-line" />
-              <span className="hb-line" />
-              <span className="hb-line" />
-            </button>
+            <div className="nav-mobile-right">
+              <LanguageToggle />
+              <button
+                className={`hamburger${open ? " is-open" : ""}`}
+                onClick={() => setOpen(!open)}
+                aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
+                aria-expanded={open}
+              >
+                <span className="hb-line" />
+                <span className="hb-line" />
+                <span className="hb-line" />
+              </button>
+            </div>
           </div>
         </nav>
       </header>

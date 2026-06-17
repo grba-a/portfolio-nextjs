@@ -1,43 +1,27 @@
-const testimonials = [
-  {
-    id: 1,
-    quote: "Testimonial coming soon.",
-    name: "Client name",
-    role: "Business owner",
-    initials: "—",
-  },
-  {
-    id: 2,
-    quote: "Testimonial coming soon.",
-    name: "Client name",
-    role: "Business owner",
-    initials: "—",
-  },
-  {
-    id: 3,
-    quote: "Testimonial coming soon.",
-    name: "Client name",
-    role: "Business owner",
-    initials: "—",
-  },
-];
+"use client";
+
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+
+const ids = [1, 2, 3];
 
 export default function Testimonials() {
+  const { t } = useLanguage();
+
   return (
     <section className="testimonials section" id="testimonials">
       <div className="container">
-        <h2>What clients say</h2>
-        <p className="muted">Testimonials coming soon — reach out if you&apos;d like to be the first.</p>
+        <h2>{t.testimonials.heading}</h2>
+        <p className="muted">{t.testimonials.sub}</p>
         <div className="grid testimonials-grid">
-          {testimonials.map((t) => (
-            <div key={t.id} className="testimonial-card card">
+          {ids.map((id) => (
+            <div key={id} className="testimonial-card card">
               <span className="testimonial-quote-mark" aria-hidden="true">&ldquo;</span>
-              <p className="testimonial-text muted">{t.quote}</p>
+              <p className="testimonial-text muted">{t.testimonials.placeholderQuote}</p>
               <div className="testimonial-author">
-                <div className="testimonial-avatar">{t.initials}</div>
+                <div className="testimonial-avatar">—</div>
                 <div>
-                  <p className="testimonial-name">{t.name}</p>
-                  <p className="testimonial-role muted">{t.role}</p>
+                  <p className="testimonial-name">{t.testimonials.placeholderName}</p>
+                  <p className="testimonial-role muted">{t.testimonials.placeholderRole}</p>
                 </div>
               </div>
             </div>
