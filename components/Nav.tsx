@@ -6,6 +6,7 @@ import LanguageToggle from "@/components/LanguageToggle";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
   const { t } = useLanguage();
 
   const links = [
@@ -28,28 +29,62 @@ export default function Nav() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  // Scroll spy — highlight the nav link of the section currently at the top
+  useEffect(() => {
+    const ids = ["about", "services", "process", "projects", "certifications", "contact"];
+    let raf = 0;
+
+    const update = () => {
+      raf = 0;
+      const offset = 100; // header height + a little breathing room
+      let current = "";
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= offset) current = id;
+      }
+      setActive(current);
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <>
       <header className="header">
         <nav className="nav container">
           {/* Desktop */}
           <ul className="navbar navbar-center navbar-desktop">
-            <li><a href="#about">{t.nav.about}</a></li>
-            <li><a href="#services">{t.nav.services}</a></li>
-            <li><a href="#process">{t.nav.process}</a></li>
+            <li><a href="#about" className={active === "about" ? "is-active" : undefined}>{t.nav.about}</a></li>
+            <li><a href="#services" className={active === "services" ? "is-active" : undefined}>{t.nav.services}</a></li>
+            <li><a href="#process" className={active === "process" ? "is-active" : undefined}>{t.nav.process}</a></li>
             <li className="nav-brand">
-              <a href="#top" className="brand">Petar Grbić</a>
+              <a href="#top" className="brand" aria-label="Petar Grbić">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/logo-mark.png" alt="Petar Grbić" className="brand-logo" />
+              </a>
             </li>
-            <li><a href="#certifications">{t.nav.certs}</a></li>
-            <li><a href="#projects">{t.nav.projects}</a></li>
-            <li><a href="#contact">{t.nav.contact}</a></li>
-            <li><LanguageToggle /></li>
+            <li><a href="#projects" className={active === "projects" ? "is-active" : undefined}>{t.nav.projects}</a></li>
+            <li><a href="#certifications" className={active === "certifications" ? "is-active" : undefined}>{t.nav.certs}</a></li>
+            <li><a href="#contact" className={active === "contact" ? "is-active" : undefined}>{t.nav.contact}</a></li>
+            <li className="nav-lang"><LanguageToggle /></li>
           </ul>
 
           {/* Mobile bar */}
           <div className="nav-mobile-bar">
-            <a href="#top" className="brand" onClick={() => setOpen(false)}>
-              Petar Grbić
+            <a href="#top" className="brand" aria-label="Petar Grbić" onClick={() => setOpen(false)}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-mark.png" alt="Petar Grbić" className="brand-logo" />
             </a>
             <div className="nav-mobile-right">
               <LanguageToggle />

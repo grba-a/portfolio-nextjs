@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { Chat, Download } from "@/components/icons";
 
 export default function About() {
   const { t } = useLanguage();
@@ -20,7 +21,10 @@ export default function About() {
           <p>{t.about.p2}</p>
           <p className="muted about-note">{t.about.p3}</p>
           <div className="about-actions">
-            <a className="btn btn-primary-glow" href="#contact">{t.about.btnTalk}</a>
+            <a className="btn btn-primary-glow" href="#contact">
+              <Chat />
+              {t.about.btnTalk}
+            </a>
             <a
               className="btn btn-ghost"
               href="/PetarGrbic_CV.pdf"
@@ -28,6 +32,7 @@ export default function About() {
               rel="noopener noreferrer"
               download
             >
+              <Download />
               {t.about.btnCV}
             </a>
           </div>

@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
-import { Rubik } from "next/font/google";
+import { Sora, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import AnimationObserver from "@/components/AnimationObserver";
+import SmoothScroll from "@/components/SmoothScroll";
 import Providers from "@/components/Providers";
 
-const rubik = Rubik({
-  variable: "--font-rubik",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+const sora = Sora({
+  variable: "--font-sora",
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const hanken = Hanken_Grotesk({
+  variable: "--font-hanken",
+  subsets: ["latin", "latin-ext"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -47,10 +54,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={rubik.variable}>
+    <html lang="en" className={`${sora.variable} ${hanken.variable}`}>
       <body>
         <Providers>
           <AnimationObserver />
+          <SmoothScroll />
           {children}
         </Providers>
       </body>

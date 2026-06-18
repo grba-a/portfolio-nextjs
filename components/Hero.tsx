@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { ArrowRight, Download } from "@/components/icons";
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -32,7 +33,10 @@ export default function Hero() {
           </div>
         </div>
         <div className="hero-actions">
-          <a className="btn btn-primary-glow" href="#services">{t.hero.btnOffer}</a>
+          <a className="btn btn-primary" href="#services">
+            {t.hero.btnOffer}
+            <ArrowRight className="ico-arrow" />
+          </a>
           <a
             className="btn btn-ghost"
             href="/PetarGrbic_CV.pdf"
@@ -40,6 +44,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             download
           >
+            <Download />
             {t.hero.btnCV}
           </a>
         </div>

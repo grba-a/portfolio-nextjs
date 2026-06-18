@@ -64,16 +64,10 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="container">
-        <div className="footer-cta">
-          <p className="footer-cta-label">{t.footer.ctaLabel}</p>
-          <a href="#contact" className="footer-cta-link">
-            {t.footer.ctaLink} <span aria-hidden="true">→</span>
-          </a>
-        </div>
-        <div className="footer-divider" />
         <div className="footer-body">
           <div className="footer-brand">
-            <span className="footer-name">Petar Grbić</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-mark.png" alt="Petar Grbić" className="footer-logo" />
             <span className="footer-tagline muted">{t.footer.tagline}</span>
           </div>
           <nav className="footer-nav" aria-label="Footer navigation">
@@ -99,7 +93,6 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <p className="muted">© {new Date().getFullYear()} Petar Grbić. {t.footer.copyright}</p>
-          <a href="#top" className="to-top" aria-label={t.footer.backToTopLabel}>{t.footer.backToTop}</a>
         </div>
       </div>
     </footer>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { ArrowRight } from "@/components/icons";
 
 const colors = [
   { color: "rgba(124, 219, 255, 0.9)", border: "rgba(124, 219, 255, 0.22)", glow: "rgba(124, 219, 255, 0.12)" },
@@ -77,7 +78,10 @@ export default function Services() {
           </div>
         </div>
         <div className="services-cta" data-animate>
-          <a className="btn btn-primary-glow" href="#contact">{t.services.btnCTA}</a>
+          <a className="btn btn-primary-glow" href="#contact">
+            {t.services.btnCTA}
+            <ArrowRight className="ico-arrow" />
+          </a>
         </div>
       </div>
     </section>

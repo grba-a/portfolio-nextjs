@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { Phone } from "@/components/icons";
 
 export default function Process() {
   const { t } = useLanguage();
@@ -32,7 +33,10 @@ export default function Process() {
           ))}
         </div>
         <div className="process-cta" data-animate>
-          <a className="btn btn-primary-glow" href="#contact">{t.process.btnCTA}</a>
+          <a className="btn btn-primary-glow" href="#contact">
+            <Phone />
+            {t.process.btnCTA}
+          </a>
         </div>
       </div>
     </section>

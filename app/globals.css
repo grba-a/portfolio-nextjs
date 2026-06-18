@@ -19,12 +19,18 @@ html {
 }
 
 body {
-  font-family: var(--font-rubik), sans-serif;
+  font-family: var(--font-hanken), sans-serif;
   background: var(--bg);
   color: var(--fg);
   line-height: 1.5;
   overflow-x: clip;
   min-width: 0;
+}
+
+/* Display font (Sora) for headings & numerals */
+h1, h2, h3, h4, h5, h6,
+.brand, .stat-num, .contact-title {
+  font-family: var(--font-sora), sans-serif;
 }
 
 img {
@@ -77,6 +83,9 @@ a:hover { opacity: 0.9; }
   position: relative;
 }
 
+/* Offset for the sticky header when scrolling to a section */
+section[id] { scroll-margin-top: 72px; }
+
 .section::before {
   content: "";
   display: block;
@@ -87,7 +96,15 @@ a:hover { opacity: 0.9; }
 }
 
 .hero.section::before { display: none; }
-.hero.section { padding-top: 130px; }
+.hero.section {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 96px;
+  padding-bottom: 64px;
+}
 
 /* Alternating section tints — contained within section */
 .about.section,
@@ -157,51 +174,47 @@ p { margin: 0 0 12px; }
 .navbar a {
   color: var(--muted);
   padding: 7px 11px;
-  border-radius: 10px;
-  border: 1px solid transparent;
   display: inline-block;
   font-size: 14px;
-  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  transition: color 0.2s ease;
 }
 
-.navbar a:hover {
+.navbar a:not(.brand):hover,
+.navbar a.is-active {
   color: var(--accent);
-  border-color: rgba(124,219,255,0.2);
-  background: rgba(124,219,255,0.05);
   opacity: 1;
 }
 
 .nav-brand { margin: 0 14px; position: relative; }
 
 .brand {
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  color: var(--fg);
+  display: inline-flex;
+  align-items: center;
   cursor: pointer;
-  padding: 6px 14px;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  display: inline-block;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  padding: 4px 8px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .brand:hover {
-  color: var(--accent);
-  border-color: rgba(124,219,255,0.2);
-  opacity: 1;
+  opacity: 0.85;
+  transform: translateY(-1px);
 }
 
-.nav-brand::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -6px;
-  width: 20px;
-  height: 1px;
-  background: var(--accent);
-  opacity: 0.45;
+.brand-logo {
+  height: 56px;
+  width: auto;
+  display: block;
+  border: none;
+  background: none;
+  border-radius: 0;
+}
+
+/* Uppercase navigation (header + mobile menu + footer) */
+.navbar a:not(.brand),
+.mobile-nav-link,
+.footer-nav a {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* ─── Buttons ────────────────────────────────────────────── */
@@ -209,6 +222,7 @@ p { margin: 0 0 12px; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   padding: 10px 18px;
   border-radius: 12px;
   border: 1px solid rgba(124,219,255,0.25);
@@ -217,7 +231,26 @@ p { margin: 0 0 12px; }
   cursor: pointer;
   font-size: 15px;
   font-family: inherit;
-  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease, color 0.25s ease;
+}
+
+.btn svg { flex-shrink: 0; }
+.btn .ico-arrow { transition: transform 0.2s ease; }
+.btn:hover .ico-arrow { transform: translateX(3px); }
+
+/* Solid neon primary — the loud, high-emphasis CTA */
+.btn-primary {
+  background: var(--accent);
+  border-color: transparent;
+  color: #0b0d10;
+  font-weight: 600;
+}
+.btn-primary:hover {
+  background: #a6e6ff;
+  border-color: transparent;
+  color: #0b0d10;
+  box-shadow: 0 0 26px rgba(124,219,255,0.5);
+  transform: translateY(-2px);
 }
 
 .btn:hover {
@@ -544,6 +577,7 @@ p { margin: 0 0 12px; }
 
 .services-cta {
   margin-top: 28px;
+  text-align: center;
 }
 
 /* ─── Process ────────────────────────────────────────────── */
@@ -608,7 +642,7 @@ p { margin: 0 0 12px; }
   margin: 0;
 }
 
-.process-cta { margin-top: 36px; }
+.process-cta { margin-top: 36px; text-align: right; }
 
 /* ─── Projects ───────────────────────────────────────────── */
 .projects-grid { margin-top: 20px; }
@@ -913,6 +947,40 @@ p { margin: 0 0 12px; }
 }
 
 /* ─── Contact ────────────────────────────────────────────── */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.contact-eyebrow {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 10px;
+}
+
+.contact-title {
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  line-height: 1.08;
+  margin: 0 0 16px;
+}
+
+.contact-sub {
+  max-width: 420px;
+  margin: 0;
+}
+
+.contact-layout .form {
+  margin-top: 0;
+}
+
 .form {
   margin-top: 20px;
   border: 1px solid rgba(245,247,255,0.08);
@@ -1077,8 +1145,18 @@ input:focus, textarea:focus {
 }
 
 .footer-nav a:hover {
-  color: var(--fg);
+  color: var(--accent);
   opacity: 1;
+}
+
+.footer-logo {
+  height: 72px;
+  width: auto;
+  align-self: flex-start;
+  display: block;
+  border: none;
+  background: none;
+  border-radius: 0;
 }
 
 /* Social icon buttons */
@@ -1114,7 +1192,8 @@ input:focus, textarea:focus {
 .footer-bottom {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
   padding: 16px 0 28px;
   border-top: 1px solid rgba(245,247,255,0.05);
 }
@@ -1166,8 +1245,17 @@ main, header, section, footer {
 }
 
 /* ─── Nav — desktop vs mobile ────────────────────────────── */
-.navbar-desktop { display: flex; }
+.navbar-desktop { display: flex; position: relative; }
 .nav-mobile-bar { display: none; }
+
+/* Language toggle pinned to the right edge (aligned with page padding) */
+.navbar-desktop .nav-lang {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+}
 
 /* ─── Language toggle ────────────────────────────────────── */
 .lang-toggle {
@@ -1333,6 +1421,7 @@ main, header, section, footer {
 @media (max-width: 900px) {
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .two-col { grid-template-columns: 1fr; gap: 32px; }
+  .contact-layout { grid-template-columns: 1fr; gap: 28px; align-items: start; }
   .services-secondary-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .process-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
   .process-connector { display: none; }
