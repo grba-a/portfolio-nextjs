@@ -4,7 +4,8 @@ export const site = {
   name: "Petar Grbić",
   url: "https://petargrbic.com",
   email: "thepetargrbic@gmail.com",
-  cv: "/PetarGrbic_CV.pdf",
+  /** Živi online CV — zaseban projekt, vidi grba-a/moj-cv */
+  cv: "https://moj-cv-psi.vercel.app/",
   formspree: "https://formspree.io/f/xreayqjv",
 
   /**

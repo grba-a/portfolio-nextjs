@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import { content } from "@/data/content";
 import { certs, site } from "@/data/site";
 import { revealIn } from "@/lib/anim/reveal";
-import { Download } from "@/components/icons";
+import { ArrowUpRight } from "@/components/icons";
 
 /**
  * O meni + certifikati.
@@ -75,8 +75,8 @@ export default function About() {
               className="btn btn-ghost mt-8 justify-center sm:justify-start"
               data-reveal
             >
-              <Download />
               {content.about.cv}
+              <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           </div>
 

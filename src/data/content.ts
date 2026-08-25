@@ -90,7 +90,7 @@ export const content = {
     p2: "I work as a full-service digital freelancer: one point of contact for everything digital — website, ads, SEO, content, and branding. You brief me once, I handle the rest.",
     p3: "Military-trained discipline applied to every deadline.",
     certsLabel: "12 certifications from Google & HubSpot",
-    cv: "Download CV",
+    cv: "See my CV",
   },
 
   process: {
