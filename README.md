@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# petargrbic.com
 
-## Getting Started
-
-First, run the development server:
+Osobni web Petra Grbića — web razvoj, oglasi i SEO za male tvrtke.
+Next.js 16 (App Router) · Tailwind v4 · GSAP · TypeScript. Statički prerender.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Struktura
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+  app/          layout, page, globals.css (tokeni dizajn sustava)
+  components/   Nav, Hero, Work, Offer, About, Process, BookCall, Footer
+  lib/anim/     GSAP: registracija, reveal, paralaks, matchMedia
+  data/
+    work.ts     ← projekti (dodavanje = jedan objekt)
+    content.ts  ← sav tekst stranice
+    site.ts     ← kontakt, poveznice, certifikati, CTA
+public/
+  work/         snimke projekata (WebP) + hero-strip.webp
+  certs/        12 certifikata, otvaraju se iz sekcije About
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Dodavanje novog projekta
 
-## Learn More
+1. Kopiraj okvir s dna `src/data/work.ts` i popuni ga.
+2. Snimi stranicu:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+node scripts/shoot.mjs <slug>
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Skripta otvori živi URL, odbije cookie banner, zamrzne animacije i spremi
+`public/work/<slug>.webp` (1440×900) i `<slug>-tall.webp`. Komponente se ne diraju.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Prvi put treba jednom: `npx playwright install chromium`
 
-## Deploy on Vercel
+## Skripte
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Naredba | Što radi |
+|---|---|
+| `node scripts/shoot.mjs [slug]` | snimi stranice projekata iz `work.ts` |
+| `node scripts/og.mjs` | regeneriraj `public/og-image.png` (pregled pri dijeljenju) |
+| `node scripts/verify.mjs` | provjeri build — 12 testova, vidi niže |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Verifikacija
+
+`scripts/verify.mjs` pokreće se protiv živog servera
+(`VERIFY_URL=http://localhost:4200 node scripts/verify.mjs`) i provjerava:
+
+- sadržaj je vidljiv **bez JavaScripta** (prethodna verzija je imala 27 od 27 elemenata na `opacity: 0`)
+- sve slike se učitaju (prethodna verzija: 0/4 projekta, 0/36 certifikata)
+- `loadEventEnd` ispod 2,5 s (prethodna verzija: 10,0 s)
+- nema vodoravnog scrolla ni elemenata izvan kadra na 360/390/768/1440/1920 px
+- `prefers-reduced-motion` zaustavlja sve animacije, sadržaj ostaje čitljiv
+- **WebKit**: maska teksta u heroju i lijeno učitavanje slika u traci
+- dodirne mete ≥ 32 px
+- sve vanjske poveznice vraćaju 200
+
+Build pokretati tek **nakon** gašenja dev servera — Turbopack inače tiho
+servira staru verziju modula.
+
+## Napomene
+
+- Nema hrvatske verzije — stranica je namjerno samo na engleskom.
+- `src/data/site.ts` ima prazna polja `booking` (Cal.com) i `whatsapp`.
+  Dok su `null`, primarni CTA vodi na sekciju kontakta, a WhatsApp gumb se ne prikazuje.
+- Sekcija About je bez portreta dok ne stigne bolja fotografija;
+  `public/me.webp` je spreman za povratak.
