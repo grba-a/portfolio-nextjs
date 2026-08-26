@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { content } from "@/data/content";
 import { certs, site } from "@/data/site";
 import { revealIn } from "@/lib/anim/reveal";
 import { ArrowUpRight } from "@/components/icons";
+import Modal from "@/components/Modal";
 
 /**
  * O meni + certifikati.
@@ -19,10 +20,12 @@ import { ArrowUpRight } from "@/components/icons";
  * slikovnih elemenata — nijedna se nije učitala, a dokument od 1270px
  * je na mobitelu ionako nečitljiv. Sada su tekstualni čipovi koji vode
  * na stvarni certifikat: nula kilobajta dok netko ne klikne, a tvrdnja
- * postaje provjeriva.
+ * postaje provjeriva. Otvaraju se u popupu, ne u novoj kartici — prije je
+ * klik na dokaz odvodio kupca s prodajne stranice.
  */
 export default function About() {
   const scope = useRef<HTMLElement>(null);
+  const [cert, setCert] = useState<(typeof certs)[number] | null>(null);
 
   useLayoutEffect(() => {
     if (!scope.current) return;
@@ -42,15 +45,15 @@ export default function About() {
     >
       <div className="shell">
         <header className="max-w-3xl" data-reveal-group>
-          <p className="eyebrow" data-reveal>
+          <h2 className="eyebrow caret block" data-reveal>
             {content.about.eyebrow}
-          </p>
-          <h2
-            className="mt-4 text-[clamp(2.25rem,9vw,4.25rem)] leading-[0.95]"
+          </h2>
+          <p
+            className="mt-4 font-display text-[clamp(2.25rem,9vw,4.25rem)] font-extrabold leading-[0.95] tracking-[-0.035em]"
             data-reveal
           >
             {content.about.heading}
-          </h2>
+          </p>
         </header>
 
         <div className="mt-12 grid gap-12 sm:mt-16 lg:grid-cols-12 lg:gap-16">
@@ -65,6 +68,7 @@ export default function About() {
                 alt="Petar Grbić"
                 fill
                 sizes="112px"
+                priority
                 className="object-cover"
               />
             </div>
@@ -72,6 +76,7 @@ export default function About() {
             <div className="space-y-4 text-[1.0625rem] leading-relaxed text-muted">
               <p data-reveal>{content.about.p1}</p>
               <p data-reveal>{content.about.p2}</p>
+              <p data-reveal>{content.about.p2b}</p>
             </div>
 
             <p
@@ -81,8 +86,12 @@ export default function About() {
               {content.about.p3}
             </p>
 
+            {/* Nova kartica: inače kupac ode s prodajne stranice u dokument
+                koji ga prebacuje iz dobavljača u kandidata za posao. */}
             <a
               href={site.cv}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-ghost mt-8 justify-center sm:justify-start"
               data-reveal
             >
@@ -113,16 +122,15 @@ export default function About() {
                     </dt>
                     <dd className="mt-2 flex flex-wrap gap-x-2 gap-y-2">
                       {items.map((c) => (
-                        <a
+                        <button
                           key={c.file}
-                          href={`/certs/${c.file}.png`}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          type="button"
+                          onClick={() => setCert(c)}
                           title={`${c.issuer} ${c.name} — view certificate`}
-                          className="border border-line px-2.5 py-2 text-[0.8125rem] text-ink transition-colors hover:border-ink hover:bg-paper"
+                          className="inline-flex min-h-11 items-center border border-line px-3 text-[0.8125rem] text-ink transition-colors hover:border-ink hover:bg-paper"
                         >
                           {c.name}
-                        </a>
+                        </button>
                       ))}
                     </dd>
                   </div>
@@ -132,6 +140,25 @@ export default function About() {
           </div>
         </div>
       </div>
+
+      {/* Dokaz se gleda ovdje, ne u novoj kartici. Slika se učita tek
+          kad se popup otvori. */}
+      <Modal
+        open={cert !== null}
+        onClose={() => setCert(null)}
+        label={cert ? `${cert.issuer} — ${cert.name}` : "Certificate"}
+        wide
+      >
+        {cert && (
+          <Image
+            src={`/certs/${cert.file}.png`}
+            alt={`${cert.issuer} ${cert.name} certificate issued to Petar Grbić`}
+            width={1270}
+            height={980}
+            className="h-auto w-full"
+          />
+        )}
+      </Modal>
     </section>
   );
 }

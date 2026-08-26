@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cv } from "@/data/cv";
 import { work } from "@/data/work";
-import { site, certs } from "@/data/site";
+import { site, certs, whatsappHref } from "@/data/site";
 import PrintButton from "@/components/cv/PrintButton";
 import {
   Mail,
@@ -60,7 +60,7 @@ export default function CvPage() {
       <PrintButton label="Save as PDF" />
 
       <div className="shell pt-8 sm:pt-10 print:hidden">
-        <Link href="/" className="ulink -my-2 inline-block py-2 text-sm text-muted">
+        <Link href="/" className="ulink -my-2 inline-flex min-h-11 items-center text-sm text-muted">
           ← Back to petargrbic.com
         </Link>
       </div>
@@ -71,7 +71,7 @@ export default function CvPage() {
       >
         {/* ── Pobočni stupac ─────────────────────────────────────── */}
         <aside className="lg:col-span-4 lg:sticky lg:top-10 lg:self-start print:mb-0">
-          <div className="relative aspect-square w-28 overflow-hidden rounded-[4px] border border-line bg-limestone-2 sm:w-32 print:w-24">
+          <div className="relative aspect-square w-28 overflow-hidden rounded-[4px] border border-line bg-limestone-2 sm:w-32 print:hidden">
             <Image
               src="/me.webp"
               alt="Petar Grbić"
@@ -100,7 +100,7 @@ export default function CvPage() {
                   {href ? (
                     <a
                       href={href}
-                      className="ulink -my-1 flex items-center gap-3 py-2 text-[0.9375rem] print:py-0.5"
+                      className="ulink -my-1 flex min-h-11 items-center gap-3 text-[0.9375rem] print:min-h-0 print:py-0.5"
                     >
                       {inner}
                     </a>
@@ -114,12 +114,24 @@ export default function CvPage() {
             })}
           </ul>
 
-          <a
-            href={`mailto:${site.email}`}
-            className="btn btn-primary mt-7 w-full justify-center print:hidden"
-          >
-            Let&rsquo;s work together
-          </a>
+          <div className="mt-7 flex flex-col gap-2.5 print:hidden">
+            {whatsappHref && (
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary w-full justify-center"
+              >
+                Message on WhatsApp
+              </a>
+            )}
+            <a
+              href={`mailto:${site.email}`}
+              className="btn btn-ghost w-full justify-center"
+            >
+              Email me
+            </a>
+          </div>
 
           <div className="mt-9 border-t border-line pt-6 print:mt-5 print:pt-3">
             <p className="eyebrow">Core stack</p>
@@ -133,6 +145,26 @@ export default function CvPage() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* Samo za ispis: pobočni stupac je inače prazan ~800 px dok se
+              glavni prelijeva. Na ekranu ovo stoji u glavnom stupcu. */}
+          <div className="hidden print:mt-4 print:block print:border-t print:border-ink print:pt-2">
+            <p className="font-mono text-[7pt] uppercase tracking-[0.14em]">
+              Certifications
+            </p>
+            <dl className="mt-1 space-y-1">
+              {Object.entries(byIssuer).map(([issuer, items]) => (
+                <div key={issuer}>
+                  <dt className="font-mono text-[6.5pt] uppercase tracking-[0.14em] text-muted">
+                    {issuer}
+                  </dt>
+                  <dd className="text-[7.5pt] leading-snug">
+                    {items.map((c) => c.name).join(" · ")}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </aside>
 
@@ -174,7 +206,7 @@ export default function CvPage() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ulink -my-1.5 inline-flex items-center gap-1 py-1.5 text-sm text-rust print:my-0 print:py-0 print:text-[8pt] print:text-ink"
+                      className="ulink -my-1.5 inline-flex min-h-11 items-center gap-1 text-sm text-rust print:my-0 print:min-h-0 print:text-[8pt] print:text-ink"
                     >
                       {item.href.replace(/^https?:\/\//, "").replace(/\/$/, "")}
                       <ArrowUpRight className="h-3 w-3 print:hidden" />
@@ -192,8 +224,8 @@ export default function CvPage() {
             </ul>
           </Section>
 
-          <Section title="Certifications">
-            <p className="text-[0.9375rem] text-muted print:text-[8.5pt]">
+          <Section title="Certifications" screenOnly>
+            <p className="text-[0.9375rem] text-muted print:hidden">
               Twelve completed certifications. Each links to the certificate.
             </p>
             <dl className="mt-5 space-y-4 print:mt-2 print:space-y-1.5">
@@ -209,7 +241,7 @@ export default function CvPage() {
                         href={`/certs/${c.file}.png`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="border border-line px-2.5 py-2 text-[0.8125rem] text-ink transition-colors hover:border-ink hover:bg-paper print:px-1.5 print:py-0 print:text-[7.5pt]"
+                        className="inline-flex min-h-11 items-center border border-line px-3 text-[0.8125rem] text-ink transition-colors hover:border-ink hover:bg-paper print:min-h-0 print:px-1.5 print:text-[7.5pt]"
                       >
                         {c.name}
                       </a>
@@ -252,14 +284,16 @@ function Section({
   title,
   children,
   last = false,
+  screenOnly = false,
 }: {
   title: string;
   children: React.ReactNode;
   last?: boolean;
+  screenOnly?: boolean;
 }) {
   return (
     <section
-      className={`${last ? "" : "mb-11 border-b border-line pb-11"} print:mb-3.5 print:border-0 print:pb-0`}
+      className={`${last ? "" : "mb-11 border-b border-line pb-11"} print:mb-3.5 print:border-0 print:pb-0 ${screenOnly ? "print:hidden" : ""}`}
     >
       <h2 className="eyebrow mb-5 block print:mb-1.5 print:border-b print:border-ink print:pb-0.5 print:text-[9pt] print:text-ink">
         {title}

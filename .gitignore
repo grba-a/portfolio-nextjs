@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...osim primjera, koji je dokumentacija i ne sadrži tajne
+!.env.example
 
 # vercel
 .vercel

@@ -12,6 +12,8 @@
   --color-ink-2: #2a2521;
   --color-muted: #6e675e;
   --color-rust: #c2452d;
+  /* Rust na tinti daje 3,78:1 — premalo. Svjetlija varijanta za tamne plohe. */
+  --color-rust-light: #e8846b;
   --color-rust-ink: #97321f;
   --color-line: rgba(20, 17, 14, 0.12);
   --color-line-strong: rgba(20, 17, 14, 0.22);
@@ -113,7 +115,11 @@
   color: var(--color-ink);
 }
 
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+/* Maska radi tek od 640px. Ispod toga su slova ~52px, snimke se stope u
+   tamnu mrlju i dva retka naslova izgledaju kao dvije različite boje —
+   čita se kao greška u renderu, ne kao efekt. */
+@media (min-width: 640px) {
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
   .mask-text {
     background-image: var(--mask-src);
     background-size: auto 118%;
@@ -127,6 +133,8 @@
   }
   /* Slova moraju ostati čitljiva i kad ispod naiđe svijetla snimka */
   .mask-text::selection { -webkit-text-fill-color: var(--color-limestone); }
+}
+
 }
 
 @keyframes strip-drift {
@@ -155,6 +163,31 @@
 @keyframes line-clip {
   from { clip-path: inset(0 0 105% 0); }
   to   { clip-path: inset(0 0 -5% 0); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TREPTAJUĆI KURSOR
+   Na mono oznakama sekcija — mono + kursor se čita kao terminal.
+   Uzeto s referentne stranice; jedini element odande uz špil.
+   ══════════════════════════════════════════════════════════════ */
+.caret::after {
+  content: "";
+  display: inline-block;
+  width: 0.5ch;
+  height: 1em;
+  margin-left: 0.35ch;
+  background: var(--color-rust);
+  vertical-align: -0.12em;
+  animation: caret-blink 1.15s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret::after { animation: none; opacity: 1; }
 }
 
 /* ══════════════════════════════════════════════════════════════

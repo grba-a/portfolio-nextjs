@@ -66,11 +66,15 @@ export default function Nav() {
 
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-          onDark && !open
-            ? "text-limestone"
-            : solid && !open
-              ? "bg-limestone/85 backdrop-blur-md"
-              : ""
+          // Uvjeti moraju biti složeni, ne isključivi: prije je nad tamnom
+          // sekcijom traka dobivala svijetli tekst ALI nikakvu podlogu,
+          // pa je na granici ispadalo krem na krem.
+          [
+            open ? "" : solid ? (onDark ? "bg-ink/85 backdrop-blur-md" : "bg-limestone/85 backdrop-blur-md") : "",
+            !open && onDark ? "text-limestone" : "",
+          ]
+            .filter(Boolean)
+            .join(" ")
         }`}
       >
         <div className="shell flex h-[68px] items-center justify-between gap-4 sm:h-[76px]">

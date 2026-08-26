@@ -9,11 +9,27 @@ export const site = {
   formspree: "https://formspree.io/f/xreayqjv",
 
   /**
-   * Primarni CTA. Dok Petar ne pošalje Cal.com poveznicu, gumb vodi na
-   * sekciju s kontaktom — nikad na mrtvi link.
-   * Kad stigne: booking = "https://cal.com/…" i gumb radi bez druge izmjene.
+   * Primarni CTA — Cal.com termin "15 min meeting".
+   * Obična poveznica, bez embeda i bez API ključa: stranica je statična,
+   * pa bi svaki ključ u kodu bio čitljiv svakom posjetitelju.
    */
-  booking: null as string | null,
+  /*
+   * Termin "Free 15-min call", 15 min, Cal Video, Europe/Zagreb.
+   * Provjereno 2026-08-26: javno vraća 200.
+   *
+   * NAPOMENA: raniji /15min i /30min vraćaju 404 — postoje u dashboardu
+   * ali nisu objavljeni. Ne koristiti ih.
+   */
+  booking: "https://cal.com/petar-grbic-lhjstb/intro" as string | null,
+
+  /**
+   * Javni podaci Cal.com termina — ovo smije u kod.
+   * API KLJUČ NE SMIJE: živi kao `CAL_API_KEY` u Vercel environment
+   * variables i čita ga isključivo /api/slots na serveru.
+   */
+  calUsername: "petar-grbic-lhjstb",
+  calEventSlug: "intro",
+  timeZone: "Europe/Zagreb",
 
   /** Za tel: poveznicu — bez razmaka, s pozivnim brojem */
   phone: "+385981834111",
@@ -37,8 +53,14 @@ export const site = {
 /** Kamo vodi primarni CTA — kalendar ako postoji, inače sekcija kontakta. */
 export const bookingHref = site.booking ?? "#contact";
 
+/**
+ * Prazan WhatsApp chat je sam po sebi kočnica — kupac mora smisliti prvu
+ * rečenicu. Pripremljena poruka ostavlja mu da dopiše samo svoj posao.
+ */
+const WA_TEXT = "Hi Petar — I saw your site. I run a ";
+
 export const whatsappHref = site.whatsapp
-  ? `https://wa.me/${site.whatsapp}`
+  ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(WA_TEXT)}`
   : null;
 
 /** 12 certifikata, točno kako stoje u public/certs/. */

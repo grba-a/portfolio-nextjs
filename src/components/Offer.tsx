@@ -28,9 +28,9 @@ export default function Offer() {
     >
       <div className="shell">
         <header className="max-w-2xl" data-reveal-group>
-          <p className="eyebrow" data-reveal>
+          <h2 className="eyebrow caret block" data-reveal>
             {content.offer.heading}
-          </p>
+          </h2>
           <p
             className="mt-4 text-[clamp(1.375rem,4.6vw,2rem)] leading-[1.25] tracking-[-0.02em]"
             data-reveal
@@ -51,12 +51,12 @@ export default function Offer() {
                   <span className="tnum text-sm text-rust" data-reveal>
                     {item.num}
                   </span>
-                  <h2
-                    className="text-[clamp(1.75rem,6.5vw,2.5rem)] leading-[1]"
+                  <h3
+                    className="font-display text-[clamp(1.75rem,6.5vw,2.5rem)] font-extrabold leading-[1] tracking-[-0.035em]"
                     data-reveal
                   >
                     {item.title}
-                  </h2>
+                  </h3>
                 </div>
                 <p className="mt-4 max-w-[38ch] text-muted" data-reveal>
                   {item.body}
@@ -80,6 +80,12 @@ export default function Offer() {
             </div>
           ))}
           <div className="border-t border-line" />
+
+          {/* Devet vjerodostojnih usluga prolazi bolje od osamnaest
+              nevjerojatnih; ovo hvata ostalo bez nabrajanja. */}
+          <p className="mt-8 max-w-[52ch] text-[0.9375rem] leading-relaxed text-muted" data-reveal>
+            {content.offer.footnote}
+          </p>
         </div>
       </div>
     </section>

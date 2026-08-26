@@ -33,14 +33,18 @@ export default function Work() {
     <section ref={scope} id="work" className="scroll-mt-16 py-20 sm:py-28 lg:py-36">
       <div className="shell">
         <header className="max-w-2xl" data-reveal-group>
-          <p className="eyebrow" data-reveal>
+          {/* Bio je <p class="eyebrow"> — nijedna sekcija nije ulazila u
+              strukturu naslova. Vizualno se ne mijenja ništa. */}
+          <h2 className="eyebrow caret block" data-reveal>
             {content.work.heading}
-          </p>
-          <p
-            className="mt-4 text-[clamp(1.375rem,4.6vw,2rem)] leading-[1.25] tracking-[-0.02em]"
-            data-reveal
-          >
+          </h2>
+          {/* Uvod je bio 22px, veći od opisa projekata — rečenica namijenjena
+              poslodavcima nadjačavala je sam rad. */}
+          <p className="mt-4 max-w-[52ch] text-[1.0625rem] leading-relaxed text-muted" data-reveal>
             {content.work.sub}
+          </p>
+          <p className="mt-3 max-w-[52ch] text-[0.9375rem] leading-relaxed text-muted" data-reveal>
+            {content.work.family}
           </p>
         </header>
 
@@ -87,9 +91,9 @@ export default function Work() {
                     </span>
                   </div>
 
-                  <h2 className="mt-3 text-[clamp(2rem,7.5vw,3.25rem)] leading-[0.95]" data-reveal>
+                  <h3 className="mt-3 font-display text-[clamp(2rem,7.5vw,3.25rem)] font-extrabold leading-[0.95] tracking-[-0.035em]" data-reveal>
                     {item.name}
-                  </h2>
+                  </h3>
 
                   <p className="mt-4 max-w-[46ch] text-muted" data-reveal>
                     {item.description}
@@ -123,7 +127,7 @@ export default function Work() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ulink -my-2.5 inline-flex items-center gap-1.5 py-2.5 font-medium"
+                      className="ulink -my-2.5 inline-flex min-h-11 items-center gap-1.5 font-medium"
                     >
                       {content.work.visit}
                       <ArrowUpRight className="h-3.5 w-3.5" />

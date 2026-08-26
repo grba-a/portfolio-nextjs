@@ -1,7 +1,6 @@
-import Image from "next/image";
 import { content } from "@/data/content";
-import { work } from "@/data/work";
 import { bookingHref } from "@/data/site";
+import HeroDeck from "@/components/HeroDeck";
 
 /**
  * Hero. Server komponenta — nema stanja, cijeli intro je čisti CSS.
@@ -9,25 +8,26 @@ import { bookingHref } from "@/data/site";
  * Dva mehanizma, svaki radi na svojoj veličini:
  *  1. Naslov je maska — kroz slova klize prave snimke Petrovih stranica.
  *     Nosi wow na desktopu, gdje su slova dovoljno velika da se snimka čita.
- *  2. Traka snimki ispod — na mobitelu je ona glavno vizualno sidro,
- *     jer je čitljiva na 390px gdje maska postaje samo tekstura.
+ *  2. Špil radova — na mobitelu ispod teksta i glavno vizualno sidro,
+ *     jer je čitljiv na 390px gdje maska postaje samo tekstura.
+ *     Od 1024px stoji u desnom stupcu, uz naslov.
  *
  * GSAP-a ovdje namjerno NEMA: na heroju diže mobilni LCP,
  * a iste keyframes u CSS-u ga ne diraju.
  */
 export default function Hero() {
   const { hero } = content;
-  const reel = [...work, ...work]; // udvostručeno = petlja bez šava
 
   return (
-    <section className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden pt-24 sm:pt-32">
-      <div className="shell flex flex-1 flex-col justify-center py-8 sm:py-10">
+    <section className="relative min-h-[100svh] overflow-hidden pt-24 sm:pt-32">
+      <div className="shell flex min-h-[calc(100svh-6rem)] flex-col justify-between gap-6 pb-10 sm:min-h-[calc(100svh-8rem)] sm:pb-14 lg:grid lg:min-h-0 lg:grid-cols-12 lg:items-center lg:gap-14 lg:py-16">
+        <div className="flex flex-1 flex-col justify-center py-8 sm:py-10 lg:col-span-6 lg:flex-none lg:py-0">
         <p className="eyebrow rise rise-1">{hero.eyebrow}</p>
 
-        <h1 className="mt-4 text-[clamp(3.25rem,13.5vw,11rem)] sm:mt-7">
+        <h1 className="mt-4 text-[clamp(3.25rem,13.5vw,11rem)] sm:mt-7 lg:text-[clamp(3.5rem,6.5vw,7rem)]">
           <span className="line-clip block" style={{ animationDelay: "0.12s" }}>
             {hero.line1}
-          </span>
+          </span>{" "}
           <span
             className="mask-text line-clip block"
             style={
@@ -56,33 +56,11 @@ export default function Hero() {
             {hero.ctaSecondary}
           </a>
         </div>
-      </div>
+        </div>
 
-      {/* Traka pravih snimki — dokaz odmah, prije bilo kakvog obećanja */}
-      <div
-        className="rise rise-4 relative w-full overflow-hidden pb-10 sm:pb-14"
-        aria-hidden="true"
-      >
-        <div className="reel flex w-max gap-3 sm:gap-5">
-          {reel.map((item, i) => (
-            <div
-              key={`${item.slug}-${i}`}
-              className="relative aspect-[16/10] w-[64vw] shrink-0 overflow-hidden rounded-[3px] border border-line bg-limestone-2 sm:w-[32vw] lg:w-[24vw]"
-            >
-              <Image
-                src={item.shot}
-                alt=""
-                fill
-                sizes="(max-width: 640px) 64vw, (max-width: 1024px) 32vw, 24vw"
-                className="object-cover object-top"
-                priority={i < 2}
-                // Traka se pomiče transformom, ne layoutom, pa WebKit nikad
-                // ne okine lijeno učitavanje i u Safariju ostanu prazne rupe.
-                // Duplikati su iste datoteke — idu iz keša, bez dodatnih bajtova.
-                loading={i < 2 ? undefined : "eager"}
-              />
-            </div>
-          ))}
+        {/* Špil pravih snimki — dokaz odmah, prije bilo kakvog obećanja */}
+        <div className="rise rise-4 w-full lg:col-span-6 lg:col-start-7">
+          <HeroDeck />
         </div>
       </div>
     </section>

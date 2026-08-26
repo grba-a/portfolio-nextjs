@@ -57,15 +57,15 @@ export default function Process() {
     >
       <div className="shell">
         <header className="max-w-2xl" data-reveal-group>
-          <p className="eyebrow" data-reveal>
+          <h2 className="eyebrow caret block" data-reveal>
             {content.process.eyebrow}
-          </p>
-          <h2
-            className="mt-4 text-[clamp(1.875rem,7vw,3rem)] leading-[1]"
+          </h2>
+          <p
+            className="mt-4 font-display text-[clamp(1.875rem,7vw,3rem)] font-extrabold leading-[1] tracking-[-0.035em]"
             data-reveal
           >
             {content.process.heading}
-          </h2>
+          </p>
         </header>
 
         <div className="relative mt-12 sm:mt-16">
