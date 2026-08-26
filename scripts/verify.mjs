@@ -113,11 +113,13 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1440, 900], [1920, 1
     return {
       hidden: els.filter((e) => parseFloat(getComputedStyle(e).opacity) < 0.5).length,
       total: els.length,
-      reel: getComputedStyle(document.querySelector(".reel")).animationName,
+      reel: document.querySelector(".reel")
+        ? getComputedStyle(document.querySelector(".reel")).animationName
+        : "n/a",
       jsAnim: document.documentElement.className.includes("js-anim"),
     };
   });
-  log("reduced motion", r.hidden === 0 && r.reel === "none", `skriveno ${r.hidden}/${r.total}, reel:${r.reel}, js-anim:${r.jsAnim}`);
+  log("reduced motion", r.hidden === 0 && (r.reel === "none" || r.reel === "n/a"), `skriveno ${r.hidden}/${r.total}, reel:${r.reel}, js-anim:${r.jsAnim}`);
   await b.close();
 }
 
@@ -131,11 +133,11 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1440, 900], [1920, 1
   await page.waitForTimeout(900);
   const r = await page.evaluate(() => {
     const el = document.querySelector(".mask-text");
-    const cs = getComputedStyle(el);
+    const cs = el ? getComputedStyle(el) : null;
     const els = [...document.querySelectorAll("[data-reveal]")];
     return {
-      clip: cs.webkitBackgroundClip || cs.backgroundClip,
-      bg: cs.backgroundImage.includes("hero-strip"),
+      clip: cs ? cs.webkitBackgroundClip || cs.backgroundClip : "n/a",
+      bg: cs ? cs.backgroundImage.includes("hero-strip") : true,
       hidden: els.filter((e) => parseFloat(getComputedStyle(e).opacity) < 0.5).length,
       total: els.length,
       overflowX: document.documentElement.scrollWidth > window.innerWidth + 1,
@@ -143,7 +145,7 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1440, 900], [1920, 1
     };
   });
   await page.screenshot({ path: `${SP}/v-webkit-hero.png` });
-  log("WebKit", r.clip === "text" && r.bg && r.hidden === 0 && !r.overflowX && r.broken === 0,
+  log("WebKit", (r.clip === "text" || r.clip === "n/a") && r.bg && r.hidden === 0 && !r.overflowX && r.broken === 0,
     `clip:${r.clip}, strip:${r.bg}, skriveno ${r.hidden}/${r.total}, overflowX:${r.overflowX}, slike loše:${r.broken}`);
   await b.close();
 }
@@ -193,6 +195,59 @@ for (const [w, h] of [[360, 780], [390, 844], [768, 1024], [1440, 900], [1920, 1
     }
   }
   log("vanjske poveznice", bad.length === 0, `${hrefs.length - bad.length}/${hrefs.length} OK ${bad.length ? "— " + bad.join(", ") : ""}`);
+  await b.close();
+}
+
+
+// 9 — SAMO /cv: nula izmišljenog sadržaja + jednostranični PDF
+if (URL.includes("/cv")) {
+  const b = await chromium.launch();
+  const page = await b.newPage({ viewport: { width: 390, height: 844 } });
+  await page.goto(URL, { waitUntil: "networkidle" });
+
+  // Gemini predložak je ostavio lažnu preporuku i izmišljene projekte.
+  // Ovo mora ostati na nuli zauvijek.
+  const FABRICATED = [
+    "Client / Project",
+    "Client Name",
+    "[Company]",
+    "by X%",
+    "X% decrease",
+    "Lorem",
+    "lorem ipsum",
+  ];
+  const html = await page.content();
+  const found = FABRICATED.filter((t) => html.includes(t));
+  const deadLinks = await page.evaluate(
+    () => document.querySelectorAll('a[href="#"], a[href=""]').length,
+  );
+  log("bez izmišljenog", found.length === 0 && deadLinks === 0,
+    `${found.length ? "NAĐENO: " + found.join(", ") : "čisto"}, mrtvih poveznica ${deadLinks}`);
+
+  // Plutajući gumb ne smije prekrivati nijedan klikabilni element
+  const clash = await page.evaluate(() => {
+    const fab = document.querySelector("button.fixed");
+    if (!fab) return ["nema gumba"];
+    const f = fab.getBoundingClientRect();
+    const hits = [];
+    document.querySelectorAll("a, button").forEach((el) => {
+      if (el === fab) return;
+      const r = el.getBoundingClientRect();
+      if (!r.width || r.bottom < 0 || r.top > window.innerHeight) return;
+      if (!(r.right < f.left || r.left > f.right || r.bottom < f.top || r.top > f.bottom))
+        hits.push((el.textContent || el.tagName).trim().slice(0, 24));
+    });
+    return hits;
+  });
+  log("gumb ne zaklanja", clash.length === 0,
+    clash.length ? "preklapa: " + clash.join(", ") : "ništa klikabilno ispod");
+
+  // Ispis mora dati JEDNU A4 stranicu
+  await page.emulateMedia({ media: "print" });
+  const pdf = await page.pdf({ format: "A4", printBackground: true });
+  const pages = (pdf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length;
+  log("PDF jedna stranica", pages === 1, `${pages} str., ${Math.round(pdf.length / 1024)} KB`);
+
   await b.close();
 }
 

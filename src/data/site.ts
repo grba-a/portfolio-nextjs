@@ -4,8 +4,8 @@ export const site = {
   name: "Petar Grbić",
   url: "https://petargrbic.com",
   email: "thepetargrbic@gmail.com",
-  /** Živi online CV — zaseban projekt, vidi grba-a/moj-cv */
-  cv: "https://moj-cv-psi.vercel.app/",
+  /** CV je ruta unutar ovog projekta — /cv */
+  cv: "/cv",
   formspree: "https://formspree.io/f/xreayqjv",
 
   /**
@@ -15,11 +15,16 @@ export const site = {
    */
   booking: null as string | null,
 
+  /** Za tel: poveznicu — bez razmaka, s pozivnim brojem */
+  phone: "+385981834111",
+  /** Kako se broj piše ljudima */
+  phoneDisplay: "(+385) 98 183 4111",
+
   /**
-   * WhatsApp u međunarodnom formatu, bez plusa i razmaka (npr. "385991234567").
+   * WhatsApp u međunarodnom formatu, bez plusa i razmaka.
    * Za vlasnika malog posla je najbrži kanal — konvertira bolje od forme.
    */
-  whatsapp: null as string | null,
+  whatsapp: "385981834111" as string | null,
 
   socials: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/petar-grbi%C4%87-455880398/" },

@@ -265,3 +265,47 @@ html.js-anim [data-reveal] {
 @media (prefers-reduced-motion: reduce) {
   .reel { animation: none; }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   ISPIS — /cv se sprema kao jednostranični A4
+   Fine razlike po elementima rješavaju Tailwind `print:` varijante
+   u samoj komponenti; ovdje je samo ono što mora biti globalno.
+   ══════════════════════════════════════════════════════════════ */
+@media print {
+  @page {
+    size: A4;
+    margin: 11mm;
+  }
+
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 9pt;
+    line-height: 1.35;
+  }
+
+  /* Boje pozadina i obruba moraju se stvarno otisnuti */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Zrno, plutajući gumbi i preskoči-na-sadržaj nemaju što na papiru */
+  .grain,
+  .skip {
+    display: none !important;
+  }
+
+  /* Poveznice u tinti — rust na papiru izgleda isprano */
+  a { color: #000 !important; text-decoration: none !important; }
+  .ulink::after { display: none !important; }
+
+  /* Pobočni stupac ne smije biti ljepljiv u ispisu */
+  aside { position: static !important; }
+
+  /* Ništa se ne animira */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

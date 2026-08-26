@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
 import { content } from "@/data/content";
 import { certs, site } from "@/data/site";
@@ -9,11 +10,10 @@ import { ArrowUpRight } from "@/components/icons";
 /**
  * O meni + certifikati.
  *
- * BEZ PORTRETA — namjerno. Jedina raspoloživa fotografija (public/me.webp)
- * je mutan noćni kadar iz bara, u profilu. Na stranici koja prodaje
- * profesionalnu izradu weba takva slika ruši kredibilitet više nego što
- * ga gradi, pa je sekcija tipografska.
- * Kad stigne pristojan portret: vrati <Image> u lijevi stupac.
+ * Portret je namjerno malen. Jedina raspoloživa fotografija je slab noćni
+ * kadar; Petar planira profesionalno snimanje, a do tada je bolje da ne
+ * nosi sekciju. Ista datoteka je i na /cv da oba mjesta prikazuju istu osobu.
+ * Kad stigne bolja: zamijeni public/me.webp, ništa drugo se ne dira.
  *
  * Certifikati su prije bili 12 slika u karuselu utrostručenom na 36
  * slikovnih elemenata — nijedna se nije učitala, a dokument od 1270px
@@ -56,6 +56,19 @@ export default function About() {
         <div className="mt-12 grid gap-12 sm:mt-16 lg:grid-cols-12 lg:gap-16">
           {/* Bio */}
           <div className="lg:col-span-6" data-reveal-group>
+            <div
+              className="relative mb-7 aspect-square w-24 overflow-hidden rounded-[4px] border border-line bg-limestone-2 sm:w-28"
+              data-reveal
+            >
+              <Image
+                src="/me.webp"
+                alt="Petar Grbić"
+                fill
+                sizes="112px"
+                className="object-cover"
+              />
+            </div>
+
             <div className="space-y-4 text-[1.0625rem] leading-relaxed text-muted">
               <p data-reveal>{content.about.p1}</p>
               <p data-reveal>{content.about.p2}</p>
@@ -70,8 +83,6 @@ export default function About() {
 
             <a
               href={site.cv}
-              target="_blank"
-              rel="noopener noreferrer"
               className="btn btn-ghost mt-8 justify-center sm:justify-start"
               data-reveal
             >

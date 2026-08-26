@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef, useState, type FormEvent } from "react";
 import { content } from "@/data/content";
 import { site, whatsappHref } from "@/data/site";
 import { revealIn } from "@/lib/anim/reveal";
-import { ArrowUpRight, Send } from "@/components/icons";
+import { ArrowUpRight, Send, Phone } from "@/components/icons";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -103,13 +103,10 @@ export default function BookCall() {
               {content.book.sub}
             </p>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center" data-reveal>
-              <a
-                href={`mailto:${site.email}`}
-                className="btn btn-on-dark justify-center sm:justify-start"
-              >
-                {content.book.emailLabel}
-                <ArrowUpRight className="h-3.5 w-3.5" />
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center" data-reveal>
+              <a href={`tel:${site.phone}`} className="btn btn-on-dark justify-center sm:justify-start">
+                <Phone className="h-4 w-4" />
+                {content.book.callLabel}
               </a>
 
               {whatsappHref && (
@@ -122,15 +119,30 @@ export default function BookCall() {
                   WhatsApp
                 </a>
               )}
+
+              <a
+                href={`mailto:${site.email}`}
+                className="btn justify-center border-limestone/30 text-limestone hover:border-limestone sm:justify-start"
+              >
+                {content.book.emailLabel}
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
             </div>
 
-            <a
-              href={`mailto:${site.email}`}
-              className="ulink -mb-2.5 mt-5 inline-block break-all py-2.5 font-mono text-sm text-limestone/70"
-              data-reveal
-            >
-              {site.email}
-            </a>
+            <div className="mt-5 flex flex-col gap-1" data-reveal>
+              <a
+                href={`tel:${site.phone}`}
+                className="ulink -my-1 inline-block py-2 font-mono text-sm text-limestone/70"
+              >
+                {site.phoneDisplay}
+              </a>
+              <a
+                href={`mailto:${site.email}`}
+                className="ulink -my-1 inline-block break-all py-2 font-mono text-sm text-limestone/70"
+              >
+                {site.email}
+              </a>
+            </div>
 
             <p className="mt-2 text-sm text-limestone/45" data-reveal>
               {content.book.reply}
