@@ -50,8 +50,12 @@ export const site = {
   ],
 } as const;
 
-/** Kamo vodi primarni CTA — kalendar ako postoji, inače sekcija kontakta. */
-export const bookingHref = site.booking ?? "#contact";
+/*
+ * Primarni CTA (zaglavlje, hero) NE vodi više izravno na cal.com.
+ * Kalendar je sada ugrađen u sekciju kontakta, pa gumb vodi na `#contact`:
+ * kupac ostaje na stranici, vidi termine i uz njih ostale kanale.
+ * Izravna poveznica `site.booking` ostaje — koristi ju sam kalendar.
+ */
 
 /**
  * Prazan WhatsApp chat je sam po sebi kočnica — kupac mora smisliti prvu

@@ -43,9 +43,6 @@ export default function Work() {
           <p className="mt-4 max-w-[52ch] text-[1.0625rem] leading-relaxed text-muted" data-reveal>
             {content.work.sub}
           </p>
-          <p className="mt-3 max-w-[52ch] text-[0.9375rem] leading-relaxed text-muted" data-reveal>
-            {content.work.family}
-          </p>
         </header>
 
         <div className="mt-14 flex flex-col gap-20 sm:mt-20 sm:gap-28 lg:gap-36">

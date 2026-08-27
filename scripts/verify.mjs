@@ -1,7 +1,9 @@
 import { chromium, webkit } from "playwright";
 
 const URL = process.env.VERIFY_URL || "http://localhost:4100";
-const SP = "/private/tmp/claude-501/-Users-grbaa/ef11ad01-5748-491d-98be-93ee4ecafa36/scratchpad";
+// Snimke idu u SHOTS ako je zadan, inače u sistemski temp — prije je ovdje
+// stajala apsolutna putanja jedne sesije, koja drugdje ne postoji.
+const SP = process.env.SHOTS || (await import("node:os")).tmpdir();
 const results = [];
 const log = (label, pass, detail) => {
   results.push(pass);

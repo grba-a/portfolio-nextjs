@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { work } from "@/data/work";
 import { prefersReducedMotion } from "@/lib/anim/gsap";
+import { ArrowUpRight } from "@/components/icons";
 
 /**
  * Špil radova u heroju — CSS 3D, bez biblioteke.
@@ -13,8 +14,11 @@ import { prefersReducedMotion } from "@/lib/anim/gsap";
  * gornja ravna i čitljiva, ostale pomaknute i zaokrenute u dubinu.
  *
  * Trošak je što tri od četiri projekta nisu odmah vidljiva. To se ublažava
- * unutar samog izbora: špil se sam prelistava, crtice ispod skaču na bilo
- * koju, a sekcija Radovi ispod prikazuje sve četiri u punim trakama.
+ * unutar samog izbora: špil se sam prelistava, klik ili fokus dižu bilo koju
+ * karticu, a sekcija Radovi ispod prikazuje sve četiri u punim trakama.
+ *
+ * Bez natpisa i crtica ispod (odluka: hero je slika, ne popis) — nazivi žive
+ * u `aria-label` svake kartice, pa čitač ekrana ništa ne gubi.
  *
  * Namjerno BEZ three.js: stranica je 579 KB / 60 ms, a WebGL bi dodao
  * ~170 KB i stalnu render petlju na uređaju s kojeg dolazi većina prometa.
@@ -103,7 +107,10 @@ export default function HeroDeck() {
         ref={wheelHost}
         className={
           ready
-            ? "relative h-[clamp(190px,52vw,300px)] [perspective:1100px] [touch-action:pan-y] lg:h-[min(46vw,440px)]"
+            // Od lg visinu diktira sama kartica (16:10 na širini stupca), ne
+            // vw-formula: s fiksnom visinom je špil ili bio odrezan ili je
+            // ispod njega ostajala prazna traka, ovisno o širini ekrana.
+            ? "relative h-[clamp(190px,52vw,300px)] [perspective:1100px] [touch-action:pan-y] lg:aspect-[16/10] lg:h-auto"
             : "flex gap-3 overflow-x-auto"
         }
         onPointerDown={(e) => {
@@ -164,14 +171,32 @@ export default function HeroDeck() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${item.name} — ${item.kind}`}
-                aria-hidden={ready && !onTop}
-                tabIndex={ready && !onTop ? -1 : 0}
                 draggable={false}
                 style={style}
+                // Fokus diže karticu na vrh. Crtice ispod špila su otišle, a
+                // bile su jedini put do ostalih projekata za tipkovnicu —
+                // sada tab radi isto, bez ijednog piksela u dizajnu.
+                onFocus={() => {
+                  paused.current = true;
+                  if (ready && !onTop) go(i);
+                }}
+                // Klik na kartu ispod vrha je samo podiže. Bez natpisa nitko
+                // ne zna kamo vodi tuđi rub, pa poveznica radi tek s vrha.
+                onClick={(e) => {
+                  if (ready && !onTop) {
+                    e.preventDefault();
+                    paused.current = true;
+                    go(i);
+                  }
+                }}
                 className={
                   (ready
-                    ? "absolute inset-x-0 top-0 mx-auto w-[min(74vw,460px)] transition-[transform,opacity,filter] duration-[620ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none lg:w-full lg:max-w-[560px] "
-                    : "w-[74vw] max-w-[420px] shrink-0 ") +
+                    ? "group absolute inset-x-0 top-0 mx-auto w-[min(74vw,460px)] transition-[transform,opacity,filter] duration-[620ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none lg:w-full lg:max-w-none "
+                    : "relative w-[74vw] max-w-[420px] shrink-0 ") +
+                  // NE dodavati `relative` u zajednički dio: kad je špil živ
+                  // kartica MORA biti `absolute`, a Tailwind obje klase piše
+                  // s istom specifičnošću — `relative` pobijedi i špil se
+                  // raspadne u stupac.
                   "block aspect-[16/10] overflow-hidden rounded-[4px] border border-line bg-limestone-2 shadow-[0_18px_40px_-22px_rgba(20,17,14,0.55)]"
                 }
               >
@@ -180,50 +205,26 @@ export default function HeroDeck() {
                   alt={item.name}
                   width={760}
                   height={475}
-                  sizes="(max-width: 640px) 74vw, (max-width: 1024px) 74vw, 560px"
+                  sizes="(max-width: 1024px) 74vw, 60vw"
                   priority={i < 2}
                   // Špil se pomiče transformom, ne layoutom, pa WebKit nikad ne
                   // okine lijeno učitavanje i u Safariju ostanu prazne rupe.
                   loading={i < 2 ? undefined : "eager"}
                   className="h-full w-full object-cover object-top"
                 />
+
+                {/* Jedini znak da je snimka poveznica — natpisa više nema.
+                    Samo na vrhnjoj karti i samo na hover/fokus. */}
+                {ready && onTop && (
+                  <span className="pointer-events-none absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-ink/80 text-limestone opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                )}
               </a>
             );
           })}
         </div>
       </div>
-
-      {/* Naziv aktivnog projekta i skakači — bez ovoga bi tri od četiri
-          projekta bila nevidljiva, što je jedina slabost špila. */}
-      {ready && (
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-          <div aria-live="polite">
-            <p className="font-display text-base font-extrabold tracking-[-0.02em]">
-              {work[active].name}
-            </p>
-            <p className="eyebrow mt-0.5">{work[active].kind}</p>
-          </div>
-
-          <div className="-mr-2 flex">
-            {work.map((item, i) => (
-              <button
-                key={item.slug}
-                type="button"
-                onClick={() => { paused.current = true; go(i); }}
-                aria-label={`Show ${item.name}`}
-                aria-current={i === active}
-                className="grid h-11 w-11 place-items-center"
-              >
-                <span
-                  className={`block h-0.5 w-5 transition-colors ${
-                    i === active ? "bg-rust" : "bg-line-strong"
-                  }`}
-                />
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

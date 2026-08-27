@@ -24,18 +24,17 @@ export const content = {
     // Riječi maske: kratke i teške, da se snimka iza njih vidi
     line1: "Websites",
     line2: "that sell.",
-    sub: "I design, build and launch the whole thing myself — for small businesses that need to be found, trusted and booked.",
+    sub: "I design, build and launch the whole thing — for small businesses that need to be found, trusted and booked.",
     ctaPrimary: "Book a free call",
     ctaSecondary: "See the work",
   },
 
   work: {
     heading: "Work",
-    sub: "Every project below is fully my own work — designed, built, and launched from scratch.",
-    // Kupac izbroji: četiri projekta, dva nose njegovo prezime, i tiho
-    // zaključi "obiteljska usluga". Bolje to reći prvi, nego pustiti sumnju.
-    family:
-      "Two of these are family businesses — which means I had to live with the results at Sunday lunch, and that is a harder review than any client gives you.",
+    // Prije je pisalo "fully my own work" — to prodaje mene, a kupca zanima
+    // koliko pažnje dobiva on. Sada: malo projekata odjednom, i majstor
+    // se dovodi kad ga posao traži.
+    sub: "A few projects at a time, so yours gets the attention it needs — and when a job calls for a photographer or a copywriter, I bring in someone who is genuinely good at it.",
     visit: "Visit site",
     statusLive: "Live",
     statusDev: "In early development",
@@ -43,7 +42,9 @@ export const content = {
 
   offer: {
     heading: "What I do",
-    sub: "One person, start to finish. No agency layers, no handoffs, no waiting on someone else's calendar.",
+    // Petru se ova rečenica sviđa i najbolje prodaje — ostaje. Nastavak
+    // spašava je od čitanja kao "sam sam": jedan sugovornik, ne jedan par ruku.
+    sub: "One person, start to finish. No agency layers, no handoffs, no waiting on someone else's calendar — and where a job needs a specialist, I bring one in and stay the person you talk to.",
     items: [
       {
         num: "01",
@@ -87,7 +88,7 @@ export const content = {
   pricing: {
     eyebrow: "What it costs",
     heading: "From €800.",
-    body: "That covers design, build, launch, hosting setup, mobile speed and analytics — all done by me, not passed around. Bigger builds, with ads and SEO running, cost more.",
+    body: "That covers design, build, launch, hosting setup, mobile speed and analytics — handled in one place, not passed around. Bigger builds, with ads and SEO running, cost more.",
     reassure: "You get the exact number in writing before any work starts. No hidden costs.",
     timeline: "Timeline depends on scope — you get that in writing too, with the quote.",
   },
@@ -101,8 +102,10 @@ export const content = {
   about: {
     eyebrow: "About",
     heading: "Who you'd be working with",
-    p1: "I'm Petar — 23, from Dubrovnik. Third year of Digital Marketing at Algebra University College, Zagreb.",
-    p2: "I work as a full-service digital freelancer: one point of contact for everything digital — website, ads, SEO, content, and branding. You brief me once, I handle the rest.",
+    // Studij se preselio na /cv, gdje ga poslodavac traži. Kupac koji kupuje
+    // web ne kupuje godinu studija — kupuje čovjeka koji zna posao.
+    p1: "I'm Petar, from Dubrovnik. I run the digital side for small businesses — the site, the ads, the search, and the words on all of it.",
+    p2: "One point of contact for all of it. You brief me once and I handle the rest; when a job needs a photographer, a copywriter or a specialist, I bring one in and you still deal only with me.",
     p2b: "Before this I spent three seasons in Dubrovnik hospitality — client relations and safety operations for Maistra Hotels — so I know what a full season does to a business, and what a booking is worth in August.",
     p3: "Voluntary military training with the Croatian Ministry of Defence in 2023. That is where the discipline behind every deadline comes from.",
     certsLabel: "12 certifications from Google & HubSpot",
@@ -149,11 +152,15 @@ export const content = {
     language: "Dubrovnik-based. Croatian or English, whichever suits you.",
     calendarLabel: "Pick a time",
     calendarTitle: "Free 15-minute call",
-    calendarNote: "Pick a slot that suits you — the calendar shows what's actually free.",
     calendarCta: "See available times",
     nextFree: "Next free",
-    otherTimes: "Other times",
-    calendarFallback: "Prefer a full page? Open it on",
+    // Mreža dana i termini ispod nje — vlastiti birač, ne Cal.com okvir
+    pickDay: "Pick a day",
+    timesOn: "Times on",
+    loadingTimes: "Loading available times…",
+    confirmLabel: "Confirm your call",
+    calendarFallback: "Calendar not loading? Open it on",
+    askFirst: "Rather ask first?",
     formToggle: "Rather write a message?",
     name: "Name",
     email: "Email",

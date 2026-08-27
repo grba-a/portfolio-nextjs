@@ -1,5 +1,4 @@
 import { content } from "@/data/content";
-import { bookingHref } from "@/data/site";
 import HeroDeck from "@/components/HeroDeck";
 
 /**
@@ -20,8 +19,14 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[100svh] overflow-hidden pt-24 sm:pt-32">
-      <div className="shell flex min-h-[calc(100svh-6rem)] flex-col justify-between gap-6 pb-10 sm:min-h-[calc(100svh-8rem)] sm:pb-14 lg:grid lg:min-h-0 lg:grid-cols-12 lg:items-center lg:gap-14 lg:py-16">
-        <div className="flex flex-1 flex-col justify-center py-8 sm:py-10 lg:col-span-6 lg:flex-none lg:py-0">
+      {/*
+       * Desktop: špil je podignut i širi (7 stupaca), naslov s CTA-ima spušten
+       * (5 stupaca, gurnut prema dolje). Prije su oba stupca bila centrirana i
+       * jednake širine, pa je gornja polovica bila puna, a donja lijeva prazna.
+       * Mobitel se ne dira — tamo je raspored već dobar.
+       */}
+      <div className="shell flex min-h-[calc(100svh-6rem)] flex-col justify-between gap-6 pb-10 sm:min-h-[calc(100svh-8rem)] sm:pb-14 lg:grid lg:min-h-0 lg:grid-cols-12 lg:items-start lg:gap-x-12 lg:py-14">
+        <div className="flex flex-1 flex-col justify-center py-8 sm:py-10 lg:col-span-5 lg:flex-none lg:py-0 lg:pt-24 xl:pt-32">
         <p className="eyebrow rise rise-1">{hero.eyebrow}</p>
 
         <h1 className="mt-4 text-[clamp(3.25rem,13.5vw,11rem)] sm:mt-7 lg:text-[clamp(3.5rem,6.5vw,7rem)]">
@@ -47,7 +52,7 @@ export default function Hero() {
 
         <div className="rise rise-4 mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
           <a
-            href={bookingHref}
+            href="#contact"
             className="btn btn-primary justify-center sm:justify-start"
           >
             {hero.ctaPrimary}
@@ -59,6 +64,9 @@ export default function Hero() {
         </div>
 
         {/* Špil pravih snimki — dokaz odmah, prije bilo kakvog obećanja */}
+        {/* Šest stupaca, ne sedam: na širokom ekranu su kartice preko sedam
+            stupaca bile veće od naslova i preuzimale kadar. Prazan šesti
+            stupac je razmak između teksta i špila. */}
         <div className="rise rise-4 w-full lg:col-span-6 lg:col-start-7">
           <HeroDeck />
         </div>

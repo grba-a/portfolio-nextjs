@@ -23,7 +23,7 @@
   --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --shell: 1440px;
+  --shell: 1600px;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -80,9 +80,18 @@
    ══════════════════════════════════════════════════════════════ */
 @utility shell {
   width: 100%;
+  /*
+   * 1440px je izgledalo kao uska traka usred praznine, a potpuno fluidno
+   * preširoko. Granica je 1600px uz rubove koji prestaju rasti na 4rem:
+   * sadržaj je 1472px na svemu od 1600px naviše — širi nego prije (1296px),
+   * a i dalje jedan kadar, ne panorama.
+   *
+   * Duljina retka time ne pati: odlomci su već ograničeni na 38-52ch
+   * lokalno, pa se tekst ne razvlači ni na najširem ekranu.
+   */
   max-width: var(--shell);
   margin-inline: auto;
-  padding-inline: clamp(1.25rem, 5vw, 4.5rem);
+  padding-inline: clamp(1.25rem, 4vw, 4rem);
 }
 
 @utility eyebrow {

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { content } from "@/data/content";
-import { bookingHref } from "@/data/site";
 
 /**
  * Mobile-first navigacija.
@@ -86,12 +85,15 @@ export default function Nav() {
             Petar Grbić
           </a>
 
+          {/* Izbornik govori jezikom oznaka (mono, verzal, razmaknuto) kao
+              .eyebrow i brojevi projekata. Prije je bio isti font i veličina
+              kao rečenice ispod, pa traka nije imala vlastiti glas. */}
           <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
             {nav.links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
-                className={`ulink -my-3 py-3 text-sm transition-colors ${onDark ? "text-limestone/60 hover:text-limestone" : "text-muted hover:text-ink"}`}
+                className={`ulink -my-3 py-3 font-mono text-xs uppercase tracking-[0.12em] transition-colors ${onDark ? "text-limestone/65 hover:text-limestone" : "text-muted hover:text-ink"}`}
               >
                 {l.label}
               </a>
@@ -100,7 +102,7 @@ export default function Nav() {
 
           <div className="flex items-center gap-2">
             <a
-              href={bookingHref}
+              href="#contact"
               className={`btn hidden !px-5 !py-2.5 !text-sm md:inline-flex ${onDark ? "btn-on-dark" : "btn-primary"}`}
             >
               {nav.cta}
@@ -160,7 +162,7 @@ export default function Nav() {
           ))}
 
           <a
-            href={bookingHref}
+            href="#contact"
             onClick={() => setOpen(false)}
             className="btn btn-primary mt-8 justify-center"
           >

@@ -23,9 +23,15 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
-const TITLE = "Petar Grbić — Websites that sell";
+/*
+ * Naslov nosi i marku i riječi koje netko stvarno traži. Prije je stajalo
+ * samo "Websites that sell" — lijepa rečenica, ali u tražilici nevidljiva.
+ * Opis više ne kaže "myself": pozicioniranje je jedan sugovornik, ne jedan
+ * par ruku, pa meta mora govoriti isto što i stranica.
+ */
+const TITLE = "Petar Grbić — Web design, ads & SEO for small businesses | Dubrovnik";
 const DESC =
-  "I design, build and launch the whole thing myself — websites, ads and SEO for small businesses. Dubrovnik, Croatia.";
+  "Websites that sell, Google Ads and local SEO for small businesses in Dubrovnik and Croatia. One point of contact from first call to launch. Book a free 15-minute call.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://petargrbic.com"),
@@ -61,6 +67,7 @@ const personLd = {
     "https://www.linkedin.com/in/petar-grbi%C4%87-455880398/",
     "https://github.com/grba-a",
     "https://www.instagram.com/grbicpetarr/",
+    "https://web.facebook.com/petaargrbic",
   ],
 };
 
