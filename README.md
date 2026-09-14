@@ -5,7 +5,7 @@ Next.js 16 (App Router) · Tailwind v4 · GSAP · TypeScript. Statički prerende
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
+npm run dev      # http://localhost:4100 (učitava ~/.config/petargrbic/env.local)
 npm run build
 ```
 
@@ -58,7 +58,7 @@ Prvi put treba jednom: `npx playwright install chromium`
 - nema vodoravnog scrolla ni elemenata izvan kadra na 360/390/768/1440/1920 px
 - `prefers-reduced-motion` zaustavlja sve animacije, sadržaj ostaje čitljiv
 - **WebKit**: maska teksta u heroju i lijeno učitavanje slika u traci
-- dodirne mete ≥ 32 px
+- dodirne mete ≥ 44 px
 - sve vanjske poveznice vraćaju 200
 
 Build pokretati tek **nakon** gašenja dev servera — Turbopack inače tiho
@@ -67,7 +67,8 @@ servira staru verziju modula.
 ## Napomene
 
 - Nema hrvatske verzije — stranica je namjerno samo na engleskom.
-- `src/data/site.ts` ima prazna polja `booking` (Cal.com) i `whatsapp`.
-  Dok su `null`, primarni CTA vodi na sekciju kontakta, a WhatsApp gumb se ne prikazuje.
+- `CAL_API_KEY` živi u `~/.config/petargrbic/env.local`, izvan repoa i iCloud-a.
+  `npm run dev` i `npm start` ga učitavaju odande; bez njega birač termina
+  nudi poveznicu na Cal.com. Na Vercelu je u environment variables.
 - Sekcija About je bez portreta dok ne stigne bolja fotografija;
   `public/me.webp` je spreman za povratak.

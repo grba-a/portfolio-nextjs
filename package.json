@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "set -a; [ -f ~/.config/petargrbic/env.local ] && . ~/.config/petargrbic/env.local; set +a; next dev -p 4100",
     "build": "next build",
-    "start": "next start",
+    "start": "set -a; [ -f ~/.config/petargrbic/env.local ] && . ~/.config/petargrbic/env.local; set +a; next start -p 4200",
     "lint": "eslint"
   },
   "dependencies": {
