@@ -10,7 +10,7 @@ export const content = {
   nav: {
     links: [
       { href: "#work", label: "Work" },
-      { href: "#offer", label: "What I do" },
+      { href: "#how", label: "How it works" },
       { href: "#about", label: "About" },
       { href: "#contact", label: "Contact" },
     ],
@@ -61,49 +61,6 @@ export const content = {
     statusDev: "In early development",
   },
 
-  offer: {
-    heading: "What I do",
-    // Petru se ova rečenica sviđa i najbolje prodaje — ostaje. Nastavak
-    // spašava je od čitanja kao "sam sam": jedan sugovornik, ne jedan par ruku.
-    sub: "One person, start to finish. No agency layers, no handoffs, no waiting on someone else's calendar — and where a job needs a specialist, I bring one in and stay the person you talk to.",
-    items: [
-      {
-        num: "01",
-        title: "The website",
-        body: "Design, build and launch. Fast on a phone, easy to update, set up so you can see what it does.",
-        list: [
-          "Web design & development",
-          "Mobile-first speed & performance",
-          "Hosting setup & maintenance",
-        ],
-      },
-      {
-        num: "02",
-        title: "The traffic",
-        body: "Getting the right people to it — paid where it pays, organic where it lasts.",
-        list: [
-          "Google Ads",
-          "Meta Ads (Facebook & Instagram)",
-          "Local SEO & Google Business",
-        ],
-      },
-      {
-        num: "03",
-        title: "Everything around it",
-        body: "The parts most people bolt on later, done at the same time as the rest.",
-        list: [
-          "Copywriting (web & ads)",
-          "Logo & visual identity",
-          "Analytics setup (GA4)",
-        ],
-      },
-    ],
-    // Devet vjerodostojnih usluga bolje prolazi od osamnaest nevjerojatnih.
-    // Ova rečenica hvata ostalo bez da nabraja.
-    footnote:
-      "If you need something that isn't here, ask — I'll tell you if it's mine to do, or point you to someone else.",
-  },
-
   // Nijedna cifra nigdje na stranici (Petar, 2026-09-14: "ne želim da se
   // igdje vidi točna cijena"). Tri paketa točno kako ih je potvrdio.
   pricing: {
@@ -123,7 +80,8 @@ export const content = {
         body: "Hosting, updates and your Google Business profile kept right.",
       },
     ],
-    extra: "Ads and SEO on top, priced separately.",
+    // Bivša sekcija Offer (9 usluga), sažeta u jedan redak
+    extra: "Ads and SEO on top, priced separately: Google and Meta ads, local SEO and your Google Business profile, copywriting, logo and identity, GA4 analytics.",
     reassure: "Exact price in writing after the free check. No hidden costs.",
     timeline: "Timeline in writing too, with the quote.",
   },
@@ -147,29 +105,26 @@ export const content = {
     certsLink: "all 12 certificates on my CV",
   },
 
+  // Prvo besplatno, pa edukacija, pa naplata (Petar, 2026-09-15): prvi korak
+  // je provjera, cijena dolazi tek u drugom, napismeno.
   process: {
     eyebrow: "How it works",
-    heading: "Four steps, no surprises.",
+    heading: "Free first. You decide the rest.",
     steps: [
       {
         num: "01",
-        title: "Discovery",
-        desc: "We talk about your project, goals, and budget. No forms, no pressure — just a straightforward conversation to make sure we're the right fit.",
+        title: "The free check",
+        desc: "Send me your address. You get three findings about your Google listing, your website and your booking path, in writing. Free, and it commits you to nothing.",
       },
       {
         num: "02",
-        title: "Proposal",
-        desc: "You receive a clear proposal — scope, timeline, and price. Everything agreed in writing before any work begins. No hidden costs.",
+        title: "A proposal in writing",
+        desc: "If you want them fixed: scope, timeline and price, agreed in writing before any work begins. No hidden costs.",
       },
       {
         num: "03",
-        title: "Build & Review",
-        desc: "I execute and keep you in the loop at every stage. You review, give feedback, and we refine until it's exactly right.",
-      },
-      {
-        num: "04",
-        title: "Launch",
-        desc: "We go live. You get full ownership — files, accounts, access to everything. I stay available after launch for questions and adjustments.",
+        title: "Build and hand over",
+        desc: "You see it at every stage. At launch you get full ownership: files, accounts, access to everything.",
       },
     ],
   },
