@@ -272,6 +272,28 @@ export default function HeroStory({
               </div>
             );
           })}
+
+          {/* Zadnja scena: gumb je NA karti, ne ispod špila (Petar,
+              2026-09-15). Veo utiša crtež, gumb uskoči i pulsira.
+              `pointer-events-none` na velu: klik pored gumba i dalje
+              pripada karti ispod (= sljedeća scena). */}
+          {last && scene.cta && ctaHref && (
+            <div
+              className="st-veil pointer-events-none absolute inset-x-0 top-0 z-30 mx-auto grid aspect-[4/3] w-[min(84vw,460px)] place-items-center rounded-[14px] lg:w-full"
+              style={{ transform: "translateZ(1px)" }}
+            >
+              <span className="st-cta pointer-events-auto">
+                <a
+                  href={ctaHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary justify-center"
+                >
+                  {scene.cta}
+                </a>
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -309,20 +331,10 @@ export default function HeroStory({
           </p>
         </div>
 
-        {/* Desktop: gumb desno i IZNAD strelica (Petar, 2026-09-15).
-            Visina je rezervirana, pa se ništa ne pomakne na zadnjoj sceni. */}
-        <div className="mt-3 hidden lg:flex lg:min-h-[6.75rem] lg:flex-col lg:items-end lg:gap-3">
-          {last && scene.cta && ctaHref && (
-            <a
-              href={ctaHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary justify-center"
-            >
-              {scene.cta}
-            </a>
-          )}
-          <div className="mt-auto flex gap-2">
+        {/* Desktop: samo strelice. Gumb je otišao NA zadnju kartu, pa je
+            špil viši i strelice se vide bez skrolanja (Petar, 2026-09-15). */}
+        <div className="mt-3 hidden lg:flex lg:justify-end">
+          <div className="flex gap-2">
             {(["prev", "next"] as const).map((dir) => (
               <button
                 key={dir}

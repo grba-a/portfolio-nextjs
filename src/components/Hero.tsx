@@ -32,7 +32,8 @@ export default function Hero() {
        */}
       <div className="shell flex min-h-[calc(100svh-6rem)] flex-col justify-between gap-6 pb-10 sm:min-h-[calc(100svh-8rem)] sm:pb-14 lg:grid lg:min-h-0 lg:grid-cols-12 lg:items-start lg:gap-x-12 lg:py-14">
         <div className="flex flex-1 flex-col justify-end sm:py-10 lg:col-span-5 lg:flex-none lg:justify-center lg:py-0 lg:pt-24 xl:pt-32">
-        <p className="eyebrow rise rise-1">{hero.eyebrow}</p>
+        {/* Isti glas kao oznake sekcija: verzal + rust kursor koji trepće */}
+        <p className="eyebrow caret rise rise-1">{hero.eyebrow}</p>
 
         <h1 className="mt-4 text-[clamp(3.25rem,13.5vw,11rem)] sm:mt-7 lg:text-[clamp(3.5rem,6.5vw,7rem)]">
           <span className="hl-line">
@@ -42,16 +43,15 @@ export default function Hero() {
           </span>
           <span className="hl-line">
             <span className="hl-word" style={{ "--i": 1 } as React.CSSProperties}>
-              {hero.line2}
-              {/* Crvena olovka: potez se crta tek kad redak sjedne */}
-              <svg
-                className="hl-underline"
-                viewBox="0 0 300 16"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                <path pathLength="1" d="M4 11C46 5 96 3.5 152 6.5 208 9.5 254 11.5 296 6" />
-              </svg>
+              {hero.line2}{" "}
+              {/* Zadnja riječ se puni slijeva nadesno: ista tinta, pa rust.
+                  Rust kopija je aria-hidden — čitač čita riječ jednom. */}
+              <span className="hl-fill">
+                <span className="hl-fill-base">{hero.line2Fill}</span>
+                <span className="hl-fill-rust" aria-hidden="true">
+                  {hero.line2Fill}
+                </span>
+              </span>
             </span>
           </span>
         </h1>

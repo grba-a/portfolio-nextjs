@@ -110,7 +110,7 @@ export default function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`ulink -my-3 py-3 text-sm font-medium transition-colors ${onDark ? "text-limestone/65 hover:text-limestone" : "text-muted hover:text-ink"}`}
+                className={`ulink -my-3 py-3 text-[0.8125rem] font-semibold uppercase tracking-[0.08em] transition-colors ${onDark ? "text-limestone/65 hover:text-limestone" : "text-muted hover:text-ink"}`}
               >
                 {l.label}
               </Link>

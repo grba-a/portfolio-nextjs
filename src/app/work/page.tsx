@@ -25,7 +25,7 @@ export default function WorkPage() {
       <main id="main" className="pt-28 sm:pt-36">
         <div className="shell">
           <header className="max-w-2xl">
-            <p className="eyebrow">{t.title}</p>
+            <p className="eyebrow caret">{t.title}</p>
             <h1 className="mt-4 text-[clamp(2.5rem,10vw,5rem)]">{t.heading}</h1>
             <p className="mt-5 text-[1.0625rem] leading-relaxed text-muted">
               {live} live, {building} in progress.

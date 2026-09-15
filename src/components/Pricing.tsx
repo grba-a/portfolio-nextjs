@@ -34,15 +34,19 @@ export default function Pricing() {
       <div className="shell">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-14" data-reveal-group>
           <div className="lg:col-span-6">
-            <h2 className="eyebrow block" data-reveal>
+            <h2 className="eyebrow caret block" data-reveal>
               {pricing.eyebrow}
             </h2>
 
             <p
-              className="mt-4 max-w-[18ch] font-display text-[clamp(2rem,7.5vw,3.25rem)] font-extrabold leading-[0.98] tracking-[-0.03em]"
+              className="mt-4 font-display text-[clamp(2rem,7.5vw,3.25rem)] font-extrabold leading-[0.98] tracking-[-0.03em]"
               data-reveal
             >
-              {pricing.heading}
+              {pricing.heading.map((line) => (
+                <span key={line} className="block text-balance">
+                  {line}
+                </span>
+              ))}
             </p>
 
             {/* Paketi nisu slijed, pa nemaju brojeve — samo imena */}
@@ -62,7 +66,14 @@ export default function Pricing() {
             </p>
           </div>
 
-          <div className="lg:col-span-5 lg:col-start-8">
+          {/*
+           * Desni stupac je kraći od popisa paketa, pa je na desktopu ljepljiv:
+           * obećanje o cijeni i gumbi ostaju u kadru dok kupac čita pakete
+           * (Petar, 2026-09-15). Na mobitelu ničega od toga nema — `lg:`.
+           * `self-center` radi oboje: spušta stupac na sredinu popisa i,
+           * jer ćelija više nije rastegnuta, pušta sticky da uhvati vrh.
+           */}
+          <div className="lg:col-span-5 lg:col-start-8 lg:sticky lg:top-28 lg:self-center">
             <p
               className="max-w-[38ch] border-l-2 border-rust pl-4 text-[1.0625rem] leading-relaxed"
               data-reveal

@@ -25,10 +25,13 @@ export const content = {
     // Nismo samo web: pomažemo poslovima da rastu — zato prvo besplatna
     // provjera i edukacija, pa tek onda prodaja (Petar, 2026-09-15).
     // Dubrovnik se spominje samo u O meni.
-    eyebrow: "zip · Marketing & growth agency",
+    eyebrow: "Marketing & growth agency",
     // Maska ide na drugi redak: kratak i težak, da se snimka iza vidi
     line1: "Systems",
-    line2: "that sell.",
+    // Zadnja riječ se puni brend narančastom slijeva nadesno (Petar,
+    // 2026-09-15) — potez ispod retka je maknut.
+    line2: "that",
+    line2Fill: "sell.",
     // "for free" dobiva rust krug: prvo dajemo besplatno, pa educiramo, pa
     // tek onda naplaćujemo (Petar, 2026-09-15)
     // Kraće za mobitel (KISS): gumb ispod već kaže "Get the free check"
@@ -63,6 +66,12 @@ export const content = {
     statusLive: "Live",
     statusDev: "In early development",
     allCta: "See all work",
+    // Tamni blok ispod tri rada: gol gumb nije govorio što je iza njega
+    allBlock: {
+      eyebrow: "All work",
+      heading: "Every project, one page.",
+      body: "projects. Open any of them for the details and the live site.",
+    },
   },
 
   // /work — svi radovi; klik otvara popup, a svaki popup ima vlastiti link
@@ -84,7 +93,11 @@ export const content = {
   // igdje vidi točna cijena"). Tri paketa točno kako ih je potvrdio.
   pricing: {
     eyebrow: "Packages",
-    heading: "Pick what you need. The price comes in writing.",
+    // Tri takta = tri paketa, istim ritmom kao "Free first. You decide the rest."
+    // Cijena je ispala iz naslova namjerno: to obećanje već stoji desno
+    // (reassure), a naslov mora prodavati posao, ne uvjete (Petar, 2026-09-15).
+    // Prijelom je Petrov, ne od širine stupca: treći takt ide u svoj redak.
+    heading: ["Build it. Book it.", "And Keep it running."],
     packages: [
       {
         name: "The website",
@@ -118,7 +131,8 @@ export const content = {
     // web ne kupuje godinu studija — kupuje čovjeka koji zna posao.
     // O meni ostaje o Petru, u prvom licu, s ulogom u zipu (Petar, 2026-09-15)
     name: "Petar Grbić",
-    role: "Head of Operations",
+    role: "Head of Operations / Founder",
+    portraitAlt: "Petar Grbić, Head of Operations at zip",
     p1: "I'm Petar, from Dubrovnik, and I lead operations at zip: the site, the ads, the search, and the words on all of it.",
     p2: "One point of contact for all of it. You brief me once and I handle the rest; when a job needs a photographer, a copywriter or a specialist, I bring one in and you still deal only with me.",
     p2b: "Before this I spent three seasons in Dubrovnik hospitality — client relations and safety operations for Maistra Hotels — so I know what a full season does to a business, and what a booking is worth in August.",

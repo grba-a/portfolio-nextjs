@@ -57,7 +57,7 @@ export default function Process() {
     >
       <div className="shell">
         <header className="max-w-2xl" data-reveal-group>
-          <h2 className="eyebrow block" data-reveal>
+          <h2 className="eyebrow caret block" data-reveal>
             {content.process.eyebrow}
           </h2>
           <p

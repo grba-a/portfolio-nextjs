@@ -53,17 +53,18 @@ export default function HrPage() {
         <section className="relative min-h-[100svh] overflow-hidden pt-24 sm:pt-32">
           <div className="shell flex min-h-[calc(100svh-6rem)] flex-col justify-between gap-6 pb-10 sm:min-h-[calc(100svh-8rem)] sm:pb-14 lg:grid lg:min-h-0 lg:grid-cols-12 lg:items-start lg:gap-x-12 lg:py-14">
             <div className="flex flex-1 flex-col justify-end sm:py-10 lg:col-span-5 lg:flex-none lg:justify-center lg:py-0 lg:pt-24 xl:pt-32">
-              <p className="eyebrow rise rise-1">{hr.hero.eyebrow}</p>
+              <p className="eyebrow caret rise rise-1">{hr.hero.eyebrow}</p>
               <h1 className="mt-4 text-[clamp(3.25rem,13.5vw,11rem)] sm:mt-7 lg:text-[clamp(3.5rem,6.5vw,7rem)]">
                 <span className="hl-line">
                   <span className="hl-word" style={{ "--i": 0 } as React.CSSProperties}>{hr.hero.line1}</span>
                 </span>
                 <span className="hl-line">
                   <span className="hl-word" style={{ "--i": 1 } as React.CSSProperties}>
-                    {hr.hero.line2}
-                    <svg className="hl-underline" viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true">
-                      <path pathLength="1" d="M4 11C46 5 96 3.5 152 6.5 208 9.5 254 11.5 296 6" />
-                    </svg>
+                    {hr.hero.line2}{" "}
+                    <span className="hl-fill">
+                      <span className="hl-fill-base">{hr.hero.line2Fill}</span>
+                      <span className="hl-fill-rust" aria-hidden="true">{hr.hero.line2Fill}</span>
+                    </span>
                   </span>
                 </span>
               </h1>
@@ -88,7 +89,7 @@ export default function HrPage() {
         {/* Kako radi */}
         <section id="kako-radi" className="scroll-mt-16 border-t border-line py-20 sm:py-28">
           <div className="shell">
-            <p className="eyebrow">{hr.process.eyebrow}</p>
+            <p className="eyebrow caret">{hr.process.eyebrow}</p>
             <h2 className="mt-4 max-w-2xl text-[clamp(1.875rem,7vw,3rem)] leading-[1]">{hr.process.heading}</h2>
             <ol className="mt-12 grid gap-9 md:grid-cols-3 md:gap-10">
               {hr.process.steps.map((s) => (
@@ -106,7 +107,7 @@ export default function HrPage() {
         <section className="border-t border-line py-16 sm:py-20">
           <div className="shell grid gap-10 lg:grid-cols-12 lg:gap-14">
             <div className="lg:col-span-6">
-              <p className="eyebrow">{hr.packages.eyebrow}</p>
+              <p className="eyebrow caret">{hr.packages.eyebrow}</p>
               <h2 className="mt-4 max-w-[18ch] text-[clamp(2rem,7.5vw,3.25rem)] leading-[0.98]">{hr.packages.heading}</h2>
               <ul className="mt-8 divide-y divide-line border-y border-line">
                 {hr.packages.items.map((p) => (
@@ -132,7 +133,7 @@ export default function HrPage() {
         {/* O meni */}
         <section className="border-t border-line py-20 sm:py-28">
           <div className="shell max-w-3xl">
-            <p className="eyebrow">{hr.about.eyebrow}</p>
+            <p className="eyebrow caret">{hr.about.eyebrow}</p>
             <p className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <span className="font-display text-2xl font-extrabold tracking-[-0.02em]">{hr.about.name}</span>
               <span className="text-sm font-semibold text-rust-ink">{hr.about.role}</span>
@@ -147,7 +148,7 @@ export default function HrPage() {
         {/* Kontakt */}
         <section id="kontakt" data-dark className="scroll-mt-24 bg-ink text-limestone">
           <div className="shell py-20 sm:py-28">
-            <p className="eyebrow !text-limestone/70">{hr.contact.eyebrow}</p>
+            <p className="eyebrow caret !text-limestone/70">{hr.contact.eyebrow}</p>
             <p className="mt-4 font-display text-[clamp(2.25rem,9vw,3.75rem)] font-extrabold leading-[0.95] tracking-[-0.035em]">
               {hr.contact.heading}
             </p>
@@ -158,11 +159,17 @@ export default function HrPage() {
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </a>
             )}
-            <div className="mt-6 flex flex-col gap-1">
-              <a href={`tel:${site.phone}`} className="ulink -my-1.5 inline-flex min-h-11 items-center self-start text-sm font-medium text-limestone/75">
+            <div className="mt-7 flex flex-col items-start gap-2">
+              <a
+                href={`tel:${site.phone}`}
+                className="-my-1 inline-flex min-h-11 items-center font-display text-[clamp(1.5rem,6vw,1.875rem)] font-extrabold tracking-[-0.02em] text-limestone transition-colors duration-200 hover:text-(--color-rust)"
+              >
                 {site.phoneDisplay}
               </a>
-              <a href={`mailto:${site.email}`} className="ulink -my-1.5 inline-flex min-h-11 items-center self-start break-all text-sm font-medium text-limestone/75">
+              <a
+                href={`mailto:${site.email}`}
+                className="-my-1.5 inline-flex min-h-11 items-center break-all text-[1.0625rem] font-medium text-limestone/80 transition-colors duration-200 hover:text-(--color-rust)"
+              >
                 {site.email}
               </a>
             </div>

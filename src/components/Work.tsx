@@ -36,7 +36,7 @@ export default function Work() {
         <header className="max-w-2xl" data-reveal-group>
           {/* Bio je <p class="eyebrow"> — nijedna sekcija nije ulazila u
               strukturu naslova. Vizualno se ne mijenja ništa. */}
-          <h2 className="eyebrow block" data-reveal>
+          <h2 className="eyebrow caret block" data-reveal>
             {content.work.heading}
           </h2>
           {/* Uvod je bio 22px, veći od opisa projekata — rečenica namijenjena
@@ -85,7 +85,7 @@ export default function Work() {
                     <span className="tnum text-sm text-rust-ink" data-reveal>
                       {item.index}
                     </span>
-                    <span className="eyebrow" data-reveal>
+                    <span className="text-sm text-muted" data-reveal>
                       {item.kind}
                     </span>
                   </div>
@@ -150,11 +150,27 @@ export default function Work() {
           })}
         </div>
 
-        <div className="mt-16 sm:mt-20" data-reveal-group>
-          <Link href="/work" className="btn btn-ghost justify-center" data-reveal>
-            {content.work.allCta}
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </Link>
+        {/* Tamni blok: kratko kaže što je iza gumba */}
+        <div
+          data-dark
+          className="mt-16 rounded-[18px] bg-ink px-6 py-8 text-limestone sm:mt-20 sm:px-10 sm:py-10"
+          data-reveal-group
+        >
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+            <div data-reveal>
+              <p className="eyebrow caret !text-limestone/70">{content.work.allBlock.eyebrow}</p>
+              <p className="mt-3 max-w-[16ch] font-display text-[clamp(1.75rem,6vw,2.5rem)] font-extrabold leading-[1] tracking-[-0.03em]">
+                {content.work.allBlock.heading}
+              </p>
+              <p className="mt-3 max-w-[40ch] text-[0.9375rem] leading-relaxed text-limestone/75">
+                {work.length} {content.work.allBlock.body}
+              </p>
+            </div>
+            <Link href="/work" className="btn btn-on-dark shrink-0 justify-center" data-reveal>
+              {content.work.allCta}
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

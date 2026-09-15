@@ -18,9 +18,10 @@ export const hr = {
   },
   nav: { en: "English", cta: "Besplatna provjera" },
   hero: {
-    eyebrow: "zip · Marketing i rast poslovanja",
+    eyebrow: "Marketing i rast poslovanja",
     line1: "Sustavi",
-    line2: "koji prodaju.",
+    line2: "koji",
+    line2Fill: "prodaju.",
     subBefore:
       "Vaša web stranica, Google profil i put do rezervacije, složeni u jedno. Provjerimo sve troje, napismeno i",
     subFree: "besplatno.",
@@ -68,7 +69,7 @@ export const hr = {
   },
   packages: {
     eyebrow: "Paketi",
-    heading: "Odaberite što trebate. Cijena stiže napismeno.",
+    heading: "Izradimo. Povežemo. Održavamo.",
     items: [
       { name: "Web stranica", body: "Dizajn, izrada i objava. Brza na mobitelu, s postavljenim hostingom i analitikom da vidite što radi." },
       { name: "Stranica i rezervacije", body: "Sve iz paketa Web stranica, uz povezan sustav za rezervacije ili kalendar, da vas gosti rezerviraju izravno." },
@@ -81,7 +82,7 @@ export const hr = {
   about: {
     eyebrow: "O meni",
     name: "Petar Grbić",
-    role: "Head of Operations",
+    role: "Head of Operations / Founder",
     p1: "Ja sam Petar, iz Dubrovnika, i u zipu vodim sve projekte: stranicu, oglase, pretraživanje i tekstove na svemu tome.",
     p2: "Tri sezone radio sam u dubrovačkom turizmu, na odnosima s gostima i sigurnosti za Maistra Hotels, pa znam što puna sezona radi poslu i koliko vrijedi rezervacija u kolovozu.",
   },

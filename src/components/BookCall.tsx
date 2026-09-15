@@ -102,7 +102,7 @@ export default function BookCall() {
           {/* 1 — provjera: naslov, pa odmah WhatsApp. Glavna radnja ne smije
               biti treća stvar koju vidiš. */}
           <div className="lg:col-span-5 lg:col-start-1 lg:row-start-1" data-reveal-group>
-            <h2 className="eyebrow block !text-limestone/70" data-reveal>
+            <h2 className="eyebrow caret block !text-limestone/70" data-reveal>
               {content.book.eyebrow}
             </h2>
 
@@ -134,17 +134,20 @@ export default function BookCall() {
               </div>
             )}
 
-            {/* Telefon i mail kao tekst, ne kao još gumba */}
-            <div className="mt-6 flex flex-col gap-1" data-reveal>
+            {/* Telefon i mail kao tekst, ne kao još gumba. Broj je krupniji
+                od maila: vlasniku je poziv najkraći put, mail drugi izbor
+                (Petar, 2026-09-15). Bez donje crte: hover je čista brend
+                narančasta (rust), ne blijeda varijanta. */}
+            <div className="mt-7 flex flex-col items-start gap-2" data-reveal>
               <a
                 href={`tel:${site.phone}`}
-                className="ulink -my-1.5 inline-flex min-h-11 items-center text-sm font-medium text-limestone/75"
+                className="-my-1 inline-flex min-h-11 items-center font-display text-[clamp(1.5rem,6vw,1.875rem)] font-extrabold tracking-[-0.02em] text-limestone transition-colors duration-200 hover:text-(--color-rust)"
               >
                 {site.phoneDisplay}
               </a>
               <a
                 href={`mailto:${site.email}`}
-                className="ulink -my-1.5 inline-flex min-h-11 items-center break-all text-sm font-medium text-limestone/75"
+                className="-my-1.5 inline-flex min-h-11 items-center break-all text-[1.0625rem] font-medium text-limestone/80 transition-colors duration-200 hover:text-(--color-rust)"
               >
                 {site.email}
               </a>
