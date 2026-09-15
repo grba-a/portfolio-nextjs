@@ -36,6 +36,13 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col gap-5 sm:items-end">
+            {/* CV je ovdje, ne u sekciji O meni: kupac weba ne kupuje životopis */}
+            <a
+              href={site.cv}
+              className="ulink -my-2 inline-flex min-h-11 items-center self-start text-sm text-limestone/75 sm:self-end"
+            >
+              CV
+            </a>
             <ul className="-mx-2.5 flex flex-wrap">
               {site.socials.map((sn) => {
                 const Icon = socialIcon[sn.label];

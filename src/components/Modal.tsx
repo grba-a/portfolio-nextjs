@@ -26,11 +26,18 @@ export default function Modal({
   wide?: boolean;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  const titleRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (open && !el.open) el.showModal();
+    if (open && !el.open) {
+      el.showModal();
+      // Fokus na naslov, ne na X: dialog inače fokusira prvi gumb, a WebKit
+      // mu i nakon dodira nacrta rust prsten — "zatvori" istaknut u trenutku
+      // kad čovjek potvrđuje termin.
+      titleRef.current?.focus({ preventScroll: true });
+    }
     if (!open && el.open) el.close();
   }, [open]);
 
@@ -61,7 +68,9 @@ export default function Modal({
       }`}
     >
       <div className="flex items-center justify-between gap-4 border-b border-line px-5 py-3">
-        <p className="eyebrow">{label}</p>
+        <p ref={titleRef} tabIndex={-1} className="eyebrow outline-none">
+          {label}
+        </p>
         <button
           type="button"
           onClick={onClose}

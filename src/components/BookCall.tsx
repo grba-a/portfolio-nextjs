@@ -12,6 +12,9 @@ type Status = "idle" | "sending" | "sent" | "error";
 /**
  * Zaključni blok — jedna glavna radnja, ne gomila gumba.
  *
+ * Od 2026-09-14 glavna radnja je besplatna provjera preko WhatsAppa; forma
+ * traži adresu stranice, a kalendar je "radije poziv?".
+ *
  * Kalendar je sada NA stranici, ne u popupu: kupac vidi slobodne dane i sate
  * odmah, kao na svakoj ozbiljnoj stranici za rezervacije, i bira termin bez
  * ijednog klika u prazno. Prije je ovdje stajala kartica s tri termina koja
@@ -78,7 +81,7 @@ export default function BookCall() {
     "mt-2 w-full border-b border-limestone/30 bg-transparent pb-4 pt-1.5 text-base " +
     "text-limestone transition-colors placeholder:text-limestone/45 " +
     "focus:border-limestone focus-visible:outline-2 focus-visible:outline-offset-4 " +
-    "focus-visible:outline-[--color-rust-light]";
+    "focus-visible:outline-(--color-rust-light)";
 
   const labelCls =
     "font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-limestone/70";
@@ -96,7 +99,8 @@ export default function BookCall() {
          * termini vide tek skrolanjem unutar okvira. Mjereno, ne procijenjeno.
          */}
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-16 lg:gap-y-12 lg:content-start">
-          {/* 1 — poziv */}
+          {/* 1 — provjera: naslov, pa odmah WhatsApp. Glavna radnja ne smije
+              biti treća stvar koju vidiš. */}
           <div className="lg:col-span-5 lg:col-start-1 lg:row-start-1" data-reveal-group>
             <h2 className="eyebrow caret block !text-limestone/70" data-reveal>
               {content.book.eyebrow}
@@ -115,9 +119,126 @@ export default function BookCall() {
             >
               {content.book.sub}
             </p>
+
+            {whatsappHref && (
+              <div className="mt-7 flex flex-col gap-3" data-cta data-reveal>
+                <a
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-on-dark justify-center sm:self-start"
+                >
+                  {content.book.whatsappLabel}
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            )}
+
+            {/* Telefon i mail kao tekst, ne kao još gumba */}
+            <div className="mt-6 flex flex-col gap-1" data-reveal>
+              <a
+                href={`tel:${site.phone}`}
+                className="ulink -my-1.5 inline-flex min-h-11 items-center font-mono text-sm text-limestone/75"
+              >
+                {site.phoneDisplay}
+              </a>
+              <a
+                href={`mailto:${site.email}`}
+                className="ulink -my-1.5 inline-flex min-h-11 items-center break-all font-mono text-sm text-limestone/75"
+              >
+                {site.email}
+              </a>
+            </div>
+
+            <p className="mt-3 text-sm text-limestone/70" data-reveal>
+              {content.book.reply} {content.book.language}
+            </p>
           </div>
 
-          {/* 2 — birač termina: mreža dana + termini odmah ispod nje */}
+          {/* 2 — forma, za one koji radije pišu mail: traži adresu stranice.
+              Na mobitelu ide PRIJE kalendara; na desktopu stoji lijevo dolje. */}
+          <div className="lg:col-span-5 lg:col-start-1 lg:row-start-2" data-reveal-group>
+            <details className="border-t border-limestone/20 pt-6" data-reveal>
+              <summary className="ulink inline-flex min-h-11 cursor-pointer items-center text-sm text-limestone/75">
+                {content.book.formToggle}
+              </summary>
+
+              {status === "sent" ? (
+                <p
+                  role="status"
+                  className="mt-5 border-l-2 border-limestone pl-4 text-[1.0625rem] leading-relaxed"
+                >
+                  {content.book.success}
+                </p>
+              ) : (
+                <form onSubmit={handleSubmit} noValidate className="mt-5 max-w-md">
+                  <input type="hidden" name="_subject" value="Free website check request from petargrbic.com" />
+                  <input type="hidden" name="_format" value="plain" />
+                  <input type="text" name="_gotcha" className="hidden" tabIndex={-1} aria-hidden="true" />
+
+                  {(["name", "email", "message"] as const).map((key) => {
+                    const err = errors[key];
+                    return (
+                      <div key={key} className="mb-6">
+                        <label htmlFor={key} className={labelCls}>
+                          {content.book[key]}
+                        </label>
+
+                        {key === "message" ? (
+                          <textarea
+                            id={key}
+                            name={key}
+                            rows={3}
+                            placeholder={content.book.messagePlaceholder}
+                            aria-invalid={!!err}
+                            aria-describedby={err ? `${key}-error` : undefined}
+                            className={`${field} resize-none`}
+                          />
+                        ) : (
+                          <input
+                            id={key}
+                            name={key}
+                            type={key === "email" ? "email" : "text"}
+                            autoComplete={key === "email" ? "email" : "name"}
+                            aria-invalid={!!err}
+                            aria-describedby={err ? `${key}-error` : undefined}
+                            className={field}
+                          />
+                        )}
+
+                        {err && (
+                          <p id={`${key}-error`} className="mt-2 text-sm text-(--color-rust-light)">
+                            {err}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    className="btn btn-on-dark w-full justify-center disabled:opacity-60 sm:w-auto"
+                  >
+                    {status === "sending" ? content.book.sending : content.book.send}
+                    <Send />
+                  </button>
+
+                  <p className="mt-4 max-w-[40ch] text-sm text-limestone/70">
+                    {content.book.afterSend}
+                  </p>
+
+                  {status === "error" && (
+                    <p role="alert" className="mt-4 text-sm text-(--color-rust-light)">
+                      {content.book.errorServer}
+                    </p>
+                  )}
+                </form>
+              )}
+            </details>
+          </div>
+
+          {/* 3 — radije poziv: mreža dana + termini odmah ispod nje */}
           {site.booking && (
             <div
               data-cta
@@ -154,127 +275,6 @@ export default function BookCall() {
               </p>
             </div>
           )}
-
-          {/* 3 — ostali kanali, za one koji ne žele odmah termin */}
-          <div className="lg:col-span-5 lg:col-start-1 lg:row-start-2" data-reveal-group>
-            <h3 className="eyebrow block !text-limestone/70" data-reveal>
-              {content.book.askFirst}
-            </h3>
-
-            <div className="mt-4 flex flex-col gap-3" data-cta data-reveal>
-              {whatsappHref && (
-                <a
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-on-dark justify-center sm:self-start"
-                >
-                  {content.book.whatsappLabel}
-                  <ArrowUpRight className="h-3.5 w-3.5" />
-                </a>
-              )}
-            </div>
-
-            {/* Telefon i mail kao tekst, ne kao još gumba */}
-            <div className="mt-6 flex flex-col gap-1" data-reveal>
-              <a
-                href={`tel:${site.phone}`}
-                className="ulink -my-1.5 inline-flex min-h-11 items-center font-mono text-sm text-limestone/75"
-              >
-                {site.phoneDisplay}
-              </a>
-              <a
-                href={`mailto:${site.email}`}
-                className="ulink -my-1.5 inline-flex min-h-11 items-center break-all font-mono text-sm text-limestone/75"
-              >
-                {site.email}
-              </a>
-            </div>
-
-            <p className="mt-3 text-sm text-limestone/70" data-reveal>
-              {content.book.reply} {content.book.language}
-            </p>
-
-            {/* Forma ostaje kao kanal, ali sklopljena — ne troši pažnju */}
-            <details className="mt-7 border-t border-limestone/20 pt-6" data-reveal>
-              <summary className="ulink inline-flex min-h-11 cursor-pointer items-center text-sm text-limestone/75">
-                {content.book.formToggle}
-              </summary>
-
-              {status === "sent" ? (
-                <p
-                  role="status"
-                  className="mt-5 border-l-2 border-limestone pl-4 text-[1.0625rem] leading-relaxed"
-                >
-                  {content.book.success}
-                </p>
-              ) : (
-                <form onSubmit={handleSubmit} noValidate className="mt-5 max-w-md">
-                  <input type="hidden" name="_subject" value="New message from petargrbic.com" />
-                  <input type="hidden" name="_format" value="plain" />
-                  <input type="text" name="_gotcha" className="hidden" tabIndex={-1} aria-hidden="true" />
-
-                  {(["name", "email", "message"] as const).map((key) => {
-                    const err = errors[key];
-                    return (
-                      <div key={key} className="mb-6">
-                        <label htmlFor={key} className={labelCls}>
-                          {content.book[key]}
-                        </label>
-
-                        {key === "message" ? (
-                          <textarea
-                            id={key}
-                            name={key}
-                            rows={3}
-                            placeholder={content.book.messagePlaceholder}
-                            aria-invalid={!!err}
-                            aria-describedby={err ? `${key}-error` : undefined}
-                            className={`${field} resize-none`}
-                          />
-                        ) : (
-                          <input
-                            id={key}
-                            name={key}
-                            type={key === "email" ? "email" : "text"}
-                            autoComplete={key === "email" ? "email" : "name"}
-                            aria-invalid={!!err}
-                            aria-describedby={err ? `${key}-error` : undefined}
-                            className={field}
-                          />
-                        )}
-
-                        {err && (
-                          <p id={`${key}-error`} className="mt-2 text-sm text-[--color-rust-light]">
-                            {err}
-                          </p>
-                        )}
-                      </div>
-                    );
-                  })}
-
-                  <button
-                    type="submit"
-                    disabled={status === "sending"}
-                    className="btn btn-on-dark w-full justify-center disabled:opacity-60 sm:w-auto"
-                  >
-                    {status === "sending" ? content.book.sending : content.book.send}
-                    <Send />
-                  </button>
-
-                  <p className="mt-4 max-w-[40ch] text-sm text-limestone/70">
-                    {content.book.afterSend}
-                  </p>
-
-                  {status === "error" && (
-                    <p role="alert" className="mt-4 text-sm text-[--color-rust-light]">
-                      {content.book.errorServer}
-                    </p>
-                  )}
-                </form>
-              )}
-            </details>
-          </div>
         </div>
       </div>
     </section>

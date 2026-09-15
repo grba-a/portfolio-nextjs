@@ -7,17 +7,18 @@ import { revealIn } from "@/lib/anim/reveal";
 import { Phone } from "@/components/icons";
 
 /**
- * Cijena + CTA odmah nakon Radova.
+ * Paketi + CTA odmah nakon Radova.
  *
- * Dvije stvari koje je stranica prešućivala, a bile su prve dvije kočnice
- * u glavi kupca: koliko košta i koliko traje. Tišina o cijeni se ne čita
- * kao neutralnost nego kao "skupo", pa čovjek ne zove da provjeri.
+ * Nijedna cifra: Petar 2026-09-14 ne želi da se igdje vidi točna cijena.
+ * Kočnicu "koliko košta" sada skidaju tri paketa opisana poslom vlasnika
+ * (ne brojem stranica) i obećanje da cijena stiže napismeno, nakon provjere.
  *
  * Stoji ovdje jer 3,2 ekrana dokaza prije njega inače završe u ništa —
  * ovo je trenutak najveće želje na cijeloj stranici.
  */
 export default function Pricing() {
   const scope = useRef<HTMLElement>(null);
+  const { pricing } = content;
 
   useLayoutEffect(() => {
     if (!scope.current) return;
@@ -34,18 +35,30 @@ export default function Pricing() {
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-14" data-reveal-group>
           <div className="lg:col-span-6">
             <h2 className="eyebrow caret block" data-reveal>
-              {content.pricing.eyebrow}
+              {pricing.eyebrow}
             </h2>
 
             <p
-              className="mt-4 font-display text-[clamp(2.25rem,9vw,4rem)] font-extrabold leading-[0.95] tracking-[-0.035em]"
+              className="mt-4 max-w-[18ch] font-display text-[clamp(2rem,7.5vw,3.25rem)] font-extrabold leading-[0.98] tracking-[-0.03em]"
               data-reveal
             >
-              {content.pricing.heading}
+              {pricing.heading}
             </p>
 
-            <p className="mt-5 max-w-[46ch] text-[1.0625rem] leading-relaxed text-muted" data-reveal>
-              {content.pricing.body}
+            {/* Paketi nisu slijed, pa nemaju brojeve — samo imena */}
+            <ul className="mt-8 divide-y divide-line border-y border-line">
+              {pricing.packages.map((pk) => (
+                <li key={pk.name} className="py-5" data-reveal>
+                  <p className="font-display text-xl font-extrabold tracking-[-0.02em]">{pk.name}</p>
+                  <p className="mt-1.5 max-w-[46ch] text-[1.0625rem] leading-relaxed text-muted">
+                    {pk.body}
+                  </p>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-5 text-[0.9375rem] text-muted" data-reveal>
+              {pricing.extra}
             </p>
           </div>
 
@@ -54,10 +67,10 @@ export default function Pricing() {
               className="max-w-[38ch] border-l-2 border-rust pl-4 text-[1.0625rem] leading-relaxed"
               data-reveal
             >
-              {content.pricing.reassure}
+              {pricing.reassure}
             </p>
             <p className="mt-4 max-w-[38ch] pl-4 text-[0.9375rem] leading-relaxed text-muted" data-reveal>
-              {content.pricing.timeline}
+              {pricing.timeline}
             </p>
 
             {/* Hvata kupca na vrhuncu želje, umjesto da ga šalje pet ekrana niže */}

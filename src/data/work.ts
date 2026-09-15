@@ -37,7 +37,7 @@ export const work: WorkItem[] = [
     href: "https://apartmentsgrbic.com",
     status: "live",
     shot: "/work/apartments-grbic.webp",
-    kind: "Accommodation · Adriatic coast",
+    kind: "My family's business · accommodation, Adriatic coast",
     description:
       "Booking-focused website for a family accommodation business on the Adriatic coast.",
     outcome: "Built around one action — check availability, then book.",
@@ -62,7 +62,7 @@ export const work: WorkItem[] = [
     href: "https://grba-a.github.io/grbicdizalice/",
     status: "in-development",
     shot: "/work/grbic-doo.webp",
-    kind: "Cranes & heavy equipment · Dubrovnik",
+    kind: "My family's business · cranes & heavy equipment, Dubrovnik",
     description: "Corporate website for a crane and heavy equipment company.",
     outcome: "Every service block ends in the same place — send the enquiry.",
     tags: [],

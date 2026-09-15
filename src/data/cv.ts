@@ -14,7 +14,7 @@ export const cv = {
   location: "Zagreb / Dubrovnik, Croatia",
 
   summary:
-    "I build websites for small businesses and run the ads and SEO that fill them — design, build and launch, all of it myself. Currently studying Digital Marketing at Algebra, Zagreb, with twelve Google and HubSpot certifications and four sites live.",
+    "I build websites for small businesses and run the ads and SEO that fill them — design, build and launch, handled in one place. Currently studying Digital Marketing at Algebra, Zagreb, with twelve Google and HubSpot certifications; two sites live and two in progress.",
 
   /** Kratki popis za pobočni stupac. Šire liste su u content.ts (Offer). */
   coreStack: [

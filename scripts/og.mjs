@@ -45,7 +45,7 @@ const html = `<!doctype html>
     color: #6e675e;
   }
   h1 {
-    font-size: 132px; font-weight: 800; line-height: 0.9;
+    font-size: 96px; font-weight: 800; line-height: 0.9;
     letter-spacing: -0.035em; color: #14110e; margin-top: 26px;
   }
   .masked {
@@ -67,10 +67,10 @@ const html = `<!doctype html>
 </style></head>
 <body>
   <div>
-    <p class="eyebrow">Petar Grbić — Dubrovnik, Croatia</p>
-    <h1>Websites<br><span class="masked">that sell.</span></h1>
+    <p class="eyebrow">Petar Grbić · Web design in Dubrovnik</p>
+    <h1>Three things your<br>website <span class="masked">gets wrong.</span></h1>
     <div class="rule"></div>
-    <p class="sub">Web design &amp; development · Paid ads · SEO</p>
+    <p class="sub">Free website check · Web design · Ads · Local SEO</p>
   </div>
   <div class="reel">
     ${shots.map((src) => `<img src="${src}">`).join("")}

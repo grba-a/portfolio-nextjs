@@ -206,10 +206,12 @@ export default function HeroDeck() {
                   width={760}
                   height={475}
                   sizes="(max-width: 1024px) 74vw, 60vw"
-                  priority={i < 2}
+                  // Samo vrhnja karta je LCP: ona dobiva visok prioritet, ostale
+                  // nizak, da ne dijele mrežu s njom (prije: 4 preloada, LCP ~4 s).
+                  fetchPriority={i === 0 ? "high" : "low"}
                   // Špil se pomiče transformom, ne layoutom, pa WebKit nikad ne
                   // okine lijeno učitavanje i u Safariju ostanu prazne rupe.
-                  loading={i < 2 ? undefined : "eager"}
+                  loading="eager"
                   className="h-full w-full object-cover object-top"
                 />
 

@@ -15,7 +15,7 @@ import {
 
 const TITLE = "Petar Grbić — CV";
 const DESC =
-  "Digital marketing and web design. Four live sites, twelve Google and HubSpot certifications. Zagreb / Dubrovnik, Croatia.";
+  "Digital marketing and web design. Two live sites, two in progress, twelve Google and HubSpot certifications. Zagreb / Dubrovnik, Croatia.";
 
 export const metadata: Metadata = {
   title: TITLE,

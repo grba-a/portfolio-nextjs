@@ -14,19 +14,22 @@ export const content = {
       { href: "#about", label: "About" },
       { href: "#contact", label: "Contact" },
     ],
-    cta: "Book a call",
+    cta: "Free check",
     openMenu: "Open menu",
     closeMenu: "Close menu",
   },
 
+  // Pozicioniranje "Provjera" (Petar, 2026-09-14): prvi korak je besplatna
+  // pisana provjera, ne poziv. Bez obećanog roka — broj dana nije zadan.
   hero: {
-    eyebrow: "Petar Grbić — Dubrovnik, Croatia",
-    // Riječi maske: kratke i teške, da se snimka iza njih vidi
-    line1: "Websites",
+    eyebrow: "Petar Grbić · Web design in Dubrovnik",
+    // Maska ide na drugi redak: kratak i težak, da se snimka iza vidi
+    line1: "Systems",
     line2: "that sell.",
-    sub: "I design, build and launch the whole thing — for small businesses that need to be found, trusted and booked.",
-    ctaPrimary: "Book a free call",
+    sub: "Your website, your Google listing and your booking path, working as one. Send me your address and get three findings about yours, in writing. Free.",
+    ctaPrimary: "Get the free check",
     ctaSecondary: "See the work",
+    croatian: "Govorim hrvatski.",
   },
 
   work: {
@@ -83,20 +86,34 @@ export const content = {
       "If you need something that isn't here, ask — I'll tell you if it's mine to do, or point you to someone else.",
   },
 
-  // Cijena je bila najveća prešućena kočnica: tišina se ne čita kao
-  // neutralnost nego kao "skupo", pa kupac ne zove da provjeri.
+  // Nijedna cifra nigdje na stranici (Petar, 2026-09-14: "ne želim da se
+  // igdje vidi točna cijena"). Tri paketa točno kako ih je potvrdio.
   pricing: {
-    eyebrow: "What it costs",
-    heading: "From €800.",
-    body: "That covers design, build, launch, hosting setup, mobile speed and analytics — handled in one place, not passed around. Bigger builds, with ads and SEO running, cost more.",
-    reassure: "You get the exact number in writing before any work starts. No hidden costs.",
-    timeline: "Timeline depends on scope — you get that in writing too, with the quote.",
+    eyebrow: "Packages",
+    heading: "Pick what you need. The price comes in writing.",
+    packages: [
+      {
+        name: "The website",
+        body: "Design, build and launch. Fast on a phone, hosting set up, analytics so you see what it does.",
+      },
+      {
+        name: "Website + bookings",
+        body: "Everything in The website, plus your booking system or calendar connected, so guests book you directly.",
+      },
+      {
+        name: "Care, monthly",
+        body: "Hosting, updates and your Google Business profile kept right.",
+      },
+    ],
+    extra: "Ads and SEO on top, priced separately.",
+    reassure: "Exact price in writing after the free check. No hidden costs.",
+    timeline: "Timeline in writing too, with the quote.",
   },
 
   // 3,2 ekrana dokaza prije ovoga završavala su u ništa.
   workCta: {
-    heading: "Want yours to work like these?",
-    body: "Fifteen minutes, no pitch.",
+    heading: "Want to know what yours gets wrong?",
+    body: "Send me the address. The check is free.",
   },
 
   about: {
@@ -108,8 +125,8 @@ export const content = {
     p2: "One point of contact for all of it. You brief me once and I handle the rest; when a job needs a photographer, a copywriter or a specialist, I bring one in and you still deal only with me.",
     p2b: "Before this I spent three seasons in Dubrovnik hospitality — client relations and safety operations for Maistra Hotels — so I know what a full season does to a business, and what a booking is worth in August.",
     p3: "Voluntary military training with the Croatian Ministry of Defence in 2023. That is where the discipline behind every deadline comes from.",
-    certsLabel: "12 certifications from Google & HubSpot",
-    cv: "See my CV",
+    certsLine: "Google Ads & Analytics certified",
+    certsLink: "all 12 certificates on my CV",
   },
 
   process: {
@@ -140,32 +157,34 @@ export const content = {
   },
 
   book: {
-    eyebrow: "Ready to start?",
-    heading: "Let's talk it through.",
-    sub: "Fifteen minutes, no pitch. If I'm not the right fit for what you need, I'll tell you.",
-    cta: "Book a free call",
-    whatsappLabel: "Message on WhatsApp",
+    eyebrow: "Free website check",
+    heading: "Send me your website.",
+    sub: "Three findings about your site, your Google listing and the path to a booking, in writing. Free, and no pitch attached.",
+    cta: "Get the free check",
+    whatsappLabel: "Get the free check on WhatsApp",
+    stickyLabel: "Free check on WhatsApp",
     callLabel: "Or call",
     emailLabel: "Email",
     // Engleska rečenica, ne prijevod — stranica ostaje engleska,
     // ali lokalnom kupcu skida najveću kočnicu.
     language: "Dubrovnik-based. Croatian or English, whichever suits you.",
     calendarLabel: "Pick a time",
-    calendarTitle: "Free 15-minute call",
+    calendarTitle: "Pick a day · 15 minutes",
     calendarCta: "See available times",
     nextFree: "Next free",
     // Mreža dana i termini ispod nje — vlastiti birač, ne Cal.com okvir
-    pickDay: "Pick a day",
+    pickDay: "Prefer a call?",
     timesOn: "Times on",
     loadingTimes: "Loading available times…",
+    loadingForm: "Loading the booking form…",
     confirmLabel: "Confirm your call",
     calendarFallback: "Calendar not loading? Open it on",
     askFirst: "Rather ask first?",
-    formToggle: "Rather write a message?",
+    formToggle: "Rather send it by email?",
     name: "Name",
     email: "Email",
     message: "Message",
-    messagePlaceholder: "Tell me about your business and what's not working on your website right now.",
+    messagePlaceholder: "Your website address, and what you want more of: bookings, calls, walk-ins.",
     send: "Send message",
     sending: "Sending…",
     success: "Message sent. I'll get back to you within 24 hours.",

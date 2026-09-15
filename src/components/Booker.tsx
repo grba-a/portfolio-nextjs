@@ -36,7 +36,17 @@ export default function Booker() {
   const [selected, setSelected] = useState<string | null>(null);
   const [monthShift, setMonthShift] = useState(0);
   const [slot, setSlot] = useState<string | null>(null);
+  const [calLoaded, setCalLoaded] = useState(false);
   const timesRef = useRef<HTMLDivElement>(null);
+
+  /*
+   * Dok termini ne stignu, NIŠTA se ne računa iz new Date(). Stranica je
+   * prerenderirana: server bi zapekao mjesec i "danas" s dana builda, a
+   * preglednik bi tjednima kasnije nacrtao drugi mjesec — React tada baca
+   * #418 i baca cijeli serverski HTML (hero se vrti ispočetka).
+   * Vidi vault: 60-Knowledge/prerender-bakes-build-date.md
+   */
+  const ready = state !== "loading";
 
   useEffect(() => {
     let alive = true;
@@ -81,7 +91,7 @@ export default function Booker() {
 
   const daysInMonth = new Date(shown.getFullYear(), shown.getMonth() + 1, 0).getDate();
   const lead = shown.getDay();
-  const today = key(new Date());
+  const today = ready ? key(new Date()) : "";
 
   const pick = (day: string) => {
     setSelected(day);
@@ -96,15 +106,34 @@ export default function Booker() {
     ? `${site.booking}?embed=true&theme=light&slot=${encodeURIComponent(slot)}`
     : null;
 
+  /* Naslov prozora kaže KOJI termin je odabran — prazan "Confirm your call"
+     dok se Cal.com učitava čitao se kao greška. */
+  const slotLabel = slot
+    ? `${content.book.confirmLabel} · ${new Intl.DateTimeFormat("en-GB", {
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+      }).format(new Date(slot))}, ${time(slot)}`
+    : content.book.confirmLabel;
+
+  const openSlot = (iso: string) => {
+    setCalLoaded(false);
+    setSlot(iso);
+  };
+
   return (
     <div>
       <div className="border border-limestone/20 p-4 sm:p-6">
         {/* Zaglavlje mjeseca */}
         <div className="flex items-center justify-between gap-4">
-          <p className="font-display text-lg font-extrabold tracking-[-0.02em]">
-            {shown.toLocaleString("en-GB", { month: "long" })}{" "}
-            <span className="text-limestone/60">{shown.getFullYear()}</span>
-          </p>
+          {ready ? (
+            <p className="font-display text-lg font-extrabold tracking-[-0.02em]">
+              {shown.toLocaleString("en-GB", { month: "long" })}{" "}
+              <span className="text-limestone/60">{shown.getFullYear()}</span>
+            </p>
+          ) : (
+            <span className="block h-7 w-36 rounded-[3px] bg-limestone/10" aria-hidden="true" />
+          )}
 
           <div className="-mr-2 flex">
             {([-1, 1] as const).map((dir) => {
@@ -144,9 +173,18 @@ export default function Booker() {
             once:true, pa bi ćelije koje React zamijeni pri promjeni mjeseca
             ostale na opacity 0, bez ijedne greške u konzoli. */}
         <div className="grid grid-cols-7">
-          {Array.from({ length: lead }).map((_, i) => <div key={`b${i}`} />)}
+          {/* Kostur bez datuma dok se termini učitavaju: isti HTML na serveru
+              i u pregledniku, bez obzira na dan builda. */}
+          {!ready &&
+            Array.from({ length: 35 }, (_, i) => (
+              <div key={`s${i}`} className="p-[2px]" aria-hidden="true">
+                <div className="h-11 rounded-[3px] bg-limestone/5" />
+              </div>
+            ))}
 
-          {Array.from({ length: daysInMonth }, (_, i) => {
+          {ready && Array.from({ length: lead }).map((_, i) => <div key={`b${i}`} />)}
+
+          {ready && Array.from({ length: daysInMonth }, (_, i) => {
             const day = key(new Date(shown.getFullYear(), shown.getMonth(), i + 1));
             const free = !!days[day]?.length;
             const isSel = day === selected;
@@ -173,7 +211,7 @@ export default function Booker() {
                 >
                   {i + 1}
                   {isToday && !isSel && (
-                    <span className="absolute bottom-1 h-1 w-1 rounded-full bg-[--color-rust-light]" aria-hidden="true" />
+                    <span className="absolute bottom-1 h-1 w-1 rounded-full bg-(--color-rust-light)" aria-hidden="true" />
                   )}
                 </button>
               </div>
@@ -215,7 +253,7 @@ export default function Booker() {
                 <button
                   key={iso}
                   type="button"
-                  onClick={() => setSlot(iso)}
+                  onClick={() => openSlot(iso)}
                   className="inline-flex min-h-11 items-center border border-limestone/40 px-4 font-mono text-sm text-limestone transition-colors hover:border-limestone hover:bg-limestone/10"
                 >
                   {time(iso)}
@@ -227,13 +265,28 @@ export default function Booker() {
       </div>
 
       {/* Cal.com se učita tek ovdje — i to ravno na obrazac za odabrani termin */}
-      <Modal open={!!calUrl} onClose={() => setSlot(null)} label={content.book.confirmLabel}>
+      <Modal open={!!calUrl} onClose={() => setSlot(null)} label={slotLabel}>
         {calUrl && (
-          <iframe
-            src={calUrl}
-            title={content.book.confirmLabel}
-            className="h-[70vh] min-h-[480px] w-full border-0"
-          />
+          <div className="relative">
+            {!calLoaded && (
+              <div className="absolute inset-0 grid content-start gap-3 p-5" aria-hidden="true">
+                <div className="h-5 w-2/3 rounded-[3px] bg-ink/5" />
+                <div className="h-11 rounded-[3px] bg-ink/5" />
+                <div className="h-11 rounded-[3px] bg-ink/5" />
+                <div className="h-24 rounded-[3px] bg-ink/5" />
+                <p className="text-sm text-muted">{content.book.loadingForm}</p>
+              </div>
+            )}
+            <iframe
+              src={calUrl}
+              title={slotLabel}
+              onLoad={() => setCalLoaded(true)}
+              className={
+                "relative h-[70vh] min-h-[480px] w-full border-0 transition-opacity duration-200 " +
+                (calLoaded ? "opacity-100" : "opacity-0")
+              }
+            />
+          </div>
         )}
       </Modal>
     </div>

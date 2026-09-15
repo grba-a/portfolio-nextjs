@@ -59,9 +59,10 @@ export const site = {
 
 /**
  * Prazan WhatsApp chat je sam po sebi kočnica — kupac mora smisliti prvu
- * rečenicu. Pripremljena poruka ostavlja mu da dopiše samo svoj posao.
+ * rečenicu. Pripremljena poruka traži provjeru, a on dopiše samo adresu.
+ * (Prije: "I saw your site" — krivo za vlasnika kojem se Petar prvi javio.)
  */
-const WA_TEXT = "Hi Petar — I saw your site. I run a ";
+const WA_TEXT = "Hi Petar, I'd like the free website check. My site: ";
 
 export const whatsappHref = site.whatsapp
   ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(WA_TEXT)}`

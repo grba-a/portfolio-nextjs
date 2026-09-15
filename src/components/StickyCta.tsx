@@ -43,7 +43,10 @@ export default function StickyCta() {
         );
         sync();
       },
-      { threshold: 0.6 },
+      // Donji rub skraćen za visinu trake: traka nestane tek kad gumb
+      // stranice bude CIJELI iznad nje. S 0.6 je ležala 18 px preko njega,
+      // a s punim rubom se gasila dok je gumb još presječen dnom ekrana.
+      { threshold: 0, rootMargin: "0px 0px -72px 0px" },
     );
     blocks.forEach((el) => io.observe(el));
 
@@ -68,9 +71,9 @@ export default function StickyCta() {
             target="_blank"
             rel="noopener noreferrer"
             tabIndex={show ? 0 : -1}
-            className="btn btn-primary flex-[3] justify-center !py-3.5"
+            className="btn btn-primary flex-[3] justify-center whitespace-nowrap !py-3.5"
           >
-            {content.book.whatsappLabel}
+            {content.book.stickyLabel}
           </a>
         )}
         <a
