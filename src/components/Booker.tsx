@@ -123,7 +123,7 @@ export default function Booker() {
 
   return (
     <div>
-      <div className="border border-limestone/20 p-4 sm:p-6">
+      <div className="rounded-[14px] border border-limestone/20 p-4 sm:p-6">
         {/* Zaglavlje mjeseca */}
         <div className="flex items-center justify-between gap-4">
           {ready ? (
@@ -132,7 +132,7 @@ export default function Booker() {
               <span className="text-limestone/60">{shown.getFullYear()}</span>
             </p>
           ) : (
-            <span className="block h-7 w-36 rounded-[3px] bg-limestone/10" aria-hidden="true" />
+            <span className="block h-7 w-36 rounded-[8px] bg-limestone/10" aria-hidden="true" />
           )}
 
           <div className="-mr-2 flex">
@@ -162,7 +162,7 @@ export default function Booker() {
         {/* Nazivi dana — jedno slovo, jer na 360px sedam riječi ne stane */}
         <div className="mt-4 grid grid-cols-7">
           {WEEK.map((d, i) => (
-            <p key={i} className="pb-2 text-center font-mono text-[0.625rem] uppercase tracking-[0.14em] text-limestone/60">
+            <p key={i} className="pb-2 text-center text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-limestone/60">
               <span aria-hidden="true">{d}</span>
               <span className="sr-only">{WEEK_FULL[i]}</span>
             </p>
@@ -178,7 +178,7 @@ export default function Booker() {
           {!ready &&
             Array.from({ length: 35 }, (_, i) => (
               <div key={`s${i}`} className="p-[2px]" aria-hidden="true">
-                <div className="h-11 rounded-[3px] bg-limestone/5" />
+                <div className="h-11 rounded-[8px] bg-limestone/5" />
               </div>
             ))}
 
@@ -199,7 +199,7 @@ export default function Booker() {
                   aria-pressed={isSel}
                   aria-label={`${longDay(day)}${free ? "" : " — no times"}`}
                   className={
-                    "relative grid h-11 w-full place-items-center rounded-[3px] text-sm transition-colors " +
+                    "relative grid h-11 w-full place-items-center rounded-[8px] text-sm transition-colors " +
                     // Puna inverzija za odabrani dan: polutransparentna svijetla
                     // ploha s tamnim tekstom daje ~1:1 kontrast na tinti.
                     (isSel
@@ -243,7 +243,7 @@ export default function Booker() {
               <p className="eyebrow !text-limestone/70">
                 {content.book.timesOn} {longDay(selected)}
               </p>
-              <p className="font-mono text-[0.625rem] uppercase tracking-[0.14em] text-limestone/60">
+              <p className="text-xs text-limestone/60">
                 {localZone.replace("_", " ")}
               </p>
             </div>
@@ -254,7 +254,7 @@ export default function Booker() {
                   key={iso}
                   type="button"
                   onClick={() => openSlot(iso)}
-                  className="inline-flex min-h-11 items-center border border-limestone/40 px-4 font-mono text-sm text-limestone transition-colors hover:border-limestone hover:bg-limestone/10"
+                  className="inline-flex min-h-11 items-center rounded-[10px] border border-limestone/40 px-4 text-sm font-medium tabular-nums text-limestone transition-[colors,transform] duration-150 hover:border-limestone hover:bg-limestone/10 active:scale-[0.97]"
                 >
                   {time(iso)}
                 </button>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { content } from "@/data/content";
 import ZipLogo from "@/components/ZipLogo";
+import Link from "next/link";
 
 /**
  * Mobile-first navigacija.
@@ -37,17 +38,31 @@ export default function Nav() {
     // Skup, ne zadnji entry: kontakt i podnožje su dva zasebna elementa
     // pa bi se inače utrkivali i traka bi treptala na granici među njima.
     const active = new Set<Element>();
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) =>
-          e.isIntersecting ? active.add(e.target) : active.delete(e.target),
-        );
-        setOnDark(active.size > 0);
-      },
-      { rootMargin: "-76px 0px -100% 0px", threshold: 0 },
-    );
-    darks.forEach((d) => io.observe(d));
-    return () => io.disconnect();
+    let io: IntersectionObserver | null = null;
+    // Pojas visine zaglavlja (76 px) na vrhu ekrana, u pikselima. Prije je
+    // bio "-76px 0px -100% 0px" — pojas bez visine; Chromium ga je
+    // tolerirao, a WebKit (iPhone) nikad nije javio presjek, pa je traka
+    // ostajala svijetla iznad tamnog kontakta (QA-3).
+    const watch = () => {
+      io?.disconnect();
+      active.clear();
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) =>
+            e.isIntersecting ? active.add(e.target) : active.delete(e.target),
+          );
+          setOnDark(active.size > 0);
+        },
+        { rootMargin: `0px 0px -${Math.max(0, window.innerHeight - 76)}px 0px`, threshold: 0 },
+      );
+      darks.forEach((d) => io!.observe(d));
+    };
+    watch();
+    window.addEventListener("resize", watch);
+    return () => {
+      window.removeEventListener("resize", watch);
+      io?.disconnect();
+    };
   }, []);
 
   // Escape zatvara izbornik — inače je na tipkovnici zamka
@@ -78,37 +93,37 @@ export default function Nav() {
         }`}
       >
         <div className="shell flex h-[68px] items-center justify-between gap-4 sm:h-[76px]">
-          <a
-            href="#top"
+          <Link
+            href="/#top"
             onClick={() => setOpen(false)}
             className="relative z-50 -my-3 block py-3"
           >
             {/* zip, brand od 2026-09-15; rjeđe crte jer je logo malen */}
             <ZipLogo id="zip-nav" pitch={17} className="h-9 w-auto" />
-          </a>
+          </Link>
 
           {/* Izbornik govori jezikom oznaka (mono, verzal, razmaknuto) kao
               .eyebrow i brojevi projekata. Prije je bio isti font i veličina
               kao rečenice ispod, pa traka nije imala vlastiti glas. */}
           <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
             {nav.links.map((l) => (
-              <a
+              <Link
                 key={l.href}
                 href={l.href}
-                className={`ulink -my-3 py-3 font-mono text-xs uppercase tracking-[0.12em] transition-colors ${onDark ? "text-limestone/65 hover:text-limestone" : "text-muted hover:text-ink"}`}
+                className={`ulink -my-3 py-3 text-sm font-medium transition-colors ${onDark ? "text-limestone/65 hover:text-limestone" : "text-muted hover:text-ink"}`}
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
           <div className="flex items-center gap-2">
-            <a
-              href="#contact"
+            <Link
+              href="/#contact"
               className={`btn hidden !px-5 !py-2.5 !text-sm md:inline-flex ${onDark ? "btn-on-dark" : "btn-primary"}`}
             >
               {nav.cta}
-            </a>
+            </Link>
 
             <button
               type="button"
@@ -145,7 +160,7 @@ export default function Nav() {
       >
         <div className="shell flex h-full flex-col justify-center gap-1 pb-20">
           {nav.links.map((l, i) => (
-            <a
+            <Link
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
@@ -160,16 +175,16 @@ export default function Nav() {
               }}
             >
               {l.label}
-            </a>
+            </Link>
           ))}
 
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             onClick={() => setOpen(false)}
             className="btn btn-primary mt-8 justify-center"
           >
             {nav.cta}
-          </a>
+          </Link>
         </div>
       </div>
     </>

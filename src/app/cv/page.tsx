@@ -206,7 +206,7 @@ export default function CvPage() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ulink -my-1.5 inline-flex min-h-11 items-center gap-1 text-sm text-rust print:my-0 print:min-h-0 print:text-[8pt] print:text-ink"
+                      className="ulink -my-1.5 inline-flex min-h-11 items-center gap-1 text-sm text-rust-ink print:my-0 print:min-h-0 print:text-[8pt] print:text-ink"
                     >
                       {item.href.replace(/^https?:\/\//, "").replace(/\/$/, "")}
                       <ArrowUpRight className="h-3 w-3 print:hidden" />
@@ -231,7 +231,7 @@ export default function CvPage() {
             <dl className="mt-5 space-y-4 print:mt-2 print:space-y-1.5">
               {Object.entries(byIssuer).map(([issuer, items]) => (
                 <div key={issuer} className="print:break-inside-avoid">
-                  <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-rust print:text-[7pt] print:text-ink">
+                  <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-rust-ink print:text-[7pt] print:text-ink">
                     {issuer}
                   </dt>
                   <dd className="mt-2 flex flex-wrap gap-2 print:mt-0.5 print:gap-1">

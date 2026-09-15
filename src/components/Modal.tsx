@@ -63,7 +63,7 @@ export default function Modal({
       }}
       // Statične klase, ne template literal: Tailwind skenira izvor i klasu
       // složenu u stringu pri izvođenju nikad ne bi ni generirao.
-      className={`m-auto rounded-[6px] border border-line bg-limestone p-0 text-ink backdrop:bg-ink/70 backdrop:backdrop-blur-sm ${
+      className={`m-auto overflow-hidden rounded-[18px] border border-line bg-limestone p-0 text-ink backdrop:bg-ink/70 backdrop:backdrop-blur-sm ${
         wide ? "w-[min(94vw,980px)]" : "w-[min(94vw,760px)]"
       }`}
     >

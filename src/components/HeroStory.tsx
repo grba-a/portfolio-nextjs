@@ -25,7 +25,11 @@ const CTA_DUR = 9000;
 /* Crteži: tinta (.k) za predmete, rust (.r) za ono što provjera označi.
    --d je kašnjenje poteza, --l njegovo trajanje. Statični nizovi, bez
    korisničkih podataka — zato smiju kroz dangerouslySetInnerHTML. */
-const SCENES = [
+/** Natpisi unutar crteža — engleski na /, hrvatski na /hr */
+export type DrawLabels = { you: string; call: string; website: string; book: string };
+const EN_LABELS: DrawLabels = { you: "you?", call: "Call", website: "Website", book: "Book now" };
+
+const scenes = (l: DrawLabels) => [
   // 1 — netko upravo traži
   '<rect class="k draw" style="--d:0s;--l:.7s" pathLength="1" x="110" y="12" width="100" height="214" rx="16"/>' +
     '<path class="k draw" style="--d:.35s;--l:.2s" pathLength="1" d="M150 23h20"/>' +
@@ -42,7 +46,7 @@ const SCENES = [
     '<path class="k draw" style="--d:1.85s;--l:.25s" pathLength="1" d="M128 159h46M128 169h22"/>' +
     '<ellipse class="r draw" style="--d:2.2s;--l:.6s" pathLength="1" cx="160" cy="124" rx="52" ry="24"/>' +
     '<path class="r draw" style="--d:2.7s;--l:.3s" pathLength="1" d="M214 112c10-6 18-14 22-24"/>' +
-    '<text class="pop" style="--d:2.95s" x="226" y="80">you?</text>',
+    '<text class="pop" style="--d:2.95s" x="226" y="80">' + l.you + '</text>',
   // 2 — Found: Google profil ne vodi na stranicu
   '<rect class="k draw" style="--d:0s;--l:.6s" pathLength="1" x="16" y="30" width="136" height="180" rx="12"/>' +
     '<path class="k draw" style="--d:.2s;--l:.6s" pathLength="1" d="M16 104c40-12 72 22 136 6"/>' +
@@ -53,8 +57,8 @@ const SCENES = [
     '<path class="k draw" style="--d:1.15s;--l:.3s" pathLength="1" d="M184 88h96M184 102h64"/>' +
     '<rect class="k draw" style="--d:1.35s;--l:.3s" pathLength="1" x="184" y="140" width="48" height="24" rx="12"/>' +
     '<rect class="k draw" style="--d:1.5s;--l:.3s" pathLength="1" x="238" y="140" width="56" height="24" rx="12"/>' +
-    '<text class="pop" style="--d:1.6s" x="197" y="155.5">Call</text>' +
-    '<text class="pop" style="--d:1.7s" x="245" y="155.5">Website</text>' +
+    '<text class="pop" style="--d:1.6s" x="197" y="155.5">' + l.call + '</text>' +
+    '<text class="pop" style="--d:1.7s" x="245" y="155.5">' + l.website + '</text>' +
     '<ellipse class="r draw" style="--d:2.1s;--l:.55s" pathLength="1" cx="266" cy="152" rx="40" ry="21"/>' +
     '<path class="r draw" style="--d:2.6s;--l:.2s" pathLength="1" d="M292 118l10 10M302 118l-10 10"/>',
   // 3 — Trusted: stranica
@@ -67,7 +71,7 @@ const SCENES = [
     '<path class="k draw" style="--d:1.25s;--l:.35s;stroke-width:5" pathLength="1" d="M52 148h150"/>' +
     '<path class="k draw" style="--d:1.4s;--l:.3s" pathLength="1" d="M52 164h104"/>' +
     '<rect class="k draw" style="--d:1.55s;--l:.35s" pathLength="1" x="52" y="178" width="92" height="26" rx="13"/>' +
-    '<text class="pop" style="--d:1.75s" x="73" y="195">Book now</text>' +
+    '<text class="pop" style="--d:1.75s" x="73" y="195">' + l.book + '</text>' +
     '<path class="r draw" style="--d:2.1s;--l:.5s" pathLength="1" d="M54 214c26-4 56-3 88-1"/>' +
     '<path class="r draw" style="--d:2.5s;--l:.35s" pathLength="1" d="M214 150l8 9 18-20"/>',
   // 4 — Booked: put do rezervacije pukne, pa se spoji
@@ -99,16 +103,31 @@ const SCENES = [
 const reduced = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-export default function HeroStory() {
-  const { story } = content;
+export type Story = {
+  label: string;
+  prev: string;
+  next: string;
+  scenes: readonly { title: string; free: string | null; body: string; cta: string | null }[];
+};
+
+export default function HeroStory({
+  story = content.story,
+  ctaHref = whatsappHref,
+  labels = EN_LABELS,
+}: {
+  story?: Story;
+  ctaHref?: string | null;
+  labels?: DrawLabels;
+}) {
+  const SCENES = scenes(labels);
   const n = story.scenes.length;
   const [active, setActive] = useState(0);
   const [turn, setTurn] = useState(0); // svaka promjena ponovno pokrene crtež i traku
-  const [hold, setHold] = useState(false); // miš nad špilom — stoji
   const [lap, setLap] = useState(0); // traka napretka i timer kreću zajedno
   const tilt = useRef<HTMLDivElement>(null);
   const host = useRef<HTMLDivElement>(null);
   const startX = useRef<number | null>(null);
+  const swiped = useRef(false); // da klik nakon povlačenja ne prelista još jednom
 
   const go = (i: number) => {
     setActive(((i % n) + n) % n);
@@ -117,38 +136,45 @@ export default function HeroStory() {
   };
 
   // Sam se prelistava u krug (Petar: "da nije statičan"); na gumbu stoji dulje.
+  // Miš nad špilom NE pauzira i ne resetira ništa (Petar, 2026-09-15).
   useEffect(() => {
-    if (hold || reduced()) return;
+    if (reduced()) return;
     const id = setTimeout(() => {
       setActive((a) => (a + 1) % n);
       setTurn((t) => t + 1);
       setLap((l) => l + 1);
     }, active === n - 1 ? CTA_DUR : DUR);
     return () => clearTimeout(id);
-  }, [active, lap, hold, n]);
+  }, [active, lap, n]);
 
   /* Kotačić i trackpad listaju karte. Okomiti pomak NE otima scroll —
      stranica klizi dalje, a špil se usput prelistava. */
   useEffect(() => {
     const el = host.current;
     if (!el || reduced()) return;
-    let lastWheel = 0;
+    /* Jedan pokret = jedna scena (Petar, 2026-09-15: "ne dvije odjednom ako
+       jače zascrollam"). Trackpad nakon podizanja prstiju još ~1 s šalje
+       inercijske evente; brava se otpusti tek kad 450 ms nema nijednog. */
+    let locked = false;
+    let idle: ReturnType<typeof setTimeout> | undefined;
     const onWheel = (e: WheelEvent) => {
       const horizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
       const delta = horizontal ? e.deltaX : e.deltaY;
       if (Math.abs(delta) < 4) return;
-      if (e.timeStamp - lastWheel < 320) {
-        if (horizontal) e.preventDefault();
-        return;
-      }
-      lastWheel = e.timeStamp;
+      if (horizontal) e.preventDefault();
+      clearTimeout(idle);
+      idle = setTimeout(() => (locked = false), 450);
+      if (locked) return;
+      locked = true;
       setActive((i) => (((i + (delta > 0 ? 1 : -1)) % n) + n) % n);
       setTurn((t) => t + 1);
       setLap((l) => l + 1);
-      if (horizontal) e.preventDefault();
     };
     el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
+    return () => {
+      clearTimeout(idle);
+      el.removeEventListener("wheel", onWheel);
+    };
   }, [n]);
 
   /** Pomak karte od vrha, po najkraćem putu (špil je u krug). */
@@ -176,13 +202,8 @@ export default function HeroStory() {
       role="region"
       aria-roledescription="carousel"
       aria-label={story.label}
-      className={"w-full" + (hold ? " st-hold" : "")}
-      // Samo pravi miš zaustavlja špil; na dodiru bi "hover" zapeo zauvijek
-      onPointerEnter={(e) => e.pointerType === "mouse" && setHold(true)}
-      onPointerLeave={(e) => {
-        if (e.pointerType !== "mouse") return;
-        setHold(false);
-        setLap((l) => l + 1);
+      className="w-full"
+      onPointerLeave={() => {
         if (tilt.current) tilt.current.style.transform = "";
       }}
       onKeyDown={(e) => {
@@ -193,11 +214,17 @@ export default function HeroStory() {
       <div
         ref={host}
         className="relative h-[calc(min(84vw,460px)*0.75_+_26px)] [perspective:1100px] [touch-action:pan-y] lg:aspect-[4/3] lg:h-auto"
-        onPointerDown={(e) => (startX.current = e.clientX)}
+        onPointerDown={(e) => {
+          startX.current = e.clientX;
+          swiped.current = false;
+        }}
         onPointerUp={(e) => {
           if (startX.current === null) return;
           const dx = e.clientX - startX.current;
-          if (Math.abs(dx) > 40) go(active + (dx < 0 ? 1 : -1));
+          if (Math.abs(dx) > 40) {
+            swiped.current = true;
+            go(active + (dx < 0 ? 1 : -1));
+          }
           startX.current = null;
         }}
         onPointerCancel={() => (startX.current = null)}
@@ -215,7 +242,12 @@ export default function HeroStory() {
               <div
                 key={i}
                 aria-hidden="true"
-                onClick={() => !onTop && go(i)}
+                // Dodir na gornju kartu = sljedeća scena (na mobitelu nema strelica);
+                // dodir na kartu ispod je digne na vrh
+                onClick={() => {
+                  if (swiped.current) return;
+                  go(onTop ? active + 1 : i);
+                }}
                 style={{
                   // Transform samo odavde — Tailwind transform klase bi se otimale
                   transform:
@@ -227,8 +259,7 @@ export default function HeroStory() {
                   zIndex: 20 - abs,
                 }}
                 className={
-                  "absolute inset-x-0 top-0 mx-auto aspect-[4/3] w-[min(84vw,460px)] overflow-hidden rounded-[14px] border border-line bg-paper shadow-[0_18px_40px_-22px_rgba(20,17,14,0.55)] transition-[transform,opacity] duration-[620ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none lg:w-full " +
-                  (onTop ? "" : "cursor-pointer")
+                  "absolute inset-x-0 top-0 mx-auto aspect-[4/3] w-[min(84vw,460px)] cursor-pointer overflow-hidden rounded-[14px] border border-line bg-paper shadow-[0_18px_40px_-22px_rgba(20,17,14,0.55)] transition-[transform,opacity] duration-[620ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none lg:w-full"
                 }
               >
                 <svg
@@ -246,7 +277,8 @@ export default function HeroStory() {
 
       {/* Riječi ispod špila. Visina rezervirana za najdulji opis i red s
           gumbom, pa se stranica ispod ne pomiče dok se špil vrti (CLS). */}
-      <div className="mt-6 lg:mt-8">
+      {/* Mobitel: samo trake i naslov scene (KISS). Opis i strelice od lg. */}
+      <div className="mt-4 lg:mt-8">
         <div className="grid grid-cols-5 gap-1.5" aria-hidden="true">
           {story.scenes.map((_, i) => (
             <span
@@ -259,11 +291,11 @@ export default function HeroStory() {
           ))}
         </div>
 
-        <div key={turn} className="st-cap mt-4 min-h-[8.75rem] lg:min-h-[7.25rem]">
-          <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-muted">
+        <div key={turn} className="st-cap mt-3 min-h-[3.4rem] lg:mt-4 lg:min-h-[7.25rem]">
+          <p className="hidden text-sm font-medium text-muted tabular-nums lg:block">
             {active + 1} / {n}
           </p>
-          <p className="mt-1.5 font-display text-[1.625rem] font-extrabold leading-[1.02] tracking-[-0.03em] lg:text-[2rem]">
+          <p className="font-display text-[1.5rem] font-extrabold leading-[1.05] tracking-[-0.03em] lg:mt-1.5 lg:text-[2rem]">
             {scene.title}
             {scene.free && (
               <>
@@ -272,25 +304,25 @@ export default function HeroStory() {
               </>
             )}
           </p>
-          <p className="mt-2 max-w-[42ch] text-[0.9375rem] leading-relaxed text-ink-2 lg:text-base">
+          <p className="mt-2 hidden max-w-[42ch] text-base leading-relaxed text-ink-2 lg:block">
             {scene.body}
           </p>
         </div>
 
-        <div className="mt-3 flex h-12 items-center justify-between gap-3">
-          {last && scene.cta && whatsappHref ? (
+        {/* Desktop: gumb desno i IZNAD strelica (Petar, 2026-09-15).
+            Visina je rezervirana, pa se ništa ne pomakne na zadnjoj sceni. */}
+        <div className="mt-3 hidden lg:flex lg:min-h-[6.75rem] lg:flex-col lg:items-end lg:gap-3">
+          {last && scene.cta && ctaHref && (
             <a
-              href={whatsappHref}
+              href={ctaHref}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary justify-center"
             >
               {scene.cta}
             </a>
-          ) : (
-            <span />
           )}
-          <div className="flex gap-2">
+          <div className="mt-auto flex gap-2">
             {(["prev", "next"] as const).map((dir) => (
               <button
                 key={dir}

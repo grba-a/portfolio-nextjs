@@ -20,6 +20,8 @@ export type WorkItem = {
   status: WorkStatus;
   /** public/work/<slug>.webp — snima scripts/shoot.mjs */
   shot: string;
+  /** Na naslovnici su samo tri; ostali žive na /work (Petar, 2026-09-15) */
+  featured: boolean;
   /** Kratka oznaka djelatnosti i mjesta */
   kind: string;
   /** Opis točno kako stoji na petargrbic.com */
@@ -37,6 +39,7 @@ export const work: WorkItem[] = [
     href: "https://apartmentsgrbic.com",
     status: "live",
     shot: "/work/apartments-grbic.webp",
+    featured: true,
     kind: "My family's business · accommodation, Adriatic coast",
     description:
       "Booking-focused website for a family accommodation business on the Adriatic coast.",
@@ -50,6 +53,7 @@ export const work: WorkItem[] = [
     href: "https://studioamage.com",
     status: "live",
     shot: "/work/studio-amage.webp",
+    featured: true,
     kind: "Hair studio · Split",
     description: "Clean, modern website for a hair studio in Split, Croatia.",
     outcome: "The work is the first thing you see; booking is one tap away.",
@@ -62,6 +66,7 @@ export const work: WorkItem[] = [
     href: "https://grba-a.github.io/grbicdizalice/",
     status: "in-development",
     shot: "/work/grbic-doo.webp",
+    featured: true,
     kind: "My family's business · cranes & heavy equipment, Dubrovnik",
     description: "Corporate website for a crane and heavy equipment company.",
     outcome: "Every service block ends in the same place — send the enquiry.",
@@ -74,6 +79,7 @@ export const work: WorkItem[] = [
     href: "https://festanjuli-web.vercel.app/",
     status: "in-development",
     shot: "/work/vk-festanjuli.webp",
+    featured: false,
     kind: "Water polo club · Zagreb",
     description:
       "Website for an amateur water polo team — Dubrovnik locals playing out of Zagreb.",
@@ -92,6 +98,7 @@ export const work: WorkItem[] = [
   //   href: "https://",
   //   status: "live",
   //   shot: "/work/<slug>.webp",
+  //   featured: false,
   //   kind: "",
   //   description: "",
   //   outcome: "",

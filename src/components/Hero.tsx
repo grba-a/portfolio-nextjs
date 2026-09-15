@@ -25,10 +25,13 @@ export default function Hero() {
        * Desktop: špil je podignut i širi (7 stupaca), naslov s CTA-ima spušten
        * (5 stupaca, gurnut prema dolje). Prije su oba stupca bila centrirana i
        * jednake širine, pa je gornja polovica bila puna, a donja lijeva prazna.
-       * Mobitel se ne dira — tamo je raspored već dobar.
+       * Mobitel (Petar, 2026-09-15): animacija gore, naslov i jedan gumb na
+       * kraju heroja — minimalno, ali da prodaje. Špil je u kodu drugi (h1
+       * ostaje prvi za čitače i Google), a na mobitelu ga `order-first`
+       * digne na vrh.
        */}
       <div className="shell flex min-h-[calc(100svh-6rem)] flex-col justify-between gap-6 pb-10 sm:min-h-[calc(100svh-8rem)] sm:pb-14 lg:grid lg:min-h-0 lg:grid-cols-12 lg:items-start lg:gap-x-12 lg:py-14">
-        <div className="flex flex-1 flex-col justify-center py-8 sm:py-10 lg:col-span-5 lg:flex-none lg:py-0 lg:pt-24 xl:pt-32">
+        <div className="flex flex-1 flex-col justify-end sm:py-10 lg:col-span-5 lg:flex-none lg:justify-center lg:py-0 lg:pt-24 xl:pt-32">
         <p className="eyebrow rise rise-1">{hero.eyebrow}</p>
 
         <h1 className="mt-4 text-[clamp(3.25rem,13.5vw,11rem)] sm:mt-7 lg:text-[clamp(3.5rem,6.5vw,7rem)]">
@@ -53,11 +56,11 @@ export default function Hero() {
           </span>
         </h1>
 
-        <p className="rise rise-2 mt-6 max-w-[46ch] text-[1.0625rem] leading-relaxed text-muted sm:mt-9 sm:text-lg">
+        <p className="rise rise-2 mt-4 max-w-[46ch] text-[1.0625rem] leading-relaxed text-muted sm:mt-9 sm:text-lg">
           {hero.subBefore} <FreeMark>{hero.subFree}</FreeMark>
         </p>
 
-        <div className="rise rise-3 mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
+        <div className="rise rise-3 mt-6 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
           {/* Glavna radnja otvara WhatsApp s gotovom porukom za provjeru —
               vlasnik malog posla živi u WhatsAppu, a poziv sa strancem je
               najveća obveza na stranici. Bez WhatsAppa vodi na kontakt. */}
@@ -68,21 +71,18 @@ export default function Hero() {
           >
             {hero.ctaPrimary}
           </a>
-          <a href="#work" className="btn btn-ghost justify-center sm:justify-start">
+          {/* Na mobitelu samo jedan gumb; radovi ionako slijede odmah ispod */}
+          <a href="#work" className="btn btn-ghost hidden justify-center sm:inline-flex sm:justify-start">
             {hero.ctaSecondary}
           </a>
         </div>
-
-        <p lang="hr" className="rise rise-4 mt-4 text-sm text-muted">
-          {hero.croatian}
-        </p>
         </div>
 
         {/* Špil pravih snimki — dokaz odmah, prije bilo kakvog obećanja */}
         {/* Šest stupaca, ne sedam: na širokom ekranu su kartice preko sedam
             stupaca bile veće od naslova i preuzimale kadar. Prazan šesti
             stupac je razmak između teksta i špila. */}
-        <div className="rise rise-4 w-full lg:col-span-6 lg:col-start-7">
+        <div className="rise rise-1 order-first w-full lg:order-none lg:col-span-6 lg:col-start-7">
           <HeroStory />
         </div>
       </div>

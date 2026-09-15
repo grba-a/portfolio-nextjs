@@ -64,7 +64,7 @@ export default async function ProspectPage({ params }: Props) {
       <div className="shell pt-12 sm:pt-16">
         <div className="max-w-2xl">
           <p className="eyebrow">Za: {p.name}</p>
-          <p className="mt-2 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-muted">
+          <p className="mt-2 text-sm font-medium text-muted">
             Provjereno {hrDate(p.checkedOn)}
           </p>
 
@@ -83,7 +83,7 @@ export default async function ProspectPage({ params }: Props) {
                 <span className="font-display text-2xl font-extrabold leading-none text-rust-ink">{i + 1}</span>
                 <div>
                   <p className="text-[1.125rem] font-semibold leading-snug text-ink">{f.title}</p>
-                  <p className="mt-3 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-muted">
+                  <p className="mt-3 text-sm font-medium text-muted">
                     Kako provjeriti
                   </p>
                   <p className="mt-1 text-[1rem] leading-relaxed text-muted">{f.check}</p>
@@ -126,7 +126,7 @@ export default async function ProspectPage({ params }: Props) {
               )}
               <a
                 href={`tel:${site.phone}`}
-                className="ulink -my-2 inline-flex min-h-11 items-center justify-center font-mono text-sm text-muted"
+                className="ulink -my-2 inline-flex min-h-11 items-center justify-center text-sm font-medium text-muted"
               >
                 ili nazovite {site.phoneDisplay}
               </a>
@@ -134,7 +134,7 @@ export default async function ProspectPage({ params }: Props) {
           </div>
 
           <p className="mt-14 text-sm text-muted">
-            zip · web dizajn, Dubrovnik ·{" "}
+            zip · web dizajn ·{" "}
             <Link href="/" className="ulink -my-2 inline-flex min-h-11 items-center">
               petargrbic.com
             </Link>

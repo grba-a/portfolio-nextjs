@@ -9,10 +9,10 @@
 export const content = {
   nav: {
     links: [
-      { href: "#work", label: "Work" },
-      { href: "#how", label: "How it works" },
-      { href: "#about", label: "About" },
-      { href: "#contact", label: "Contact" },
+      { href: "/#work", label: "Work" },
+      { href: "/#how", label: "How it works" },
+      { href: "/#about", label: "About" },
+      { href: "/#contact", label: "Contact" },
     ],
     cta: "Free check",
     openMenu: "Open menu",
@@ -22,17 +22,20 @@ export const content = {
   // Pozicioniranje "Provjera" (Petar, 2026-09-14): prvi korak je besplatna
   // pisana provjera, ne poziv. Bez obećanog roka — broj dana nije zadan.
   hero: {
-    eyebrow: "zip · Web design in Dubrovnik",
+    // Nismo samo web: pomažemo poslovima da rastu — zato prvo besplatna
+    // provjera i edukacija, pa tek onda prodaja (Petar, 2026-09-15).
+    // Dubrovnik se spominje samo u O meni.
+    eyebrow: "zip · Marketing & growth agency",
     // Maska ide na drugi redak: kratak i težak, da se snimka iza vidi
     line1: "Systems",
     line2: "that sell.",
     // "for free" dobiva rust krug: prvo dajemo besplatno, pa educiramo, pa
     // tek onda naplaćujemo (Petar, 2026-09-15)
-    subBefore: "Your website, your Google listing and your booking path, working as one. Send us your address and we'll check all three, in writing and",
+    // Kraće za mobitel (KISS): gumb ispod već kaže "Get the free check"
+    subBefore: "Your website, Google listing and booking path, working as one. We check all three, in writing and",
     subFree: "for free.",
     ctaPrimary: "Get the free check",
     ctaSecondary: "See the work",
-    croatian: "Govorim hrvatski.",
   },
 
   // Priča u pet poteza — špil u heroju. Scene 2–4 su točno ono što provjera
@@ -59,6 +62,22 @@ export const content = {
     visit: "Visit site",
     statusLive: "Live",
     statusDev: "In early development",
+    allCta: "See all work",
+  },
+
+  // /work — svi radovi; klik otvara popup, a svaki popup ima vlastiti link
+  workPage: {
+    title: "Work",
+    heading: "Everything built so far.",
+    open: "Details",
+    close: "Close",
+    prev: "Previous project",
+    next: "Next project",
+    preview: "Scroll to see more of the page",
+    cta: {
+      heading: "Want to know what yours gets wrong?",
+      body: "Send us the address. The check is free.",
+    },
   },
 
   // Nijedna cifra nigdje na stranici (Petar, 2026-09-14: "ne želim da se
@@ -143,7 +162,7 @@ export const content = {
     emailLabel: "Email",
     // Engleska rečenica, ne prijevod — stranica ostaje engleska,
     // ali lokalnom kupcu skida najveću kočnicu.
-    language: "Dubrovnik-based. Croatian or English, whichever suits you.",
+    language: "Croatian or English, whichever suits you.",
     calendarLabel: "Pick a time",
     calendarTitle: "Pick a day · 15 minutes",
     calendarCta: "See available times",
@@ -174,8 +193,7 @@ export const content = {
   },
 
   footer: {
-    tagline: "Websites, ads and SEO for small businesses.",
-    based: "Dubrovnik, Croatia",
+    tagline: "Marketing and growth for small businesses.",
     copyright: "All rights reserved.",
     backToTop: "Back to top",
   },

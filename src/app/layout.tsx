@@ -36,17 +36,17 @@ const jetbrains = JetBrains_Mono({
  * par ruku, pa meta mora govoriti isto što i stranica.
  */
 // Brand je zip (Petar, 2026-09-15). "zip / marketing genius" ide u opis, ne na stranicu.
-const TITLE = "Web design Dubrovnik — free website check | zip";
+const TITLE = "Marketing & growth agency — free website check | zip";
 const DESC =
-  "zip / marketing genius. A free written check of your website, Google listing and booking path, then web design, ads and local SEO in Dubrovnik.";
+  "zip / marketing genius. We help small businesses grow, starting with a free written check of your website, Google listing and booking path.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://petargrbic.com"),
   title: TITLE,
   description: DESC,
-  // Bez hreflanga dok ne postoji hrvatski URL — prije je tvrdio da je
-  // engleska stranica ujedno i hrvatska.
-  alternates: { canonical: "/" },
+  // Engleska naslovnica i hrvatska /hr su par (ista ponuda, dva jezika).
+  // /work, /cv i /hr postavljaju vlastiti canonical i ovo ne nasljeđuju.
+  alternates: { canonical: "/", languages: { en: "/", hr: "/hr", "x-default": "/" } },
   openGraph: {
     title: TITLE,
     description: DESC,

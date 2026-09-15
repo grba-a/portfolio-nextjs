@@ -6,6 +6,7 @@ import { content } from "@/data/content";
 import { work } from "@/data/work";
 import { revealIn, parallaxMedia, clipReveal } from "@/lib/anim/reveal";
 import { ArrowUpRight } from "@/components/icons";
+import Link from "next/link";
 
 /**
  * Radovi — jezgra stranice.
@@ -35,7 +36,7 @@ export default function Work() {
         <header className="max-w-2xl" data-reveal-group>
           {/* Bio je <p class="eyebrow"> — nijedna sekcija nije ulazila u
               strukturu naslova. Vizualno se ne mijenja ništa. */}
-          <h2 className="eyebrow caret block" data-reveal>
+          <h2 className="eyebrow block" data-reveal>
             {content.work.heading}
           </h2>
           {/* Uvod je bio 22px, veći od opisa projekata — rečenica namijenjena
@@ -46,7 +47,8 @@ export default function Work() {
         </header>
 
         <div className="mt-14 flex flex-col gap-20 sm:mt-20 sm:gap-28 lg:gap-36">
-          {work.map((item, i) => {
+          {/* Na naslovnici tri; svi su na /work */}
+          {work.filter((w) => w.featured).map((item, i) => {
             const flip = i % 2 === 1;
 
             return (
@@ -61,7 +63,7 @@ export default function Work() {
                   rel="noopener noreferrer"
                   aria-label={`${item.name} — ${content.work.visit}`}
                   data-clip
-                  className={`group relative block overflow-hidden rounded-[4px] border border-line bg-limestone-2 lg:col-span-7 ${
+                  className={`group relative block overflow-hidden rounded-[14px] border border-line bg-limestone-2 shadow-[0_18px_40px_-26px_rgba(20,17,14,0.5)] lg:col-span-7 ${
                     flip ? "lg:order-2 lg:col-start-6" : ""
                   }`}
                 >
@@ -80,7 +82,7 @@ export default function Work() {
 
                 <div className={`lg:col-span-5 ${flip ? "lg:order-1 lg:col-start-1" : ""}`}>
                   <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                    <span className="tnum text-sm text-rust" data-reveal>
+                    <span className="tnum text-sm text-rust-ink" data-reveal>
                       {item.index}
                     </span>
                     <span className="eyebrow" data-reveal>
@@ -108,7 +110,7 @@ export default function Work() {
                       {item.tags.map((tag) => (
                         <li
                           key={tag}
-                          className="border border-line px-2.5 py-1 font-mono text-[0.6875rem] tracking-wide text-muted"
+                          className="rounded-full border border-line px-3 py-1 text-[0.8125rem] text-muted"
                         >
                           {tag}
                         </li>
@@ -130,7 +132,7 @@ export default function Work() {
                       <ArrowUpRight className="h-3.5 w-3.5" />
                     </a>
 
-                    <span className="inline-flex items-center gap-2 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-muted">
+                    <span className="inline-flex items-center gap-2 text-sm font-medium text-muted">
                       <span
                         aria-hidden="true"
                         className={`h-1.5 w-1.5 rounded-full ${
@@ -146,6 +148,13 @@ export default function Work() {
               </article>
             );
           })}
+        </div>
+
+        <div className="mt-16 sm:mt-20" data-reveal-group>
+          <Link href="/work" className="btn btn-ghost justify-center" data-reveal>
+            {content.work.allCta}
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
       </div>
     </section>

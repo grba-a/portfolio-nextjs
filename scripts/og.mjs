@@ -66,7 +66,7 @@ const html = `<!doctype html>
   <div>
     <div class="logo">${LOGO}</div>
     <h1>Systems<br><span class="u">that sell.${ULINE}</span></h1>
-    <p class="sub">Free website check · Web design · Ads · Local SEO</p>
+    <p class="sub">Free check · Marketing · Websites · Ads · Local SEO</p>
   </div>
   <div class="reel">
     ${shots.map((src) => `<img src="${src}">`).join("")}

@@ -84,7 +84,7 @@ export default function BookCall() {
     "focus-visible:outline-(--color-rust-light)";
 
   const labelCls =
-    "font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-limestone/70";
+    "text-sm font-semibold text-limestone/75";
 
   return (
     <section ref={scope} id="contact" data-dark className="scroll-mt-24 bg-ink text-limestone">
@@ -102,7 +102,7 @@ export default function BookCall() {
           {/* 1 — provjera: naslov, pa odmah WhatsApp. Glavna radnja ne smije
               biti treća stvar koju vidiš. */}
           <div className="lg:col-span-5 lg:col-start-1 lg:row-start-1" data-reveal-group>
-            <h2 className="eyebrow caret block !text-limestone/70" data-reveal>
+            <h2 className="eyebrow block !text-limestone/70" data-reveal>
               {content.book.eyebrow}
             </h2>
 
@@ -138,13 +138,13 @@ export default function BookCall() {
             <div className="mt-6 flex flex-col gap-1" data-reveal>
               <a
                 href={`tel:${site.phone}`}
-                className="ulink -my-1.5 inline-flex min-h-11 items-center font-mono text-sm text-limestone/75"
+                className="ulink -my-1.5 inline-flex min-h-11 items-center text-sm font-medium text-limestone/75"
               >
                 {site.phoneDisplay}
               </a>
               <a
                 href={`mailto:${site.email}`}
-                className="ulink -my-1.5 inline-flex min-h-11 items-center break-all font-mono text-sm text-limestone/75"
+                className="ulink -my-1.5 inline-flex min-h-11 items-center break-all text-sm font-medium text-limestone/75"
               >
                 {site.email}
               </a>
@@ -249,7 +249,7 @@ export default function BookCall() {
                 <h3 className="eyebrow block !text-limestone/70">
                   {content.book.pickDay}
                 </h3>
-                <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-limestone/60">
+                <p className="text-sm text-limestone/60">
                   {content.book.calendarTitle}
                 </p>
               </div>

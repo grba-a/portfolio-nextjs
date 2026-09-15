@@ -336,7 +336,7 @@ if (!URL.includes("/cv")) {
       const ratio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
       const size = parseFloat(cs.fontSize), wt = parseInt(cs.fontWeight) || 400;
       const need = size >= 24 || (size >= 18.66 && wt >= 700) ? 3 : 4.5;
-      if (ratio < need - 0.02) out.push(`${ratio.toFixed(2)}:1 "${txt.slice(0, 24)}"`);
+      if (ratio < need) out.push(`${ratio.toFixed(2)}:1 "${txt.slice(0, 24)}"`);
     });
     return [...new Set(out)];
   });
@@ -361,6 +361,26 @@ if (!URL.includes("/cv")) {
     return bad;
   });
   log("slike bez skrolanja", r.length === 0, r.length ? `ne učitane: ${r.join(", ")}` : "sve iznad pregiba učitane");
+  await b.close();
+}
+
+// 13 — GREŠKE U KONZOLI, sa satom 45 dana nakon builda.
+// Prerender zapeče dan builda; ako se klijent ne slaže sa serverom, React
+// baca #418 i gradi stranicu ispočetka (hero se vrti ponovo). Tako je
+// #418 prošao na produkciju: nijedna provjera nije slušala greške.
+{
+  const b = await chromium.launch();
+  const page = await b.newPage({ viewport: { width: 390, height: 844 } });
+  const errs = [];
+  page.on("pageerror", (e) => errs.push(e.message.slice(0, 70)));
+  page.on("console", (m) => {
+    // Vercel Analytics skripta postoji samo na Vercelu; lokalno je 404
+    if (m.type() === "error" && !/_vercel\/insights|status of 404/.test(m.text())) errs.push(m.text().slice(0, 70));
+  });
+  await page.clock.install({ time: new Date(Date.now() + 45 * 864e5) });
+  await page.goto(URL, { waitUntil: "networkidle" });
+  await page.clock.runFor(3000);
+  log("konzola (+45 dana)", errs.length === 0, errs.length ? errs.slice(0, 3).join(" | ") : "bez grešaka, bez #418");
   await b.close();
 }
 

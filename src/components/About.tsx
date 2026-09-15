@@ -34,7 +34,7 @@ export default function About() {
     >
       <div className="shell">
         <div className="max-w-3xl" data-reveal-group>
-          <h2 className="eyebrow caret block" data-reveal>
+          <h2 className="eyebrow block" data-reveal>
             {about.eyebrow}
           </h2>
           <p
@@ -47,7 +47,7 @@ export default function About() {
           {/* Osoba iza zipa: ime i uloga, pa tekst u prvom licu */}
           <p className="mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 sm:mt-10" data-reveal>
             <span className="font-display text-2xl font-extrabold tracking-[-0.02em] text-ink">{about.name}</span>
-            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-muted">{about.role}</span>
+            <span className="text-sm font-semibold text-rust-ink">{about.role}</span>
           </p>
 
           <div className="mt-5 max-w-[62ch] space-y-4 text-[1.0625rem] leading-relaxed text-muted">

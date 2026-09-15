@@ -31,19 +31,18 @@ export default function Footer() {
               <ZipLogo id="zip-foot" className="h-12 w-auto" />
             </a>
             <p className="mt-1.5 text-sm text-limestone/75">{content.footer.tagline}</p>
-            <p className="mt-0.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-limestone/60">
-              {content.footer.based}
-            </p>
           </div>
 
           <div className="flex flex-col gap-5 sm:items-end">
             {/* CV je ovdje, ne u sekciji O meni: kupac weba ne kupuje životopis */}
-            <a
-              href={site.cv}
-              className="ulink -my-2 inline-flex min-h-11 items-center self-start text-sm text-limestone/75 sm:self-end"
-            >
-              CV
-            </a>
+            <div className="flex gap-5 self-start sm:self-end">
+              <a href="/hr" lang="hr" className="ulink -my-2 inline-flex min-h-11 items-center text-sm text-limestone/75">
+                Hrvatski
+              </a>
+              <a href={site.cv} className="ulink -my-2 inline-flex min-h-11 items-center text-sm text-limestone/75">
+                CV
+              </a>
+            </div>
             <ul className="-mx-2.5 flex flex-wrap">
               {site.socials.map((sn) => {
                 const Icon = socialIcon[sn.label];
@@ -65,7 +64,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <p className="mt-9 font-mono text-[0.6875rem] text-limestone/60">
+        <p className="mt-9 text-xs text-limestone/60">
           © {site.name}. {content.footer.copyright}
         </p>
       </div>

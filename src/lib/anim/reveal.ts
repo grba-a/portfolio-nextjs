@@ -18,7 +18,7 @@ export function revealIn(scope: HTMLElement) {
   if (prefersReducedMotion()) return noop;
   const mm = gsap.matchMedia();
 
-  const build = (distance: number, stagger: number) => () => {
+  const build = (distance: number) => () => {
     const groups = new Map<Element, HTMLElement[]>();
 
     scope.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
@@ -26,28 +26,27 @@ export function revealIn(scope: HTMLElement) {
       groups.set(parent, [...(groups.get(parent) ?? []), el]);
     });
 
-    groups.forEach((els) => {
+    /* Samo prvi element svake grupe (obično naslov sekcije) ulazi; ostalo
+       je odmah vidljivo. Prije: 86 elemenata s istim fade-upom od 0,9 s —
+       isti recept posvuda je potpis predloška ("previše AI"). */
+    groups.forEach(([lead, ...rest]) => {
+      if (rest.length) gsap.set(rest, { opacity: 1, y: 0 });
       gsap.fromTo(
-        els,
+        lead,
         { opacity: 0, y: distance },
         {
           opacity: 1,
           y: 0,
-          duration: 0.9,
+          duration: 0.5,
           ease: "power3.out",
-          stagger,
-          scrollTrigger: {
-            trigger: els[0],
-            start: "top 88%",
-            once: true,
-          },
+          scrollTrigger: { trigger: lead, start: "top 88%", once: true },
         },
       );
     });
   };
 
-  mm.add(MOBILE, build(20, 0.06));
-  mm.add(DESKTOP, build(44, 0.09));
+  mm.add(MOBILE, build(10));
+  mm.add(DESKTOP, build(16));
 
   return () => mm.revert();
 }

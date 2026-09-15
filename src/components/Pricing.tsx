@@ -34,7 +34,7 @@ export default function Pricing() {
       <div className="shell">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-14" data-reveal-group>
           <div className="lg:col-span-6">
-            <h2 className="eyebrow caret block" data-reveal>
+            <h2 className="eyebrow block" data-reveal>
               {pricing.eyebrow}
             </h2>
 
