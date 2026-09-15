@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import { Archivo, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import ScrollSetup from "@/components/ScrollSetup";
@@ -19,13 +19,6 @@ const archivo = Archivo({
 const instrument = Instrument_Sans({
   variable: "--font-instrument",
   subsets: ["latin", "latin-ext"],
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -91,7 +84,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${instrument.variable} ${jetbrains.variable}`}
+      className={`${archivo.variable} ${instrument.variable}`}
     >
       <body>
         <script

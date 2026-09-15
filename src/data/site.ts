@@ -63,11 +63,13 @@ export const site = {
  * rečenicu. Pripremljena poruka traži provjeru, a on dopiše samo adresu.
  * (Prije: "I saw your site" — krivo za vlasnika kojem se Petar prvi javio.)
  */
+/** Ista poveznica, poruka na jeziku stranice (tekst je u kopiji). */
+export const waHref = (text: string) =>
+  site.whatsapp ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}` : null;
+
 const WA_TEXT = "Hello! I'd like the free website check. My site: ";
 
-export const whatsappHref = site.whatsapp
-  ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(WA_TEXT)}`
-  : null;
+export const whatsappHref = waHref(WA_TEXT);
 
 /** 12 certifikata, točno kako stoje u public/certs/. */
 export const certs = [

@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { content } from "@/data/content";
+import { content, type Copy } from "@/data/content";
 import { revealIn } from "@/lib/anim/reveal";
 import { gsap, MOBILE, DESKTOP, prefersReducedMotion } from "@/lib/anim/gsap";
 
@@ -13,7 +13,7 @@ import { gsap, MOBILE, DESKTOP, prefersReducedMotion } from "@/lib/anim/gsap";
  * Linija se crta scrubom: okomito na mobitelu, vodoravno od 768px.
  * Ide preko `transform: scale`, ne preko width/height.
  */
-export default function Process() {
+export default function Process({ t = content }: { t?: Copy }) {
   const scope = useRef<HTMLElement>(null);
   const line = useRef<HTMLSpanElement>(null);
 
@@ -58,13 +58,13 @@ export default function Process() {
       <div className="shell">
         <header className="max-w-2xl" data-reveal-group>
           <h2 className="eyebrow caret block" data-reveal>
-            {content.process.eyebrow}
+            {t.process.eyebrow}
           </h2>
           <p
             className="mt-4 font-display text-[clamp(1.875rem,7vw,3rem)] font-extrabold leading-[1] tracking-[-0.035em]"
             data-reveal
           >
-            {content.process.heading}
+            {t.process.heading}
           </p>
         </header>
 
@@ -81,7 +81,7 @@ export default function Process() {
           />
 
           <ol className="grid gap-9 md:grid-cols-3 md:gap-10">
-            {content.process.steps.map((step) => (
+            {t.process.steps.map((step) => (
               <li key={step.num} className="relative pl-10 md:pl-0 md:pt-10" data-reveal-group>
                 <span
                   aria-hidden="true"

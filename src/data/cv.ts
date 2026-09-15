@@ -10,11 +10,12 @@
  */
 
 export const cv = {
-  role: "Digital Marketing & Web Design",
+  // zip je brand od 2026-09-15; /cv ostaje Petrov osobni životopis
+  role: "Head of Operations / Founder of zip",
   location: "Zagreb / Dubrovnik, Croatia",
 
   summary:
-    "I build websites for small businesses and run the ads and SEO that fill them — design, build and launch, handled in one place. Currently studying Digital Marketing at Algebra, Zagreb, with twelve Google and HubSpot certifications; two sites live and two in progress.",
+    "I run zip, a small marketing and growth agency: websites, ads, local search and the copy on all of it, handled in one place. Every job starts with a free written check of a business’s site, Google listing and booking path. Currently studying Digital Marketing at Algebra, Zagreb, with twelve Google and HubSpot certifications; two sites live and two in progress.",
 
   /** Kratki popis za pobočni stupac. Šire liste su u content.ts (Offer). */
   coreStack: [

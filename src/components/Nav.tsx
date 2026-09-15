@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { content } from "@/data/content";
+import { content, type Copy } from "@/data/content";
 import ZipLogo from "@/components/ZipLogo";
 import Link from "next/link";
 
@@ -10,8 +10,8 @@ import Link from "next/link";
  * Mobitel: ime + hamburger, pa punoekranski izbornik s velikim metama za palac.
  * Od 768px: traka s poveznicama i jednim CTA-om.
  */
-export default function Nav() {
-  const { nav } = content;
+export default function Nav({ t = content }: { t?: Copy }) {
+  const { nav } = t;
   const [open, setOpen] = useState(false);
   const [solid, setSolid] = useState(false);
   const [onDark, setOnDark] = useState(false);
@@ -94,7 +94,7 @@ export default function Nav() {
       >
         <div className="shell flex h-[68px] items-center justify-between gap-4 sm:h-[76px]">
           <Link
-            href="/#top"
+            href={`${t.home}#top`}
             onClick={() => setOpen(false)}
             className="relative z-50 -my-3 block py-3"
           >
@@ -119,7 +119,7 @@ export default function Nav() {
 
           <div className="flex items-center gap-2">
             <Link
-              href="/#contact"
+              href={`${t.home}#contact`}
               className={`btn hidden !px-5 !py-2.5 !text-sm md:inline-flex ${onDark ? "btn-on-dark" : "btn-primary"}`}
             >
               {nav.cta}
@@ -133,17 +133,22 @@ export default function Nav() {
               className="relative z-50 -mr-2 grid h-11 w-11 place-items-center md:hidden"
             >
               <span className="sr-only">{open ? nav.closeMenu : nav.openMenu}</span>
-              <span aria-hidden="true" className="relative block h-3 w-6">
-                <span
-                  className={`absolute left-0 block h-px w-6 bg-current transition-all duration-300 ${
-                    open ? "top-1.5 rotate-45" : "top-0"
-                  }`}
-                />
-                <span
-                  className={`absolute left-0 block h-px w-6 bg-current transition-all duration-300 ${
-                    open ? "top-1.5 -rotate-45" : "top-3"
-                  }`}
-                />
+              {/* Znak je iz logotipa: tri debele crte koje se otvaranjem
+                  nagnu na 45°, u istom smjeru kao šrafura u "zip"
+                  (Petar, 2026-09-15). Zato tri, a ne dvije koje se križaju. */}
+              <span
+                aria-hidden="true"
+                className={`relative block h-[17px] w-7 transition-transform duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  open ? "-rotate-45" : ""
+                }`}
+              >
+                {[0, 1, 2].map((i) => (
+                  <span
+                    key={i}
+                    className="absolute left-0 top-0 block h-[3px] w-7 rounded-full bg-current transition-transform duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                    style={{ transform: `translateY(${i * (open ? 5.5 : 7)}px)` }}
+                  />
+                ))}
               </span>
             </button>
           </div>
@@ -179,7 +184,7 @@ export default function Nav() {
           ))}
 
           <Link
-            href="/#contact"
+            href={`${t.home}#contact`}
             onClick={() => setOpen(false)}
             className="btn btn-primary mt-8 justify-center"
           >

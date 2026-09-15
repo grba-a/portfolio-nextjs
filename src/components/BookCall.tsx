@@ -1,8 +1,8 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState, type FormEvent } from "react";
-import { content } from "@/data/content";
-import { site, whatsappHref } from "@/data/site";
+import { content, type Copy } from "@/data/content";
+import { site, waHref } from "@/data/site";
 import { revealIn } from "@/lib/anim/reveal";
 import { ArrowUpRight, Send } from "@/components/icons";
 import Booker from "@/components/Booker";
@@ -25,8 +25,9 @@ type Status = "idle" | "sending" | "sent" | "error";
  * okvira. Cal.com se sada učita tek kad kupac odabere termin, i to ravno
  * na obrazac za potvrdu.
  */
-export default function BookCall() {
+export default function BookCall({ t = content }: { t?: Copy }) {
   const scope = useRef<HTMLElement>(null);
+  const whatsappHref = waHref(t.whatsappText);
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   useLayoutEffect(() => {
@@ -40,11 +41,11 @@ export default function BookCall() {
     const email = String(data.get("email") ?? "").trim();
     const message = String(data.get("message") ?? "").trim();
 
-    if (!name) next.name = content.book.required;
-    if (!email) next.email = content.book.required;
+    if (!name) next.name = t.book.required;
+    if (!email) next.email = t.book.required;
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))
-      next.email = content.book.invalidEmail;
-    if (!message) next.message = content.book.required;
+      next.email = t.book.invalidEmail;
+    if (!message) next.message = t.book.required;
 
     return next;
   }
@@ -103,21 +104,21 @@ export default function BookCall() {
               biti treća stvar koju vidiš. */}
           <div className="lg:col-span-5 lg:col-start-1 lg:row-start-1" data-reveal-group>
             <h2 className="eyebrow caret block !text-limestone/70" data-reveal>
-              {content.book.eyebrow}
+              {t.book.eyebrow}
             </h2>
 
             <p
               className="mt-4 font-display text-[clamp(2.25rem,9vw,3.75rem)] font-extrabold leading-[0.95] tracking-[-0.035em]"
               data-reveal
             >
-              {content.book.heading}
+              {t.book.heading}
             </p>
 
             <p
               className="mt-6 max-w-[38ch] text-[1.0625rem] leading-relaxed text-limestone/75"
               data-reveal
             >
-              {content.book.sub}
+              {t.book.sub}
             </p>
 
             {whatsappHref && (
@@ -128,7 +129,7 @@ export default function BookCall() {
                   rel="noopener noreferrer"
                   className="btn btn-on-dark justify-center sm:self-start"
                 >
-                  {content.book.whatsappLabel}
+                  {t.book.whatsappLabel}
                   <ArrowUpRight className="h-3.5 w-3.5" />
                 </a>
               </div>
@@ -136,8 +137,9 @@ export default function BookCall() {
 
             {/* Telefon i mail kao tekst, ne kao još gumba. Broj je krupniji
                 od maila: vlasniku je poziv najkraći put, mail drugi izbor
-                (Petar, 2026-09-15). Bez donje crte: hover je čista brend
-                narančasta (rust), ne blijeda varijanta. */}
+                (Petar, 2026-09-15). Bez donje crte: hover je brend narančasta.
+                Broj nosi puni rust; sitan mail rust-on-dark, jedan stupanj
+                svjetliji, da prođe AA (3,7:1 → 4,6:1). */}
             <div className="mt-7 flex flex-col items-start gap-2" data-reveal>
               <a
                 href={`tel:${site.phone}`}
@@ -147,14 +149,14 @@ export default function BookCall() {
               </a>
               <a
                 href={`mailto:${site.email}`}
-                className="-my-1.5 inline-flex min-h-11 items-center break-all text-[1.0625rem] font-medium text-limestone/80 transition-colors duration-200 hover:text-(--color-rust)"
+                className="-my-1.5 inline-flex min-h-11 items-center break-all text-[1.0625rem] font-medium text-limestone/80 transition-colors duration-200 hover:text-(--color-rust-on-dark)"
               >
                 {site.email}
               </a>
             </div>
 
             <p className="mt-3 text-sm text-limestone/70" data-reveal>
-              {content.book.reply} {content.book.language}
+              {t.book.reply} {t.book.language}
             </p>
           </div>
 
@@ -163,7 +165,7 @@ export default function BookCall() {
           <div className="lg:col-span-5 lg:col-start-1 lg:row-start-2" data-reveal-group>
             <details className="border-t border-limestone/20 pt-6" data-reveal>
               <summary className="ulink inline-flex min-h-11 cursor-pointer items-center text-sm text-limestone/75">
-                {content.book.formToggle}
+                {t.book.formToggle}
               </summary>
 
               {status === "sent" ? (
@@ -171,7 +173,7 @@ export default function BookCall() {
                   role="status"
                   className="mt-5 border-l-2 border-limestone pl-4 text-[1.0625rem] leading-relaxed"
                 >
-                  {content.book.success}
+                  {t.book.success}
                 </p>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="mt-5 max-w-md">
@@ -184,7 +186,7 @@ export default function BookCall() {
                     return (
                       <div key={key} className="mb-6">
                         <label htmlFor={key} className={labelCls}>
-                          {content.book[key]}
+                          {t.book[key]}
                         </label>
 
                         {key === "message" ? (
@@ -192,7 +194,7 @@ export default function BookCall() {
                             id={key}
                             name={key}
                             rows={3}
-                            placeholder={content.book.messagePlaceholder}
+                            placeholder={t.book.messagePlaceholder}
                             aria-invalid={!!err}
                             aria-describedby={err ? `${key}-error` : undefined}
                             className={`${field} resize-none`}
@@ -223,17 +225,17 @@ export default function BookCall() {
                     disabled={status === "sending"}
                     className="btn btn-on-dark w-full justify-center disabled:opacity-60 sm:w-auto"
                   >
-                    {status === "sending" ? content.book.sending : content.book.send}
+                    {status === "sending" ? t.book.sending : t.book.send}
                     <Send />
                   </button>
 
                   <p className="mt-4 max-w-[40ch] text-sm text-limestone/70">
-                    {content.book.afterSend}
+                    {t.book.afterSend}
                   </p>
 
                   {status === "error" && (
                     <p role="alert" className="mt-4 text-sm text-(--color-rust-light)">
-                      {content.book.errorServer}
+                      {t.book.errorServer}
                     </p>
                   )}
                 </form>
@@ -250,23 +252,23 @@ export default function BookCall() {
             >
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1" data-reveal>
                 <h3 className="eyebrow block !text-limestone/70">
-                  {content.book.pickDay}
+                  {t.book.pickDay}
                 </h3>
                 <p className="text-sm text-limestone/60">
-                  {content.book.calendarTitle}
+                  {t.book.calendarTitle}
                 </p>
               </div>
 
               {/* Sve unutar Bookera je klijentsko i mijenja se pri odabiru
                   dana — data-reveal ide na OKVIR, nikad na ćelije. */}
               <div className="mt-4" data-reveal>
-                <Booker />
+                <Booker t={t} />
               </div>
 
               {/* Ova poveznica nije ukras: ona je jedini href u pojasu
                   kalendara, a blok nosi data-cta i time gasi ljepljivu traku. */}
               <p className="mt-4 text-sm text-limestone/60" data-reveal>
-                {content.book.calendarFallback}{" "}
+                {t.book.calendarFallback}{" "}
                 <a
                   href={site.booking}
                   target="_blank"

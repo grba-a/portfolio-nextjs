@@ -14,6 +14,9 @@
   --color-rust: #c2452d;
   /* Rust na tinti daje 3,78:1 — premalo. Svjetlija varijanta za tamne plohe. */
   --color-rust-light: #e8846b;
+  /* Isti brend rust, jedan stupanj svjetliji: sitan tekst na tinti prolazi
+     AA (4,6:1), a i dalje je narančasta, ne blijeda (Petar, 2026-09-15). */
+  --color-rust-on-dark: #d4573c;
   --color-rust-ink: #97321f;
   --color-line: rgba(20, 17, 14, 0.12);
   --color-line-strong: rgba(20, 17, 14, 0.22);
@@ -193,7 +196,10 @@
    Karta na vrhu crta scenu; ostale čekaju gotove u dubini.
    Tinta za predmete, rust za ono što provjera označi.
    ══════════════════════════════════════════════════════════════ */
-.st-scene { display: block; width: 100%; height: 100%; }
+/* --st-speed razvlači SVE poteze i njihova kašnjenja odjednom: trajanja su
+   upisana u same crteže (--d, --l), pa se tempo mijenja ovdje, na jednom
+   mjestu. 1 = izvorno, 1.22 = malo sporije (Petar, 2026-09-15). */
+.st-scene { display: block; width: 100%; height: 100%; --st-speed: 1.22; }
 .st-scene .k,
 .st-scene .r { fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .st-scene .k { stroke: var(--color-ink); stroke-width: 2.2; }
@@ -204,19 +210,19 @@
 .st-scene.is-drawing .draw {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: st-draw var(--l, 0.5s) cubic-bezier(0.65, 0, 0.35, 1) forwards;
-  animation-delay: calc(0.7s + var(--d, 0s));
+  animation: st-draw calc(var(--l, 0.5s) * var(--st-speed)) cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: calc((0.7s + var(--d, 0s)) * var(--st-speed));
 }
 .st-scene.is-drawing .pop {
   opacity: 0;
   animation: st-pop 0.32s var(--ease-out-expo) forwards;
-  animation-delay: calc(0.7s + var(--d, 0s));
+  animation-delay: calc((0.7s + var(--d, 0s)) * var(--st-speed));
 }
 .st-scene.is-drawing .pin {
   transform-box: fill-box;
   transform-origin: 50% 100%;
   animation: st-pin 0.52s var(--ease-out-expo) both;
-  animation-delay: 1.05s;
+  animation-delay: calc(1.05s * var(--st-speed));
 }
 @keyframes st-draw { to { stroke-dashoffset: 0; } }
 @keyframes st-pop { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
@@ -239,7 +245,7 @@
 .st-veil {
   background: color-mix(in oklab, var(--color-paper) 74%, transparent);
   opacity: 0;
-  animation: st-veil-in 0.45s var(--ease-out-expo) 1.85s forwards;
+  animation: st-veil-in 0.45s var(--ease-out-expo) 3.3s forwards;
 }
 @keyframes st-veil-in { to { opacity: 1; } }
 
@@ -250,7 +256,7 @@
   display: inline-flex;
   opacity: 0;
   transform: translateY(10px) scale(0.94);
-  animation: st-cta-in 0.55s var(--ease-out-expo) 2s forwards;
+  animation: st-cta-in 0.55s var(--ease-out-expo) 3.45s forwards;
 }
 @keyframes st-cta-in { to { opacity: 1; transform: none; } }
 
@@ -263,7 +269,7 @@
   border-radius: 16px;
   opacity: 0;
   pointer-events: none;
-  animation: st-cta-ring 2.8s cubic-bezier(0.22, 1, 0.36, 1) 2.9s infinite;
+  animation: st-cta-ring 2.8s cubic-bezier(0.22, 1, 0.36, 1) 4.3s infinite;
 }
 @keyframes st-cta-ring {
   0% { opacity: 0.45; transform: scale(1); }
@@ -447,11 +453,16 @@ html.js-anim [data-reveal] {
     align-items: center;
     min-height: 44px;
   }
+  /* Vidi se samo kad netko tipka Tab (čitač ekrana, tipkovnica). Mišem se
+     ne može doseći. Izgleda kao naš gumb, da ne strši kad iskoči. */
   .skip:focus {
     left: 1rem; top: 1rem;
     padding: 0.75rem 1.25rem;
+    border-radius: 16px;
+    font-weight: 600;
     background: var(--color-ink);
     color: var(--color-limestone);
+    box-shadow: 0 12px 24px -12px rgba(20, 17, 14, 0.6);
   }
 }
 
@@ -516,6 +527,9 @@ html.js-anim [data-reveal] {
   .skip {
     display: none !important;
   }
+
+  /* Kursor uz oznake je ekranska gesta, ne mrlja na papiru */
+  .caret::after { display: none !important; }
 
   /* Poveznice u tinti — rust na papiru izgleda isprano */
   a { color: #000 !important; text-decoration: none !important; }

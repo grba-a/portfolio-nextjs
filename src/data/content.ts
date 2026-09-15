@@ -7,6 +7,21 @@
  */
 
 export const content = {
+  /** Jezik ove kopije. /hr dobiva istu strukturu, samo hrvatski (2026-09-15). */
+  lang: "en",
+  /** Korijen ove verzije stranice — hrvatska je ista stranica na /hr */
+  locale: "en-GB",
+  home: "/",
+  /**
+   * Prazan WhatsApp chat je sam po sebi kočnica — kupac mora smisliti prvu
+   * rečenicu. Pripremljena poruka traži provjeru, a on dopiše samo adresu.
+   */
+  whatsappText: "Hello! I'd like the free website check. My site: ",
+  /** Natpisi unutar crteža u heroju */
+  drawLabels: { you: "you?", call: "Call", website: "Website", book: "Book now" },
+  /** Dani u tjednu za birač termina — kratki i puni */
+  week: ["S", "M", "T", "W", "T", "F", "S"],
+  weekFull: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
   nav: {
     links: [
       { href: "/#work", label: "Work" },
@@ -97,7 +112,7 @@ export const content = {
     // Cijena je ispala iz naslova namjerno: to obećanje već stoji desno
     // (reassure), a naslov mora prodavati posao, ne uvjete (Petar, 2026-09-15).
     // Prijelom je Petrov, ne od širine stupca: treći takt ide u svoj redak.
-    heading: ["Build it. Book it.", "And Keep it running."],
+    heading: ["Build it. Book it.", "And keep it running."],
     packages: [
       {
         name: "The website",
@@ -210,5 +225,16 @@ export const content = {
     tagline: "Marketing and growth for small businesses.",
     copyright: "All rights reserved.",
     backToTop: "Back to top",
+    /** Druga jezična verzija iste stranice */
+    langHref: "/hr",
+    langLabel: "Hrvatski",
+    cv: "CV",
   },
-} as const;
+};
+
+/**
+ * Oblik cijele kopije stranice. Hrvatska verzija (`content-hr.ts`) mora imati
+ * SVE što i engleska — TypeScript to čuva — pa je /hr ista stranica, samo na
+ * hrvatskom (Petar, 2026-09-15).
+ */
+export type Copy = typeof content;

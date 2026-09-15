@@ -19,7 +19,7 @@ import FreeMark from "@/components/FreeMark";
  * Bez slika: scene su SVG, pa nestaje i najveći teret LCP-a.
  */
 
-const DUR = 5200;
+const DUR = 6000;
 const CTA_DUR = 9000;
 
 /* Crteži: tinta (.k) za predmete, rust (.r) za ono što provjera označi.
@@ -152,27 +152,39 @@ export default function HeroStory({
   useEffect(() => {
     const el = host.current;
     if (!el || reduced()) return;
-    /* Jedan pokret = jedna scena (Petar, 2026-09-15: "ne dvije odjednom ako
-       jače zascrollam"). Trackpad nakon podizanja prstiju još ~1 s šalje
-       inercijske evente; brava se otpusti tek kad 450 ms nema nijednog. */
-    let locked = false;
-    let idle: ReturnType<typeof setTimeout> | undefined;
+    /* Jedan pokret = jedna scena, ali i dok scroll traje — jedna po jedna
+       (Petar, 2026-09-15). Prije je brava čekala 450 ms mirovanja, pa se
+       nad špilom nije dalo listati bez sklanjanja miša.
+       Sada: HLAĐENJE od zadnje promjene + prag zbroja, pa sitni pomaci
+       i inercija trackpada ne prebace kartu, a nastavak scrolla prebaci
+       najviše jednu svakih 620 ms. */
+    const STEP = 46; // koliko se mora skupiti da karta krene
+    const COOLDOWN = 620; // najkraći razmak između dvije karte
+    let last = -Infinity;
+    let acc = 0;
+    let decay: ReturnType<typeof setTimeout> | undefined;
     const onWheel = (e: WheelEvent) => {
       const horizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
       const delta = horizontal ? e.deltaX : e.deltaY;
-      if (Math.abs(delta) < 4) return;
+      if (Math.abs(delta) < 2) return;
       if (horizontal) e.preventDefault();
-      clearTimeout(idle);
-      idle = setTimeout(() => (locked = false), 450);
-      if (locked) return;
-      locked = true;
-      setActive((i) => (((i + (delta > 0 ? 1 : -1)) % n) + n) % n);
+      const now = performance.now();
+      // U hlađenju se ne zbraja ništa: inercija ne smije nagomilati skok
+      if (now - last < COOLDOWN) return;
+      acc += delta;
+      clearTimeout(decay);
+      decay = setTimeout(() => (acc = 0), 220);
+      if (Math.abs(acc) < STEP) return;
+      last = now;
+      const dir = acc > 0 ? 1 : -1;
+      acc = 0;
+      setActive((i) => (((i + dir) % n) + n) % n);
       setTurn((t) => t + 1);
       setLap((l) => l + 1);
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => {
-      clearTimeout(idle);
+      clearTimeout(decay);
       el.removeEventListener("wheel", onWheel);
     };
   }, [n]);

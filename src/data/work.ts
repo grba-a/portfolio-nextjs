@@ -29,7 +29,13 @@ export type WorkItem = {
   /** Što stranica konkretno radi za posao — provjerivo na živoj stranici */
   outcome: string;
   tags: string[];
+  /** Isti tekst na hrvatskom, za /hr (Petar, 2026-09-15) */
+  hr: { kind: string; description: string; outcome: string; tags: string[] };
 };
+
+/** Vrati tekst projekta na jeziku stranice. */
+export const inLang = (w: WorkItem, lang: string) =>
+  lang === "hr" ? { ...w, ...w.hr } : w;
 
 export const work: WorkItem[] = [
   {
@@ -45,6 +51,12 @@ export const work: WorkItem[] = [
       "Booking-focused website for a family accommodation business on the Adriatic coast.",
     outcome: "Built around one action — check availability, then book.",
     tags: ["Web Design & Development", "SEO", "Content Marketing"],
+    hr: {
+      kind: "Obiteljski posao · smještaj, Jadran",
+      description: "Stranica za obiteljski smještaj na Jadranu, složena oko rezervacije.",
+      outcome: "Sve vodi na jednu radnju — provjeri slobodne termine, pa rezerviraj.",
+      tags: ["Izrada stranice", "SEO", "Tekstovi"],
+    },
   },
   {
     slug: "studio-amage",
@@ -58,6 +70,12 @@ export const work: WorkItem[] = [
     description: "Clean, modern website for a hair studio in Split, Croatia.",
     outcome: "The work is the first thing you see; booking is one tap away.",
     tags: ["Web Design & Development", "SEO", "Paid Ads"],
+    hr: {
+      kind: "Frizerski studio · Split",
+      description: "Čista, moderna stranica za frizerski studio u Splitu.",
+      outcome: "Prvo se vidi rad; naručivanje je jedan dodir dalje.",
+      tags: ["Izrada stranice", "SEO", "Oglasi"],
+    },
   },
   {
     slug: "grbic-doo",
@@ -71,6 +89,12 @@ export const work: WorkItem[] = [
     description: "Corporate website for a crane and heavy equipment company.",
     outcome: "Every service block ends in the same place — send the enquiry.",
     tags: [],
+    hr: {
+      kind: "Obiteljski posao · dizalice i teška mehanizacija, Dubrovnik",
+      description: "Stranica za tvrtku koja iznajmljuje dizalice i tešku mehanizaciju.",
+      outcome: "Svaki blok usluge završava na istom mjestu — pošalji upit.",
+      tags: [],
+    },
   },
   {
     slug: "vk-festanjuli",
@@ -85,6 +109,12 @@ export const work: WorkItem[] = [
       "Website for an amateur water polo team — Dubrovnik locals playing out of Zagreb.",
     outcome: "Squad, season and news in one place the club actually updates.",
     tags: [],
+    hr: {
+      kind: "Vaterpolski klub · Zagreb",
+      description: "Stranica za amaterski vaterpolski klub — Dubrovčani koji igraju iz Zagreba.",
+      outcome: "Momčad, sezona i novosti na jednom mjestu koje klub doista održava.",
+      tags: [],
+    },
   },
 
   // ───────────────────────────────────────────────────────────────

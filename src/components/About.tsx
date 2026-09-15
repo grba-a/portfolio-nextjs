@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
-import { content } from "@/data/content";
+import { content, type Copy } from "@/data/content";
 import { site } from "@/data/site";
 import { revealIn } from "@/lib/anim/reveal";
 
@@ -28,9 +28,9 @@ const PORTRAIT: string | null = null;
 /** Prazan okvir smije se vidjeti samo lokalno; u produkciji ostaje pločica. */
 const SHOW_FRAME = PORTRAIT !== null || process.env.NODE_ENV === "development";
 
-export default function About() {
+export default function About({ t = content }: { t?: Copy }) {
   const scope = useRef<HTMLElement>(null);
-  const { about } = content;
+  const { about } = t;
 
   useLayoutEffect(() => {
     if (!scope.current) return;

@@ -1,5 +1,5 @@
-import { content } from "@/data/content";
-import { whatsappHref } from "@/data/site";
+import { content, type Copy } from "@/data/content";
+import { waHref } from "@/data/site";
 import HeroStory from "@/components/HeroStory";
 import FreeMark from "@/components/FreeMark";
 
@@ -16,8 +16,9 @@ import FreeMark from "@/components/FreeMark";
  * GSAP-a ovdje namjerno NEMA: na heroju diže mobilni LCP,
  * a iste keyframes u CSS-u ga ne diraju.
  */
-export default function Hero() {
-  const { hero } = content;
+export default function Hero({ t = content }: { t?: Copy }) {
+  const { hero } = t;
+  const whatsappHref = waHref(t.whatsappText);
 
   return (
     <section className="relative min-h-[100svh] overflow-hidden pt-24 sm:pt-32">
@@ -83,7 +84,7 @@ export default function Hero() {
             stupaca bile veće od naslova i preuzimale kadar. Prazan šesti
             stupac je razmak između teksta i špila. */}
         <div className="rise rise-1 order-first w-full lg:order-none lg:col-span-6 lg:col-start-7">
-          <HeroStory />
+          <HeroStory story={t.story} ctaHref={whatsappHref} labels={t.drawLabels} />
         </div>
       </div>
     </section>

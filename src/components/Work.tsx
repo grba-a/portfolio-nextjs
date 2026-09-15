@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
-import { content } from "@/data/content";
-import { work } from "@/data/work";
+import { content, type Copy } from "@/data/content";
+import { work, inLang } from "@/data/work";
 import { revealIn, parallaxMedia, clipReveal } from "@/lib/anim/reveal";
 import { ArrowUpRight } from "@/components/icons";
 import Link from "next/link";
@@ -17,7 +17,7 @@ import Link from "next/link";
  * Namjerno NIJE mreža od tri jednaka stupca — to je najgeneričniji raspored
  * i upravo ono zbog čega se stara verzija čitala kao predložak.
  */
-export default function Work() {
+export default function Work({ t = content }: { t?: Copy }) {
   const scope = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
@@ -37,18 +37,19 @@ export default function Work() {
           {/* Bio je <p class="eyebrow"> — nijedna sekcija nije ulazila u
               strukturu naslova. Vizualno se ne mijenja ništa. */}
           <h2 className="eyebrow caret block" data-reveal>
-            {content.work.heading}
+            {t.work.heading}
           </h2>
           {/* Uvod je bio 22px, veći od opisa projekata — rečenica namijenjena
               poslodavcima nadjačavala je sam rad. */}
           <p className="mt-4 max-w-[52ch] text-[1.0625rem] leading-relaxed text-muted" data-reveal>
-            {content.work.sub}
+            {t.work.sub}
           </p>
         </header>
 
         <div className="mt-14 flex flex-col gap-20 sm:mt-20 sm:gap-28 lg:gap-36">
           {/* Na naslovnici tri; svi su na /work */}
-          {work.filter((w) => w.featured).map((item, i) => {
+          {work.filter((w) => w.featured).map((w, i) => {
+            const item = inLang(w, t.lang);
             const flip = i % 2 === 1;
 
             return (
@@ -61,7 +62,7 @@ export default function Work() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`${item.name} — ${content.work.visit}`}
+                  aria-label={`${item.name} — ${t.work.visit}`}
                   data-clip
                   className={`group relative block overflow-hidden rounded-[14px] border border-line bg-limestone-2 shadow-[0_18px_40px_-26px_rgba(20,17,14,0.5)] lg:col-span-7 ${
                     flip ? "lg:order-2 lg:col-start-6" : ""
@@ -128,7 +129,7 @@ export default function Work() {
                       rel="noopener noreferrer"
                       className="ulink -my-2.5 inline-flex min-h-11 items-center gap-1.5 font-medium"
                     >
-                      {content.work.visit}
+                      {t.work.visit}
                       <ArrowUpRight className="h-3.5 w-3.5" />
                     </a>
 
@@ -140,8 +141,8 @@ export default function Work() {
                         }`}
                       />
                       {item.status === "live"
-                        ? content.work.statusLive
-                        : content.work.statusDev}
+                        ? t.work.statusLive
+                        : t.work.statusDev}
                     </span>
                   </div>
                 </div>
@@ -158,16 +159,16 @@ export default function Work() {
         >
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
             <div data-reveal>
-              <p className="eyebrow caret !text-limestone/70">{content.work.allBlock.eyebrow}</p>
+              <p className="eyebrow caret !text-limestone/70">{t.work.allBlock.eyebrow}</p>
               <p className="mt-3 max-w-[16ch] font-display text-[clamp(1.75rem,6vw,2.5rem)] font-extrabold leading-[1] tracking-[-0.03em]">
-                {content.work.allBlock.heading}
+                {t.work.allBlock.heading}
               </p>
               <p className="mt-3 max-w-[40ch] text-[0.9375rem] leading-relaxed text-limestone/75">
-                {work.length} {content.work.allBlock.body}
+                {work.length} {t.work.allBlock.body}
               </p>
             </div>
             <Link href="/work" className="btn btn-on-dark shrink-0 justify-center" data-reveal>
-              {content.work.allCta}
+              {t.work.allCta}
               <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
           </div>

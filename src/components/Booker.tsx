@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { content } from "@/data/content";
+import { content, type Copy } from "@/data/content";
 import { site } from "@/data/site";
 import Modal from "@/components/Modal";
 
 type Days = Record<string, string[]>;
 
-const WEEK = ["S", "M", "T", "W", "T", "F", "S"];
-const WEEK_FULL = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 /** "2026-08-27" iz Date, u lokalnoj zoni — toISOString bi vratio UTC dan. */
 const key = (d: Date) =>
@@ -30,7 +28,7 @@ const key = (d: Date) =>
  * (provjereno: parametar `slot` sam otvara formu, bez izbora dana i sata).
  * Time 555 KB Cal.coma dolazi POSLIJE odluke, a ne prije nje.
  */
-export default function Booker() {
+export default function Booker({ t = content }: { t?: Copy }) {
   const [days, setDays] = useState<Days>({});
   const [state, setState] = useState<"loading" | "ready" | "empty">("loading");
   const [selected, setSelected] = useState<string | null>(null);
@@ -71,10 +69,10 @@ export default function Booker() {
   const localZone =
     typeof Intl !== "undefined" ? Intl.DateTimeFormat().resolvedOptions().timeZone : site.timeZone;
   const time = (iso: string) =>
-    new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
+    new Intl.DateTimeFormat(t.locale, { hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
   const longDay = (day: string) => {
     const d = new Date(`${day}T12:00:00`);
-    return `${WEEK_FULL[d.getDay()]}, ${d.getDate()} ${d.toLocaleString("en-GB", { month: "long" })}`;
+    return `${t.weekFull[d.getDay()]}, ${d.getDate()} ${d.toLocaleString(t.locale, { month: "long" })}`;
   };
 
   // Mjesec koji se crta: mjesec prvog slobodnog dana, pomaknut strelicama.
@@ -109,12 +107,12 @@ export default function Booker() {
   /* Naslov prozora kaže KOJI termin je odabran — prazan "Confirm your call"
      dok se Cal.com učitava čitao se kao greška. */
   const slotLabel = slot
-    ? `${content.book.confirmLabel} · ${new Intl.DateTimeFormat("en-GB", {
+    ? `${t.book.confirmLabel} · ${new Intl.DateTimeFormat(t.locale, {
         weekday: "short",
         day: "numeric",
         month: "short",
       }).format(new Date(slot))}, ${time(slot)}`
-    : content.book.confirmLabel;
+    : t.book.confirmLabel;
 
   const openSlot = (iso: string) => {
     setCalLoaded(false);
@@ -128,7 +126,7 @@ export default function Booker() {
         <div className="flex items-center justify-between gap-4">
           {ready ? (
             <p className="font-display text-lg font-extrabold tracking-[-0.02em]">
-              {shown.toLocaleString("en-GB", { month: "long" })}{" "}
+              {shown.toLocaleString(t.locale, { month: "long" })}{" "}
               <span className="text-limestone/60">{shown.getFullYear()}</span>
             </p>
           ) : (
@@ -161,10 +159,10 @@ export default function Booker() {
 
         {/* Nazivi dana — jedno slovo, jer na 360px sedam riječi ne stane */}
         <div className="mt-4 grid grid-cols-7">
-          {WEEK.map((d, i) => (
+          {t.week.map((d, i) => (
             <p key={i} className="pb-2 text-center text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-limestone/60">
               <span aria-hidden="true">{d}</span>
-              <span className="sr-only">{WEEK_FULL[i]}</span>
+              <span className="sr-only">{t.weekFull[i]}</span>
             </p>
           ))}
         </div>
@@ -223,7 +221,7 @@ export default function Booker() {
       {/* Termini odabranog dana */}
       <div ref={timesRef} className="mt-5 min-h-[6.5rem]">
         {state === "loading" && (
-          <p className="text-sm text-limestone/60">{content.book.loadingTimes}</p>
+          <p className="text-sm text-limestone/60">{t.book.loadingTimes}</p>
         )}
 
         {state === "empty" && (
@@ -233,7 +231,7 @@ export default function Booker() {
             rel="noopener noreferrer"
             className="btn btn-on-dark w-full justify-center sm:w-auto"
           >
-            {content.book.calendarCta}
+            {t.book.calendarCta}
           </a>
         )}
 
@@ -241,14 +239,14 @@ export default function Booker() {
           <>
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
               <p className="eyebrow !text-limestone/70">
-                {content.book.timesOn} {longDay(selected)}
+                {t.book.timesOn} {longDay(selected)}
               </p>
               <p className="text-xs text-limestone/60">
                 {localZone.replace("_", " ")}
               </p>
             </div>
 
-            <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label={content.book.calendarLabel}>
+            <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label={t.book.calendarLabel}>
               {(days[selected] ?? []).map((iso) => (
                 <button
                   key={iso}
@@ -274,7 +272,7 @@ export default function Booker() {
                 <div className="h-11 rounded-[3px] bg-ink/5" />
                 <div className="h-11 rounded-[3px] bg-ink/5" />
                 <div className="h-24 rounded-[3px] bg-ink/5" />
-                <p className="text-sm text-muted">{content.book.loadingForm}</p>
+                <p className="text-sm text-muted">{t.book.loadingForm}</p>
               </div>
             )}
             <iframe

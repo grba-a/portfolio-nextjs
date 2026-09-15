@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { site, whatsappHref } from "@/data/site";
-import { content } from "@/data/content";
+import { site, waHref } from "@/data/site";
+import { content, type Copy } from "@/data/content";
 import { Phone } from "@/components/icons";
 
 /**
@@ -18,8 +18,9 @@ import { Phone } from "@/components/icons";
  *
  * Na desktopu je ne treba: tamo CTA stalno stoji u zaglavlju.
  */
-export default function StickyCta() {
+export default function StickyCta({ t = content }: { t?: Copy }) {
   const [show, setShow] = useState(false);
+  const whatsappHref = waHref(t.whatsappText);
 
   useEffect(() => {
     let pastHero = false;
@@ -73,7 +74,7 @@ export default function StickyCta() {
             tabIndex={show ? 0 : -1}
             className="btn btn-primary flex-[3] justify-center whitespace-nowrap !py-3.5"
           >
-            {content.book.stickyLabel}
+            {t.book.stickyLabel}
           </a>
         )}
         <a

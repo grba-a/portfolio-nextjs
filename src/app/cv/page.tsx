@@ -5,6 +5,7 @@ import { cv } from "@/data/cv";
 import { work } from "@/data/work";
 import { site, certs, whatsappHref } from "@/data/site";
 import PrintButton from "@/components/cv/PrintButton";
+import ZipLogo from "@/components/ZipLogo";
 import {
   Mail,
   Phone,
@@ -61,7 +62,7 @@ export default function CvPage() {
 
       <div className="shell pt-8 sm:pt-10 print:hidden">
         <Link href="/" className="ulink -my-2 inline-flex min-h-11 items-center text-sm text-muted">
-          ← Back to petargrbic.com
+          ← Back to zip
         </Link>
       </div>
 
@@ -71,12 +72,17 @@ export default function CvPage() {
       >
         {/* ── Pobočni stupac ─────────────────────────────────────── */}
         <aside className="lg:col-span-4 lg:sticky lg:top-10 lg:self-start print:mb-0">
-          <div className="relative aspect-square w-28 overflow-hidden rounded-[4px] border border-line bg-limestone-2 sm:w-32 print:hidden">
+          {/* Logotip stoji iznad imena: dokument je Petrov, ali dolazi iz zipa */}
+          <Link href="/" aria-label="zip" className="-my-2 mb-3 inline-block py-2 print:hidden">
+            <ZipLogo id="zip-cv" pitch={17} className="h-8 w-auto" />
+          </Link>
+
+          <div className="relative aspect-[4/5] w-32 overflow-hidden rounded-[18px] border border-line bg-limestone-2 shadow-[0_22px_44px_-26px_rgba(20,17,14,0.55)] sm:w-36 print:hidden">
             <Image
               src="/me.webp"
               alt="Petar Grbić"
               fill
-              sizes="128px"
+              sizes="144px"
               priority
               className="object-cover"
             />
@@ -134,12 +140,12 @@ export default function CvPage() {
           </div>
 
           <div className="mt-9 border-t border-line pt-6 print:mt-5 print:pt-3">
-            <p className="eyebrow">Core stack</p>
+            <p className="eyebrow caret">Core stack</p>
             <ul className="mt-4 flex flex-wrap gap-2 print:mt-2">
               {cv.coreStack.map((s) => (
                 <li
                   key={s}
-                  className="border border-line px-2.5 py-1 text-[0.8125rem] text-ink print:px-1.5 print:py-0"
+                  className="rounded-full border border-line px-3 py-1 text-[0.8125rem] text-ink print:rounded-none print:px-1.5 print:py-0"
                 >
                   {s}
                 </li>
@@ -150,13 +156,13 @@ export default function CvPage() {
           {/* Samo za ispis: pobočni stupac je inače prazan ~800 px dok se
               glavni prelijeva. Na ekranu ovo stoji u glavnom stupcu. */}
           <div className="hidden print:mt-4 print:block print:border-t print:border-ink print:pt-2">
-            <p className="font-mono text-[7pt] uppercase tracking-[0.14em]">
+            <p className="text-[7pt] font-semibold uppercase tracking-[0.14em]">
               Certifications
             </p>
             <dl className="mt-1 space-y-1">
               {Object.entries(byIssuer).map(([issuer, items]) => (
                 <div key={issuer}>
-                  <dt className="font-mono text-[6.5pt] uppercase tracking-[0.14em] text-muted">
+                  <dt className="text-[6.5pt] font-semibold uppercase tracking-[0.14em] text-muted">
                     {issuer}
                   </dt>
                   <dd className="text-[7.5pt] leading-snug">
@@ -215,7 +221,7 @@ export default function CvPage() {
                   <p className="mt-1.5 max-w-[58ch] text-[0.9375rem] leading-relaxed text-muted print:mt-0.5 print:text-[8.5pt]">
                     {item.description}
                   </p>
-                  <p className="mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-muted print:text-[7pt]">
+                  <p className="mt-1 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-muted print:text-[7pt]">
                     {item.kind}
                     {item.status === "in-development" && " · In early development"}
                   </p>
@@ -231,7 +237,7 @@ export default function CvPage() {
             <dl className="mt-5 space-y-4 print:mt-2 print:space-y-1.5">
               {Object.entries(byIssuer).map(([issuer, items]) => (
                 <div key={issuer} className="print:break-inside-avoid">
-                  <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-rust-ink print:text-[7pt] print:text-ink">
+                  <dt className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-rust-ink print:text-[7pt] print:text-ink">
                     {issuer}
                   </dt>
                   <dd className="mt-2 flex flex-wrap gap-2 print:mt-0.5 print:gap-1">
@@ -241,7 +247,7 @@ export default function CvPage() {
                         href={`/certs/${c.file}.png`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex min-h-11 items-center border border-line px-3 text-[0.8125rem] text-ink transition-colors hover:border-ink hover:bg-paper print:min-h-0 print:px-1.5 print:text-[7.5pt]"
+                        className="inline-flex min-h-11 items-center rounded-full border border-line px-3.5 text-[0.8125rem] text-ink transition-colors hover:border-ink hover:bg-paper print:min-h-0 print:rounded-none print:px-1.5 print:text-[7.5pt]"
                       >
                         {c.name}
                       </a>
@@ -260,7 +266,7 @@ export default function CvPage() {
                     aria-hidden="true"
                     className="absolute -left-[1.6rem] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-rust bg-limestone print:hidden"
                   />
-                  <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-muted print:text-[7pt]">
+                  <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-muted print:text-[7pt]">
                     {t.period}
                   </p>
                   <h3 className="mt-1 font-display text-lg font-extrabold tracking-[-0.02em] print:text-[10pt]">
@@ -295,7 +301,7 @@ function Section({
     <section
       className={`${last ? "" : "mb-11 border-b border-line pb-11"} print:mb-3.5 print:border-0 print:pb-0 ${screenOnly ? "print:hidden" : ""}`}
     >
-      <h2 className="eyebrow mb-5 block print:mb-1.5 print:border-b print:border-ink print:pb-0.5 print:text-[9pt] print:text-ink">
+      <h2 className="eyebrow caret mb-5 block print:mb-1.5 print:border-b print:border-ink print:pb-0.5 print:text-[9pt] print:text-ink">
         {title}
       </h2>
       {children}

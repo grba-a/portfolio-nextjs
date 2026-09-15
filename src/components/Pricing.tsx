@@ -1,8 +1,8 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { content } from "@/data/content";
-import { site, whatsappHref } from "@/data/site";
+import { content, type Copy } from "@/data/content";
+import { site, waHref } from "@/data/site";
 import { revealIn } from "@/lib/anim/reveal";
 import { Phone } from "@/components/icons";
 
@@ -16,9 +16,10 @@ import { Phone } from "@/components/icons";
  * Stoji ovdje jer 3,2 ekrana dokaza prije njega inače završe u ništa —
  * ovo je trenutak najveće želje na cijeloj stranici.
  */
-export default function Pricing() {
+export default function Pricing({ t = content }: { t?: Copy }) {
   const scope = useRef<HTMLElement>(null);
-  const { pricing } = content;
+  const { pricing } = t;
+  const whatsappHref = waHref(t.whatsappText);
 
   useLayoutEffect(() => {
     if (!scope.current) return;
@@ -87,9 +88,9 @@ export default function Pricing() {
             {/* Hvata kupca na vrhuncu želje, umjesto da ga šalje pet ekrana niže */}
             <div className="mt-9 border-t border-line pt-7" data-reveal>
               <p className="font-display text-xl font-extrabold tracking-[-0.02em]">
-                {content.workCta.heading}
+                {t.workCta.heading}
               </p>
-              <p className="mt-1.5 text-[0.9375rem] text-muted">{content.workCta.body}</p>
+              <p className="mt-1.5 text-[0.9375rem] text-muted">{t.workCta.body}</p>
 
               <div className="mt-5 flex flex-col gap-3 sm:flex-row" data-cta>
                 {whatsappHref && (
@@ -99,7 +100,7 @@ export default function Pricing() {
                     rel="noopener noreferrer"
                     className="btn btn-primary justify-center sm:justify-start"
                   >
-                    {content.book.whatsappLabel}
+                    {t.book.whatsappLabel}
                   </a>
                 )}
                 <a
@@ -107,7 +108,7 @@ export default function Pricing() {
                   className="btn btn-ghost justify-center sm:justify-start"
                 >
                   <Phone className="h-4 w-4" />
-                  {content.book.callLabel}
+                  {t.book.callLabel}
                 </a>
               </div>
             </div>
