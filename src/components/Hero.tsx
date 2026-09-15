@@ -1,6 +1,7 @@
 import { content } from "@/data/content";
 import { whatsappHref } from "@/data/site";
-import HeroDeck from "@/components/HeroDeck";
+import HeroStory from "@/components/HeroStory";
+import FreeMark from "@/components/FreeMark";
 
 /**
  * Hero. Server komponenta — nema stanja, cijeli intro je čisti CSS.
@@ -53,7 +54,7 @@ export default function Hero() {
         </h1>
 
         <p className="rise rise-2 mt-6 max-w-[46ch] text-[1.0625rem] leading-relaxed text-muted sm:mt-9 sm:text-lg">
-          {hero.sub}
+          {hero.subBefore} <FreeMark>{hero.subFree}</FreeMark>
         </p>
 
         <div className="rise rise-3 mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
@@ -82,7 +83,7 @@ export default function Hero() {
             stupaca bile veće od naslova i preuzimale kadar. Prazan šesti
             stupac je razmak između teksta i špila. */}
         <div className="rise rise-4 w-full lg:col-span-6 lg:col-start-7">
-          <HeroDeck />
+          <HeroStory />
         </div>
       </div>
     </section>

@@ -26,10 +26,28 @@ export const content = {
     // Maska ide na drugi redak: kratak i težak, da se snimka iza vidi
     line1: "Systems",
     line2: "that sell.",
-    sub: "Your website, your Google listing and your booking path, working as one. Send me your address and get three findings about yours, in writing. Free.",
+    // "for free" dobiva rust krug: prvo dajemo besplatno, pa educiramo, pa
+    // tek onda naplaćujemo (Petar, 2026-09-15)
+    subBefore: "Your website, your Google listing and your booking path, working as one. Send me your address and I'll check all three, in writing and",
+    subFree: "for free.",
     ctaPrimary: "Get the free check",
     ctaSecondary: "See the work",
     croatian: "Govorim hrvatski.",
+  },
+
+  // Priča u pet poteza — špil u heroju. Scene 2–4 su točno ono što provjera
+  // gleda; peta je gumb. Edukacija prije naplate.
+  story: {
+    label: "How the free check works",
+    prev: "Previous scene",
+    next: "Next scene",
+    scenes: [
+      { title: "Someone nearby is searching.", free: null, body: "For a table, a boat, a room — right now, on a phone.", cta: null },
+      { title: "Found.", free: null, body: "Often the first thing they see is your Google listing. Does it lead to your site?", cta: null },
+      { title: "Trusted.", free: null, body: "Your site has a few seconds to show them you're the right choice.", cta: null },
+      { title: "Booked.", free: null, body: "One broken step between them and the booking, and they book someone else.", cta: null },
+      { title: "I check all three.", free: "Free.", body: "Three findings about your listing, your site and your booking path, in writing.", cta: "Get the free check" },
+    ],
   },
 
   work: {
