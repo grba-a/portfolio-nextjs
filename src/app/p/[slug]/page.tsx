@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { prospects } from "@/data/prospects";
 import { site } from "@/data/site";
 import { ArrowUpRight } from "@/components/icons";
+import ZipLogo from "@/components/ZipLogo";
 
 /**
  * Stranica jednog vlasnika — nastavak hladne poruke, ne naslovnica.
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const p = prospects.find((x) => x.slug === slug);
   return {
-    title: p ? `Za ${p.name} · Petar Grbić` : "Petar Grbić",
+    title: p ? `Za ${p.name} · zip` : "zip",
     // Privatno: ne indeksira se i ne prati se dalje
     robots: { index: false, follow: false },
   };
@@ -47,7 +48,7 @@ export default async function ProspectPage({ params }: Props) {
 
   const wa = site.whatsapp
     ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(
-        `Dobar dan, Petre! Javljam se u vezi provjere za ${p.name}. `,
+        `Dobar dan! Javljam se u vezi provjere za ${p.name}. `,
       )}`
     : null;
   const three = p.findings.length === 3;
@@ -55,8 +56,8 @@ export default async function ProspectPage({ params }: Props) {
   return (
     <main lang="hr" className="min-h-[100svh] pb-20">
       <header className="shell flex min-h-16 items-center border-b border-line">
-        <Link href="/" className="-my-2 inline-flex min-h-11 items-center font-display text-lg font-extrabold tracking-[-0.02em]">
-          Petar Grbić
+        <Link href="/" className="-my-2 inline-flex min-h-11 items-center">
+          <ZipLogo id="zip-p" pitch={17} className="h-9 w-auto" />
         </Link>
       </header>
 
@@ -72,7 +73,7 @@ export default async function ProspectPage({ params }: Props) {
           </h1>
 
           <p className="mt-6 max-w-[46ch] text-[1.0625rem] leading-relaxed text-muted">
-            Pogledao sam {p.site ? `${host(p.site)}, ` : ""}vaš Google profil i put do rezervacije.
+            Pogledali smo {p.site ? `${host(p.site)}, ` : ""}vaš Google profil i put do rezervacije.
             Svaku od ovih stvari možete sami provjeriti za minutu.
           </p>
 
@@ -93,7 +94,7 @@ export default async function ProspectPage({ params }: Props) {
 
           {p.concept && (
             <p className="mt-8 text-[1.0625rem] leading-relaxed">
-              Napravio sam i prijedlog kako bi vaša stranica mogla izgledati.{" "}
+              Napravili smo i prijedlog kako bi vaša stranica mogla izgledati.{" "}
               <a
                 href={p.concept}
                 target="_blank"
@@ -109,7 +110,7 @@ export default async function ProspectPage({ params }: Props) {
           <div className="mt-12 border-t border-line-strong pt-8">
             <p className="font-display text-2xl font-extrabold tracking-[-0.02em]">Pitanja? Javite se.</p>
             <p className="mt-2 max-w-[44ch] text-[1rem] leading-relaxed text-muted">
-              Provjera je besplatna i ni na što vas ne obvezuje. Odgovaram u roku od 24 sata.
+              Provjera je besplatna i ni na što vas ne obvezuje. Odgovaramo u roku od 24 sata.
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -133,7 +134,7 @@ export default async function ProspectPage({ params }: Props) {
           </div>
 
           <p className="mt-14 text-sm text-muted">
-            Petar Grbić · web dizajn, Dubrovnik ·{" "}
+            zip · web dizajn, Dubrovnik ·{" "}
             <Link href="/" className="ulink -my-2 inline-flex min-h-11 items-center">
               petargrbic.com
             </Link>

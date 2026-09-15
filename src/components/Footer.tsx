@@ -1,4 +1,5 @@
 import { content } from "@/data/content";
+import ZipLogo from "@/components/ZipLogo";
 import { site } from "@/data/site";
 import { Facebook, GitHub, Instagram, LinkedIn } from "@/components/icons";
 
@@ -24,10 +25,10 @@ export default function Footer() {
                 čitače ekrana, jer im sama slika ne kaže kamo vodi. */}
             <a
               href="#top"
-              className="-my-2 inline-flex min-h-11 items-center font-display text-lg font-extrabold tracking-[-0.02em]"
+              className="-my-2 inline-flex min-h-11 items-center"
+              aria-label={`zip — ${content.footer.backToTop}`}
             >
-              Petar Grbić
-              <span className="sr-only"> — {content.footer.backToTop}</span>
+              <ZipLogo id="zip-foot" className="h-12 w-auto" />
             </a>
             <p className="mt-1.5 text-sm text-limestone/75">{content.footer.tagline}</p>
             <p className="mt-0.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-limestone/60">

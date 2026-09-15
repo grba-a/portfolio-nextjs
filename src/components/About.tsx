@@ -44,7 +44,13 @@ export default function About() {
             {about.heading}
           </p>
 
-          <div className="mt-10 max-w-[62ch] space-y-4 text-[1.0625rem] leading-relaxed text-muted sm:mt-12">
+          {/* Osoba iza zipa: ime i uloga, pa tekst u prvom licu */}
+          <p className="mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 sm:mt-10" data-reveal>
+            <span className="font-display text-2xl font-extrabold tracking-[-0.02em] text-ink">{about.name}</span>
+            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-muted">{about.role}</span>
+          </p>
+
+          <div className="mt-5 max-w-[62ch] space-y-4 text-[1.0625rem] leading-relaxed text-muted">
             <p data-reveal>{about.p1}</p>
             <p data-reveal>{about.p2}</p>
             <p data-reveal>{about.p2b}</p>

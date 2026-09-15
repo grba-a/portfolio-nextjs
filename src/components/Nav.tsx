@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { content } from "@/data/content";
+import ZipLogo from "@/components/ZipLogo";
 
 /**
  * Mobile-first navigacija.
@@ -80,9 +81,10 @@ export default function Nav() {
           <a
             href="#top"
             onClick={() => setOpen(false)}
-            className="relative z-50 -my-3 py-3 font-display text-[0.95rem] font-extrabold tracking-[-0.02em]"
+            className="relative z-50 -my-3 block py-3"
           >
-            Petar Grbić
+            {/* zip, brand od 2026-09-15; rjeđe crte jer je logo malen */}
+            <ZipLogo id="zip-nav" pitch={17} className="h-9 w-auto" />
           </a>
 
           {/* Izbornik govori jezikom oznaka (mono, verzal, razmaknuto) kao

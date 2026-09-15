@@ -22,13 +22,13 @@ export const content = {
   // Pozicioniranje "Provjera" (Petar, 2026-09-14): prvi korak je besplatna
   // pisana provjera, ne poziv. Bez obećanog roka — broj dana nije zadan.
   hero: {
-    eyebrow: "Petar Grbić · Web design in Dubrovnik",
+    eyebrow: "zip · Web design in Dubrovnik",
     // Maska ide na drugi redak: kratak i težak, da se snimka iza vidi
     line1: "Systems",
     line2: "that sell.",
     // "for free" dobiva rust krug: prvo dajemo besplatno, pa educiramo, pa
     // tek onda naplaćujemo (Petar, 2026-09-15)
-    subBefore: "Your website, your Google listing and your booking path, working as one. Send me your address and I'll check all three, in writing and",
+    subBefore: "Your website, your Google listing and your booking path, working as one. Send us your address and we'll check all three, in writing and",
     subFree: "for free.",
     ctaPrimary: "Get the free check",
     ctaSecondary: "See the work",
@@ -46,7 +46,7 @@ export const content = {
       { title: "Found.", free: null, body: "Often the first thing they see is your Google listing. Does it lead to your site?", cta: null },
       { title: "Trusted.", free: null, body: "Your site has a few seconds to show them you're the right choice.", cta: null },
       { title: "Booked.", free: null, body: "One broken step between them and the booking, and they book someone else.", cta: null },
-      { title: "I check all three.", free: "Free.", body: "Three findings about your listing, your site and your booking path, in writing.", cta: "Get the free check" },
+      { title: "We check all three.", free: "Free.", body: "Three findings about your listing, your site and your booking path, in writing.", cta: "Get the free check" },
     ],
   },
 
@@ -55,7 +55,7 @@ export const content = {
     // Prije je pisalo "fully my own work" — to prodaje mene, a kupca zanima
     // koliko pažnje dobiva on. Sada: malo projekata odjednom, i majstor
     // se dovodi kad ga posao traži.
-    sub: "A few projects at a time, so yours gets the attention it needs — and when a job calls for a photographer or a copywriter, I bring in someone who is genuinely good at it.",
+    sub: "A few projects at a time, so yours gets the attention it needs — and when a job calls for a photographer or a copywriter, we bring in someone who is genuinely good at it.",
     visit: "Visit site",
     statusLive: "Live",
     statusDev: "In early development",
@@ -89,7 +89,7 @@ export const content = {
   // 3,2 ekrana dokaza prije ovoga završavala su u ništa.
   workCta: {
     heading: "Want to know what yours gets wrong?",
-    body: "Send me the address. The check is free.",
+    body: "Send us the address. The check is free.",
   },
 
   about: {
@@ -97,7 +97,10 @@ export const content = {
     heading: "Who you'd be working with",
     // Studij se preselio na /cv, gdje ga poslodavac traži. Kupac koji kupuje
     // web ne kupuje godinu studija — kupuje čovjeka koji zna posao.
-    p1: "I'm Petar, from Dubrovnik. I run the digital side for small businesses — the site, the ads, the search, and the words on all of it.",
+    // O meni ostaje o Petru, u prvom licu, s ulogom u zipu (Petar, 2026-09-15)
+    name: "Petar Grbić",
+    role: "Head of Operations",
+    p1: "I'm Petar, from Dubrovnik, and I lead operations at zip: the site, the ads, the search, and the words on all of it.",
     p2: "One point of contact for all of it. You brief me once and I handle the rest; when a job needs a photographer, a copywriter or a specialist, I bring one in and you still deal only with me.",
     p2b: "Before this I spent three seasons in Dubrovnik hospitality — client relations and safety operations for Maistra Hotels — so I know what a full season does to a business, and what a booking is worth in August.",
     p3: "Voluntary military training with the Croatian Ministry of Defence in 2023. That is where the discipline behind every deadline comes from.",
@@ -114,7 +117,7 @@ export const content = {
       {
         num: "01",
         title: "The free check",
-        desc: "Send me your address. You get three findings about your Google listing, your website and your booking path, in writing. Free, and it commits you to nothing.",
+        desc: "Send us your address. You get three findings about your Google listing, your website and your booking path, in writing. Free, and it commits you to nothing.",
       },
       {
         num: "02",
@@ -131,7 +134,7 @@ export const content = {
 
   book: {
     eyebrow: "Free website check",
-    heading: "Send me your website.",
+    heading: "Send us your website.",
     sub: "Three findings about your site, your Google listing and the path to a booking, in writing. Free, and no pitch attached.",
     cta: "Get the free check",
     whatsappLabel: "Get the free check on WhatsApp",
@@ -160,11 +163,11 @@ export const content = {
     messagePlaceholder: "Your website address, and what you want more of: bookings, calls, walk-ins.",
     send: "Send message",
     sending: "Sending…",
-    success: "Message sent. I'll get back to you within 24 hours.",
+    success: "Message sent. We'll get back to you within 24 hours.",
     errorServer: "Something went wrong. Please email me directly.",
     errorNetwork: "Network error. Please email me directly.",
-    reply: "I reply within 24 hours.",
-    afterSend: "I'll reply within 24 hours with a few questions — no automated email, no newsletter.",
+    reply: "We reply within 24 hours.",
+    afterSend: "We'll reply within 24 hours with a few questions — no automated email, no newsletter.",
     phone: "Phone (optional)",
     required: "Please fill in this field.",
     invalidEmail: "Please enter a valid email address.",

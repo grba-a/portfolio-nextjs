@@ -35,9 +35,10 @@ const jetbrains = JetBrains_Mono({
  * Opis više ne kaže "myself": pozicioniranje je jedan sugovornik, ne jedan
  * par ruku, pa meta mora govoriti isto što i stranica.
  */
-const TITLE = "Web design Dubrovnik — free website check | Petar Grbić";
+// Brand je zip (Petar, 2026-09-15). "zip / marketing genius" ide u opis, ne na stranicu.
+const TITLE = "Web design Dubrovnik — free website check | zip";
 const DESC =
-  "A free written check of your website, Google listing and booking path: three findings you can verify yourself. Web design, ads and local SEO in Dubrovnik.";
+  "zip / marketing genius. A free written check of your website, Google listing and booking path, then web design, ads and local SEO in Dubrovnik.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://petargrbic.com"),
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESC,
     url: "https://petargrbic.com",
-    siteName: "Petar Grbić",
+    siteName: "zip",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: TITLE }],
     locale: "en_US",
     type: "website",
@@ -63,20 +64,27 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-const personLd = {
+/* zip je posao, Petar je osnivač. Samo potvrđene činjenice — bez adrese
+   ulice, OIB-a i ocjena (aggregateRating ne daje zvjezdice na vlastitom poslu). */
+const orgLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Petar Grbić",
+  "@type": "Organization",
+  name: "zip",
   url: "https://petargrbic.com",
-  jobTitle: "Web developer & digital marketer",
+  logo: "https://petargrbic.com/icon.png",
   email: "thepetargrbic@gmail.com",
   address: { "@type": "PostalAddress", addressLocality: "Dubrovnik", addressCountry: "HR" },
-  sameAs: [
-    "https://www.linkedin.com/in/petar-grbi%C4%87-455880398/",
-    "https://github.com/grba-a",
-    "https://www.instagram.com/grbicpetarr/",
-    "https://web.facebook.com/petaargrbic",
-  ],
+  founder: {
+    "@type": "Person",
+    name: "Petar Grbić",
+    jobTitle: "Head of Operations",
+    sameAs: [
+      "https://www.linkedin.com/in/petar-grbi%C4%87-455880398/",
+      "https://github.com/grba-a",
+      "https://www.instagram.com/grbicpetarr/",
+      "https://web.facebook.com/petaargrbic",
+    ],
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -88,7 +96,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }}
         />
         <div className="grain" aria-hidden="true" />
         <ScrollSetup />

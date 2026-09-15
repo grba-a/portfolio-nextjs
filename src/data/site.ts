@@ -1,7 +1,8 @@
 /** Kontakt i poveznice — preuzeto s petargrbic.com. */
 
 export const site = {
-  name: "Petar Grbić",
+  // Brand je zip (Petar, 2026-09-15); Petar ostaje osoba u sekciji O meni i na /cv
+  name: "zip",
   url: "https://petargrbic.com",
   email: "thepetargrbic@gmail.com",
   /** CV je ruta unutar ovog projekta — /cv */
@@ -62,7 +63,7 @@ export const site = {
  * rečenicu. Pripremljena poruka traži provjeru, a on dopiše samo adresu.
  * (Prije: "I saw your site" — krivo za vlasnika kojem se Petar prvi javio.)
  */
-const WA_TEXT = "Hi Petar, I'd like the free website check. My site: ";
+const WA_TEXT = "Hello! I'd like the free website check. My site: ";
 
 export const whatsappHref = site.whatsapp
   ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(WA_TEXT)}`
