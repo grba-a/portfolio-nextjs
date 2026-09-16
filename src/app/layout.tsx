@@ -65,7 +65,7 @@ const orgLd = {
   name: "zip",
   url: "https://donebyzip.com",
   logo: "https://donebyzip.com/icon.png",
-  email: "thepetargrbic@gmail.com",
+  email: "petar@donebyzip.com",
   address: { "@type": "PostalAddress", addressLocality: "Dubrovnik", addressCountry: "HR" },
   founder: {
     "@type": "Person",
