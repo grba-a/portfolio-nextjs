@@ -3,7 +3,7 @@
 export const site = {
   // Brand je zip (Petar, 2026-09-15); Petar ostaje osoba u sekciji O meni i na /cv
   name: "zip",
-  url: "https://petargrbic.com",
+  url: "https://donebyzip.com",
   email: "thepetargrbic@gmail.com",
   /** CV je ruta unutar ovog projekta — /cv */
   cv: "/cv",

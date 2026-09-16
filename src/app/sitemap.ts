@@ -7,9 +7,9 @@ import type { MetadataRoute } from "next";
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: "https://petargrbic.com", priority: 1 },
-    { url: "https://petargrbic.com/hr", priority: 0.9 },
-    { url: "https://petargrbic.com/work", priority: 0.7 },
-    { url: "https://petargrbic.com/cv", priority: 0.3 },
+    { url: "https://donebyzip.com", priority: 1 },
+    { url: "https://donebyzip.com/hr", priority: 0.9 },
+    { url: "https://donebyzip.com/work", priority: 0.7 },
+    { url: "https://donebyzip.com/cv", priority: 0.3 },
   ];
 }

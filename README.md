@@ -1,4 +1,4 @@
-# petargrbic.com
+# donebyzip.com
 
 Osobni web Petra Grbića — web razvoj, oglasi i SEO za male tvrtke.
 Next.js 16 (App Router) · Tailwind v4 · GSAP · TypeScript. Statički prerender.

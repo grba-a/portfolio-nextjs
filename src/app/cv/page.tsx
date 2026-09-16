@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: TITLE,
     description: DESC,
-    url: "https://petargrbic.com/cv",
+    url: "https://donebyzip.com/cv",
     siteName: "Petar Grbić",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: TITLE }],
     locale: "en_US",
@@ -47,7 +47,7 @@ export default function CvPage() {
   const contact = [
     { icon: Mail, label: site.email, href: `mailto:${site.email}` },
     { icon: Phone, label: site.phoneDisplay, href: `tel:${site.phone}` },
-    { icon: Globe, label: "petargrbic.com", href: "https://petargrbic.com" },
+    { icon: Globe, label: "donebyzip.com", href: "https://donebyzip.com" },
     { icon: MapPin, label: cv.location, href: null },
   ];
 

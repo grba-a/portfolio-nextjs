@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: hrMeta.title,
     description: hrMeta.description,
-    url: "https://petargrbic.com/hr",
+    url: "https://donebyzip.com/hr",
     locale: "hr_HR",
   },
 };

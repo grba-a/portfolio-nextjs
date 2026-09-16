@@ -34,7 +34,7 @@ const DESC =
   "zip / marketing genius. We help small businesses grow, starting with a free written check of your website, Google listing and booking path.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://petargrbic.com"),
+  metadataBase: new URL("https://donebyzip.com"),
   title: TITLE,
   description: DESC,
   // Engleska naslovnica i hrvatska /hr su par (ista ponuda, dva jezika).
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: TITLE,
     description: DESC,
-    url: "https://petargrbic.com",
+    url: "https://donebyzip.com",
     siteName: "zip",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: TITLE }],
     locale: "en_US",
@@ -63,8 +63,8 @@ const orgLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "zip",
-  url: "https://petargrbic.com",
-  logo: "https://petargrbic.com/icon.png",
+  url: "https://donebyzip.com",
+  logo: "https://donebyzip.com/icon.png",
   email: "thepetargrbic@gmail.com",
   address: { "@type": "PostalAddress", addressLocality: "Dubrovnik", addressCountry: "HR" },
   founder: {

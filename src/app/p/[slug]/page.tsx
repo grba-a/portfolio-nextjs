@@ -136,7 +136,7 @@ export default async function ProspectPage({ params }: Props) {
           <p className="mt-14 text-sm text-muted">
             zip · web dizajn ·{" "}
             <Link href="/" className="ulink -my-2 inline-flex min-h-11 items-center">
-              petargrbic.com
+              donebyzip.com
             </Link>
           </p>
         </div>
