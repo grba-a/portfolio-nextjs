@@ -2,9 +2,23 @@
 <!--
   zip — mail s ponudom: Website · System · Growth (paketi sa stranice, 2026-09-18)
 
-  PRIJE SLANJA zamijeni sve što je u [ ] zagradama (označeno žutom):
-    [Naziv klijenta] · [Nalaz iz provjere] · [cijena] · [jednokratno / mjesečno]
-    [Napomena o cijeni] · [Ime]
+  KAKO UREDITI
+    1. Otvori ovu datoteku u VS Codeu (ili TextEditu u načinu „Običan tekst”).
+    2. Cmd+F i traži  [  — svaka uglata zagrada je mjesto za tvoj tekst:
+       [Naziv klijenta] · [Nalaz iz provjere] · [cijena] · [jednokratno / mjesečno]
+       [Napomena o cijeni] · [Ime]
+       Zamijeni tekst zajedno sa zagradama. HTML oznake oko njega ne diraj.
+    3. Stavku paketa mijenjaš isto: tekst između > i < u retku koji počinje s ✓.
+    4. Kad je sve popunjeno, obriši dva retka s .ph i .phd u <style> dolje —
+       žuta boja nestaje i tekst dobiva normalnu boju.
+    5. Spremi pa otvori u Safariju i provjeri kako izgleda.
+
+  KAKO POSLATI
+    Safari → Datoteka → Dijeli → „Pošalji ovu stranicu e-poštom” → otvara se Mail
+    s gotovim izgledom; upiši primatelja i pošalji. Uvijek prvo pošalji sebi.
+    (Gmail u pregledniku ne prima HTML datoteku; kopiraj-zalijepi iz preglednika
+    radi, ali izgubi dio pozadina.)
+    Radi kopiju za svakog klijenta (npr. ponuda-konoba-x.html), ovu ostavi praznu.
   Slike se učitavaju s https://donebyzip.com/email/ (scripts/email-assets.mjs).
   Gumbi otvaraju mail na info@donebyzip.com s imenom paketa u naslovu —
   provjeri da info@ stiže na tvoj sandučić (preusmjerenje u cPanelu).
@@ -29,7 +43,9 @@
   img { border: 0; display: block; outline: none; text-decoration: none; }
   a { text-decoration: none; }
   body, table, td, p, a, span, h1, h2, h3 { font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  /* Žute oznake za popunjavanje. Kad sve popuniš, obriši ova dva retka. */
   .ph { color: #ffd60a; }
+  .phd { color: #b38f00; }
   @media screen and (max-width: 520px) {
     .pad { padding-left: 20px !important; padding-right: 20px !important; }
     .h1 { font-size: 30px !important; }
@@ -162,8 +178,8 @@
             <span style="display:inline-block; margin:0 4px 6px 0; padding:5px 11px; border:1px solid #d4d4da; border-radius:999px; font-size:12.5px; line-height:1.2; color:#0a0a0b;">Stranica</span><span style="display:inline-block; margin:0 4px 6px 0; padding:5px 11px; border:1px solid #d4d4da; border-radius:999px; font-size:12.5px; line-height:1.2; color:#0a0a0b;">Rezervacije</span><span style="display:inline-block; margin:0 4px 6px 0; padding:5px 11px; border:1px solid #d4d4da; border-radius:999px; font-size:12.5px; line-height:1.2; color:#0a0a0b;">SEO</span><span style="display:inline-block; margin:0 4px 6px 0; padding:5px 11px; border:1px solid #d4d4da; border-radius:999px; font-size:12.5px; line-height:1.2; color:#0a0a0b;">Oglasi</span><span style="display:inline-block; margin:0 4px 6px 0; padding:5px 11px; border:1px solid #d4d4da; border-radius:999px; font-size:12.5px; line-height:1.2; color:#0a0a0b;">AI</span><span style="display:inline-block; margin:0 4px 6px 0; padding:5px 11px; border:1px solid #d4d4da; border-radius:999px; font-size:12.5px; line-height:1.2; color:#0a0a0b;">Automatizacija</span>
           </p>
           <img src="https://donebyzip.com/email/zipline.png" width="520" height="10" alt="" style="width:100%; max-width:520px; height:10px; margin-top:6px;">
-          <p style="margin:14px 0 0; font-size:28px; font-weight:600; letter-spacing:-0.03em; color:#0a0a0b;"><span style="color:#b38f00;">[cijena]</span></p>
-          <p style="margin:2px 0 0; font-size:13px; color:#6b6b73;"><span style="color:#b38f00;">[jednokratno / mjesečno]</span></p>
+          <p style="margin:14px 0 0; font-size:28px; font-weight:600; letter-spacing:-0.03em; color:#0a0a0b;"><span class="phd">[cijena]</span></p>
+          <p style="margin:2px 0 0; font-size:13px; color:#6b6b73;"><span class="phd">[jednokratno / mjesečno]</span></p>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px; border-top:1px solid #e0e0e5;">
             <tr><td style="padding:12px 0 0; font-size:15px; line-height:1.5; color:#4a4a50;">+&nbsp; Sve iz paketa Website i Growth, plus:</td></tr>
             <tr><td style="padding:6px 0 0; font-size:15px; line-height:1.5; color:#0a0a0b;">✓&nbsp; AI asistent na vašoj stranici</td></tr>
