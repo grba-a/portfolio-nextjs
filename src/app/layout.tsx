@@ -1,35 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Instrument_Sans } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
-import ScrollSetup from "@/components/ScrollSetup";
+import GlassRefraction from "@/components/GlassRefraction";
 
-/*
- * Samo težina 800 i bez osi širine: ništa na stranici ne koristi drugu
- * težinu ni font-stretch, a varijabilni font s osi bio je 172 KB (dva
- * zadnja zahtjeva u waterfallu, LCP ~4 s na mobitelu). Statičnih 800: ~27 KB.
- */
-const archivo = Archivo({
-  variable: "--font-archivo",
-  subsets: ["latin", "latin-ext"],
-  weight: ["800"],
-  display: "swap",
-});
-
-const instrument = Instrument_Sans({
-  variable: "--font-instrument",
+/* Geist, jedna varijabilna datoteka za sve težine (odluka 3, 2026-09-18) */
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin", "latin-ext"],
   display: "swap",
 });
 
-/*
- * Naslov nosi i marku i riječi koje netko stvarno traži. Prije je stajalo
- * samo "Websites that sell" — lijepa rečenica, ali u tražilici nevidljiva.
- * Opis više ne kaže "myself": pozicioniranje je jedan sugovornik, ne jedan
- * par ruku, pa meta mora govoriti isto što i stranica.
- */
-// Brand je zip (Petar, 2026-09-15). "zip / marketing genius" ide u opis, ne na stranicu.
-const TITLE = "Marketing & growth agency — free website check | zip";
+// Bez "agency" (Petar odobrio 2026-09-16); "zip / marketing genius" ostaje samo u opisu.
+const TITLE = "Free website check | zip";
 const DESC =
   "zip / marketing genius. We help small businesses grow, starting with a free written check of your website, Google listing and booking path.";
 
@@ -37,8 +20,6 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://donebyzip.com"),
   title: TITLE,
   description: DESC,
-  // Engleska naslovnica i hrvatska /hr su par (ista ponuda, dva jezika).
-  // /work, /cv i /hr postavljaju vlastiti canonical i ovo ne nasljeđuju.
   alternates: { canonical: "/", languages: { en: "/", hr: "/hr", "x-default": "/" } },
   openGraph: {
     title: TITLE,
@@ -53,12 +34,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5f2ed",
-  colorScheme: "light",
+  themeColor: "#000000",
+  colorScheme: "dark",
 };
 
-/* zip je posao, Petar je osnivač. Samo potvrđene činjenice — bez adrese
-   ulice, OIB-a i ocjena (aggregateRating ne daje zvjezdice na vlastitom poslu). */
+/* Samo firma (Petar, 2026-09-18: "ovo je isključivo za firmu") — bez osnivača,
+   bez osobnih profila. Grad je Zagreb. Bez ocjena i adrese ulice. */
 const orgLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -66,36 +47,28 @@ const orgLd = {
   url: "https://donebyzip.com",
   logo: "https://donebyzip.com/icon.png",
   email: "info@donebyzip.com",
-  address: { "@type": "PostalAddress", addressLocality: "Dubrovnik", addressCountry: "HR" },
-  founder: {
-    "@type": "Person",
-    name: "Petar Grbić",
-    jobTitle: "Head of Operations",
-    sameAs: [
-      "https://www.linkedin.com/in/petar-grbi%C4%87-455880398/",
-      "https://github.com/grba-a",
-      "https://www.instagram.com/grbicpetarr/",
-      "https://web.facebook.com/petaargrbic",
-    ],
-  },
+  address: { "@type": "PostalAddress", addressLocality: "Zagreb", addressCountry: "HR" },
 };
+
+/*
+ * Zatvarač u heroju ide samo pri prvom posjetu u sesiji i nikad uz smanjeni
+ * pokret; "?zip" u adresi ga uvijek pokrene, za pregled. Mora se odlučiti
+ * PRIJE prvog iscrtavanja, pa je ovo sinkrona skripta na vrhu <body>, a ne efekt. Nakon 2,6 s atribut se miče, da
+ * povratak na naslovnicu klijentskom navigacijom ne pokrene zatvarač opet.
+ */
+const zipperGate = `try{var s=sessionStorage,d=document.documentElement;if((!s.getItem("zz")||location.search.indexOf("zip")>-1)&&!matchMedia("(prefers-reduced-motion: reduce)").matches){d.dataset.zz="run";setTimeout(function(){delete d.dataset.zz},2600)}s.setItem("zz","1")}catch(e){}`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${archivo.variable} ${instrument.variable}`}
-    >
+    <html lang="en" className={geist.variable} suppressHydrationWarning>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: zipperGate }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }}
         />
-        <div className="grain" aria-hidden="true" />
-        <ScrollSetup />
         {children}
-        {/* Samo posjeti po stranici (radi i na Hobby planu); stranice
-            vlasnika /p/[ime] tako same kažu tko je otvorio link. */}
+        <GlassRefraction />
         <Analytics />
       </body>
     </html>

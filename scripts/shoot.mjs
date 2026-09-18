@@ -55,12 +55,47 @@ async function shoot(page, { slug, href }) {
   await sharp(wide).resize(1440, 900, { fit: "cover", position: "top" })
     .webp({ quality: 82 }).toFile(join(OUT, `${slug}.webp`));
 
-  // Uspravna varijanta — hero marquee klizi stupcima, treba mu visina.
+  return slug;
+}
+
+/*
+ * Uspravna varijanta = PRAVI MOBITEL (redizajn 2026-09-18): pločice na
+ * naslovnici izgledaju kao ekrani mobitela, pa ih puni mobilna snimka.
+ * Prije je to bila desktop stranica stisnuta u 9:16, s bijelim prazninama
+ * gdje se sadržaj pojavljuje tek na scroll — zato se stranica prvo prođe
+ * do dna, da se svi scroll-reveal elementi pokažu, pa se tek onda snima.
+ */
+async function shootTall(browser, { slug, href }) {
+  const page = await browser.newPage({
+    viewport: { width: 390, height: 844 },
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+  });
+  await page.goto(href, { waitUntil: "networkidle", timeout: 60_000 });
+  for (const label of REJECT) {
+    const btn = page.getByRole("button", { name: label, exact: false }).first();
+    if (await btn.isVisible().catch(() => false)) {
+      await btn.click().catch(() => {});
+      break;
+    }
+  }
+  await page.waitForTimeout(2000);
+  const total = await page.evaluate(() => document.body.scrollHeight);
+  for (let y = 0; y < total; y += 600) {
+    await page.evaluate((v) => window.scrollTo(0, v), y);
+    await page.waitForTimeout(160);
+  }
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(1200);
+  await page.addStyleTag({
+    content: `*,*::before,*::after{animation-play-state:paused!important;transition:none!important}`,
+  });
+  await page.waitForTimeout(300);
   const tall = await page.screenshot({ type: "png", fullPage: true });
   await sharp(tall).resize(900, 1600, { fit: "cover", position: "top" })
-    .webp({ quality: 78 }).toFile(join(OUT, `${slug}-tall.webp`));
-
-  return slug;
+    .webp({ quality: 80 }).toFile(join(OUT, `${slug}-tall.webp`));
+  await page.close();
 }
 
 const only = process.argv[2];
@@ -80,6 +115,7 @@ const page = await browser.newPage({
 for (const item of items) {
   try {
     await shoot(page, item);
+    await shootTall(browser, item);
     console.log(`  ✓ ${item.slug}`);
   } catch (err) {
     console.error(`  ✗ ${item.slug} — ${err.message}`);

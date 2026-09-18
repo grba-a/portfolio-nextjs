@@ -63,19 +63,19 @@ export default function Modal({
       }}
       // Statične klase, ne template literal: Tailwind skenira izvor i klasu
       // složenu u stringu pri izvođenju nikad ne bi ni generirao.
-      className={`m-auto overflow-hidden rounded-[18px] border border-line bg-limestone p-0 text-ink backdrop:bg-ink/70 backdrop:backdrop-blur-sm ${
+      className={`m-auto overflow-hidden rounded-[22px] border border-line-2 bg-card p-0 text-fg backdrop:bg-black/70 backdrop:backdrop-blur-sm ${
         wide ? "w-[min(94vw,980px)]" : "w-[min(94vw,760px)]"
       }`}
     >
       <div className="flex items-center justify-between gap-4 border-b border-line px-5 py-3">
-        <p ref={titleRef} tabIndex={-1} className="eyebrow outline-none">
+        <p ref={titleRef} tabIndex={-1} className="text-sm font-medium text-fg-2 outline-none">
           {label}
         </p>
         <button
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="-mr-2 grid h-11 w-11 place-items-center text-muted transition-colors hover:text-ink"
+          className="-mr-2 grid h-11 w-11 place-items-center text-fg-3 transition-colors hover:text-fg"
         >
           <svg
             width="18"

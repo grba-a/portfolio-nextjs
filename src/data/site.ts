@@ -1,12 +1,10 @@
 /** Kontakt i poveznice — preuzeto s petargrbic.com. */
 
 export const site = {
-  // Brand je zip (Petar, 2026-09-15); Petar ostaje osoba u sekciji O meni i na /cv
+  // Brand je zip; od 2026-09-18 stranica je samo za firmu (bez osoba i bez /cv)
   name: "zip",
   url: "https://donebyzip.com",
   email: "info@donebyzip.com",
-  /** CV je ruta unutar ovog projekta — /cv */
-  cv: "/cv",
   formspree: "https://formspree.io/f/xreayqjv",
 
   /**
@@ -43,12 +41,6 @@ export const site = {
    */
   whatsapp: "385981834111" as string | null,
 
-  socials: [
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/petar-grbi%C4%87-455880398/" },
-    { label: "GitHub", href: "https://github.com/grba-a?tab=repositories" },
-    { label: "Instagram", href: "https://www.instagram.com/grbicpetarr/" },
-    { label: "Facebook", href: "https://web.facebook.com/petaargrbic?locale=hr_HR" },
-  ],
 } as const;
 
 /*
@@ -71,7 +63,7 @@ const WA_TEXT = "Hello! I'd like the free website check. My site: ";
 
 export const whatsappHref = waHref(WA_TEXT);
 
-/** 12 certifikata, točno kako stoje u public/certs/. */
+/** 12 certifikata (Google Ads, Analytics, HubSpot). Stranica pokazuje samo broj. */
 export const certs = [
   { file: "ads-search", issuer: "Google Ads", name: "Search" },
   { file: "ads-display", issuer: "Google Ads", name: "Display" },

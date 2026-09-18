@@ -1,32 +1,48 @@
 @import "tailwindcss";
 
 /* ══════════════════════════════════════════════════════════════
-   TOKENI
-   Jedan akcent (rust), jedna obitelj sivih (topli), bez glowa.
+   TOKENI — redizajn 2026-09-18 (Petrov izbor u artifactu)
+   Čisti mono: crna do bijele, krom kao jedini efekt. Bez druge boje.
    ══════════════════════════════════════════════════════════════ */
 @theme {
-  --color-limestone: #f5f2ed;
-  --color-limestone-2: #ebe6de;
-  --color-paper: #fffdfa;
-  --color-ink: #14110e;
-  --color-ink-2: #2a2521;
-  --color-muted: #6e675e;
-  --color-rust: #c2452d;
-  /* Rust na tinti daje 3,78:1 — premalo. Svjetlija varijanta za tamne plohe. */
-  --color-rust-light: #e8846b;
-  /* Isti brend rust, jedan stupanj svjetliji: sitan tekst na tinti prolazi
-     AA (4,6:1), a i dalje je narančasta, ne blijeda (Petar, 2026-09-15). */
-  --color-rust-on-dark: #d4573c;
-  --color-rust-ink: #97321f;
-  --color-line: rgba(20, 17, 14, 0.12);
-  --color-line-strong: rgba(20, 17, 14, 0.22);
+  --color-void: #000000;
+  --color-ink-1: #09090a;
+  --color-card: #0d0d0f;
+  --color-card-hi: #17171a;
+  --color-fg: #fafafa;
+  --color-fg-2: #a1a1a9;
+  /* 5,7:1 na crnoj, 4,8:1 na kartici — sitni natpisi prolaze AA */
+  --color-fg-3: #85858d;
+  /* Početak prijelaza u naslovima; samo krupan tekst, ~3:1 */
+  --color-fade: #5c5c63;
+  --color-line: rgb(255 255 255 / 0.09);
+  --color-line-2: rgb(255 255 255 / 0.16);
+  --color-live: #30d158;
+  --color-dev: #ffd60a;
 
-  --font-display: var(--font-archivo), "Archivo", system-ui, sans-serif;
-  --font-sans: var(--font-instrument), "Instrument Sans", system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: var(--font-geist), "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
 
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --shell: 1600px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --shell: 1240px;
+}
+
+:root {
+  /* Krom: okomite trake kao na poliranom metalu */
+  --chrome: linear-gradient(180deg, #fff 0%, #cfcfd5 30%, #55555c 50%, #ededf1 58%, #9a9aa2 80%, #fff 100%);
+  --c1: #ffffff;
+  --c2: #d6d6dc;
+  --c3: #5c5c64;
+  --c4: #19191d;
+  --c5: #f5f5f7;
+  --c6: #8e8e96;
+
+  /* Tekuće staklo — samo na onome što pluta (odluka 4A) */
+  --g-bg: rgb(255 255 255 / 0.07);
+  --g-blur: 10px;
+  --g-sat: 180%;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -38,509 +54,487 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    background: var(--color-void);
+    color-scheme: dark;
   }
   body {
-    background: var(--color-limestone);
-    color: var(--color-ink);
+    background: var(--color-void);
+    color: var(--color-fg);
     font-family: var(--font-sans);
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.55;
+    letter-spacing: -0.006em;
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
     overflow-x: clip;
   }
 
-  h1, h2, h3 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    line-height: 0.92;
-    letter-spacing: -0.035em;
-    text-wrap: balance;
-  }
-
+  h1, h2, h3 { text-wrap: balance; }
   p { text-wrap: pretty; }
 
-  ::selection { background: var(--color-rust); color: var(--color-limestone); }
+  ::selection { background: var(--color-fg); color: var(--color-void); }
 
   :focus-visible {
-    outline: 2px solid var(--color-rust);
+    outline: 2px solid var(--color-fg);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 6px;
   }
 
   img { display: block; max-width: 100%; height: auto; }
 
-  /* Brojke uvijek tabularne — stupci se ne pomiču */
   .tnum, time, [data-num] {
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum";
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   RASPORED
-   ══════════════════════════════════════════════════════════════ */
 @utility shell {
   width: 100%;
-  /*
-   * 1440px je izgledalo kao uska traka usred praznine, a potpuno fluidno
-   * preširoko. Granica je 1600px uz rubove koji prestaju rasti na 4rem:
-   * sadržaj je 1472px na svemu od 1600px naviše — širi nego prije (1296px),
-   * a i dalje jedan kadar, ne panorama.
-   *
-   * Duljina retka time ne pati: odlomci su već ograničeni na 38-52ch
-   * lokalno, pa se tekst ne razvlači ni na najširem ekranu.
-   */
   max-width: var(--shell);
   margin-inline: auto;
-  padding-inline: clamp(1.25rem, 4vw, 4rem);
-}
-
-/* Oznaka sekcije: obična polumasna riječ, ne mono verzal s kursorom —
-   mono + kursor čitao se kao terminal i predložak ("previše AI"). */
-@utility eyebrow {
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
-/* ══════════════════════════════════════════════════════════════
-   ZRNO — protiv digitalne plošnosti
-   ══════════════════════════════════════════════════════════════ */
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.035;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ══════════════════════════════════════════════════════════════
-   HERO — naslov se izvlači odozdo, rust potez označava zadnji redak
-   Ritam je iz Digital Lab prototipa: redak po redak, 90 ms razmaka.
-   Boja je naša — rust je crvena olovka koja označava, ne ukras.
-   Maska s trakom snimki je maknuta 2026-09-15: radila je tek od
-   640 px, a ni na desktopu se nije micala (.line-clip ju je gazio).
-   ══════════════════════════════════════════════════════════════ */
-.hl-line {
-  display: block;
-  overflow: hidden;
-  /* Potez i donji dijelovi slova moraju stati unutar reza */
-  padding-bottom: 0.2em;
-  margin-bottom: -0.16em;
-}
-
-.hl-word {
-  display: inline-block;
-  position: relative;
-  transform: translateY(118%);
-  animation: hl-rise 0.76s var(--ease-out-expo) forwards;
-  animation-delay: calc(80ms + var(--i, 0) * 90ms);
-}
-
-@keyframes hl-rise {
-  to { transform: none; }
-}
-
-/* Zadnja riječ se PUNI brend narančastom, slijeva nadesno (Petar,
-   2026-09-15). Potez ispod retka je maknut.
-
-   Dvije kopije iste riječi, nikad jedna preko druge: tinta se reže s
-   lijeva, rust se otkriva s lijeva, istim tempom — pa nema tamnog ruba
-   oko slova ni šava po sredini. Vidljiva kopija je tinta (čitač je čita);
-   rust je aria-hidden. Ako animacija ne krene, riječ ostaje u tinti. */
-.hl-fill {
-  position: relative;
-  display: inline-block;
-}
-
-.hl-fill-base {
-  display: inline-block;
-  animation: hl-wipe 1.15s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-  animation-delay: 0.86s;
-}
-
-.hl-fill-rust {
-  position: absolute;
-  inset: 0;
-  color: var(--color-rust);
-  clip-path: inset(0 100% 0 0);
-  animation: hl-sweep 1.15s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-  animation-delay: 0.86s;
-  pointer-events: none;
-}
-
-@keyframes hl-wipe {
-  to { clip-path: inset(0 0 0 100%); }
-}
-
-/* Desni rub ide preko ruba okvira: točka iza "sell." inače izgubi rub */
-@keyframes hl-sweep {
-  to { clip-path: inset(0 -0.1em 0 0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hl-word { transform: none; animation: none; }
-  /* Riječ je odmah rust, bez prelaska */
-  .hl-fill-base { clip-path: inset(0 0 0 100%); animation: none; }
-  .hl-fill-rust { clip-path: inset(0 -0.1em 0 0); animation: none; }
-}
-
-/* ══════════════════════════════════════════════════════════════
-   PRIČA U PET POTEZA — špil scena nacrtanih kodom (HeroStory)
-   Karta na vrhu crta scenu; ostale čekaju gotove u dubini.
-   Tinta za predmete, rust za ono što provjera označi.
-   ══════════════════════════════════════════════════════════════ */
-/* --st-speed razvlači SVE poteze i njihova kašnjenja odjednom: trajanja su
-   upisana u same crteže (--d, --l), pa se tempo mijenja ovdje, na jednom
-   mjestu. 1 = izvorno, 1.22 = malo sporije (Petar, 2026-09-15). */
-.st-scene { display: block; width: 100%; height: 100%; --st-speed: 1.22; }
-.st-scene .k,
-.st-scene .r { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.st-scene .k { stroke: var(--color-ink); stroke-width: 2.2; }
-.st-scene .r { stroke: var(--color-rust); stroke-width: 3; }
-.st-scene text { font-family: var(--font-sans); font-size: 10px; font-weight: 600; fill: var(--color-ink); }
-
-/* Crtanje kreće 0,7 s nakon što karta dođe na vrh (karta se smiri za ~0,6 s) */
-.st-scene.is-drawing .draw {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: st-draw calc(var(--l, 0.5s) * var(--st-speed)) cubic-bezier(0.65, 0, 0.35, 1) forwards;
-  animation-delay: calc((0.7s + var(--d, 0s)) * var(--st-speed));
-}
-.st-scene.is-drawing .pop {
-  opacity: 0;
-  animation: st-pop 0.32s var(--ease-out-expo) forwards;
-  animation-delay: calc((0.7s + var(--d, 0s)) * var(--st-speed));
-}
-.st-scene.is-drawing .pin {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-  animation: st-pin 0.52s var(--ease-out-expo) both;
-  animation-delay: calc(1.05s * var(--st-speed));
-}
-@keyframes st-draw { to { stroke-dashoffset: 0; } }
-@keyframes st-pop { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-@keyframes st-pin { from { opacity: 0; transform: translateY(-18px); } to { opacity: 1; transform: none; } }
-
-/* Trake napretka, kao u pričama na Instagramu */
-.st-bar { display: block; height: 3px; border-radius: 2px; background: var(--color-line-strong); overflow: hidden; }
-.st-bar > i { display: block; height: 100%; background: var(--color-ink); transform: scaleX(0); transform-origin: 0 50%; }
-.st-bar.is-done > i { transform: none; }
-.st-bar.is-now > i { animation: st-fill var(--st-dur, 5.2s) linear forwards; }
-@keyframes st-fill { to { transform: none; } }
-
-.st-cap > * { animation: rise 0.5s var(--ease-out-expo) both; }
-.st-cap > :nth-child(2) { animation-delay: 0.08s; }
-.st-cap > :nth-child(3) { animation-delay: 0.16s; }
-
-/* Zadnja karta: crtež se utiša velom, gumb uskoči i pulsira (Petar,
-   2026-09-15). Gumb je NA karti, pa ga se ne mora tražiti ispod špila.
-   Kašnjenja slijede crtež pete scene (zadnji potez završi na 1,95 s). */
-.st-veil {
-  background: color-mix(in oklab, var(--color-paper) 74%, transparent);
-  opacity: 0;
-  animation: st-veil-in 0.45s var(--ease-out-expo) 3.3s forwards;
-}
-@keyframes st-veil-in { to { opacity: 1; } }
-
-/* Animacija ide na OMOT, nikad na .btn: `forwards` bi zaključao transform
-   i pojeo hover podizanje gumba. */
-.st-cta {
-  position: relative;
-  display: inline-flex;
-  opacity: 0;
-  transform: translateY(10px) scale(0.94);
-  animation: st-cta-in 0.55s var(--ease-out-expo) 3.45s forwards;
-}
-@keyframes st-cta-in { to { opacity: 1; transform: none; } }
-
-/* Puls: prsten u brend narančastoj, transform i opacity (ne box-shadow) */
-.st-cta::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 2px solid var(--color-rust);
-  border-radius: 16px;
-  opacity: 0;
-  pointer-events: none;
-  animation: st-cta-ring 2.8s cubic-bezier(0.22, 1, 0.36, 1) 4.3s infinite;
-}
-@keyframes st-cta-ring {
-  0% { opacity: 0.45; transform: scale(1); }
-  55%, 100% { opacity: 0; transform: scale(1.14); }
-}
-
-/* Rust krug oko "free" — crvena olovka zaokruži ono što se isplati.
-   Ljudi vole besplatno; stranica to kaže i crtežom (Petar, 2026-09-15). */
-.free-mark { position: relative; display: inline-block; white-space: nowrap; margin-inline: 0.22em; }
-.free-mark > svg {
-  position: absolute;
-  /* Dovoljno mjesta da krug ne presiječe prvo ni zadnje slovo */
-  left: -0.5em;
-  top: -0.32em;
-  width: calc(100% + 1em);
-  height: calc(100% + 0.6em);
-  overflow: visible;
-  fill: none;
-  stroke: var(--color-rust);
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  pointer-events: none;
-}
-.free-mark path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: st-draw 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-  animation-delay: var(--free-d, 1.35s);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .st-scene.is-drawing .draw,
-  .free-mark path { stroke-dashoffset: 0; animation: none; }
-  .st-scene.is-drawing .pop,
-  .st-scene.is-drawing .pin { opacity: 1; animation: none; }
-  .st-bar.is-now > i { animation: none; transform: none; }
-  .st-cap > * { animation: none; }
-}
-
-/* Hero intro — ČISTI CSS, ne GSAP.
-   GSAP na heroju digne mobilni LCP; iste keyframes u CSS-u ne. */
-.rise {
-  animation: rise 0.6s var(--ease-out-expo) both;
-}
-.rise-1 { animation-delay: 0.04s; }
-.rise-2 { animation-delay: 0.42s; }
-.rise-3 { animation-delay: 0.52s; }
-.rise-4 { animation-delay: 0.64s; }
-
-@keyframes rise {
-  from { opacity: 0; transform: translate3d(0, 0.8em, 0); }
-  to   { opacity: 1; transform: none; }
-}
-
-/* ══════════════════════════════════════════════════════════════
-   TREPTAJUĆI KURSOR
-   Rust crta uz oznaku sekcije. Maknuta 2026-09-15 kao trag "previše AI",
-   pa vraćena isti dan na Petrov zahtjev — sviđa mu se i njegov je znak.
-   Sada stoji uz polumasnu oznaku u tekstualnom fontu, ne uz mono.
-   ══════════════════════════════════════════════════════════════ */
-.caret::after {
-  content: "";
-  display: inline-block;
-  width: 0.42ch;
-  height: 0.95em;
-  margin-left: 0.4ch;
-  background: var(--color-rust);
-  vertical-align: -0.1em;
-  animation: caret-blink 1.15s steps(1) infinite;
-}
-
-@keyframes caret-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .caret::after { animation: none; opacity: 1; }
-}
-
-/* ══════════════════════════════════════════════════════════════
-   FAILSAFE
-   Sadržaj je VIDLJIV po defaultu. Početna stanja animacija se
-   primjenjuju tek kad GSAP javi da je spreman (.js-anim na <html>).
-   Bez ovoga stranica bez JS-a ostane prazna — točno kvar iz v2,
-   gdje je 27 od 27 elemenata imalo opacity: 0.
-   ══════════════════════════════════════════════════════════════ */
-html.js-anim [data-reveal] {
-  opacity: 0;
-  will-change: opacity, transform;
+  padding-inline: clamp(1.25rem, 5vw, 2.5rem);
 }
 
 @layer components {
-  /* ══════════════════════════════════════════════════════════════
-     GUMBI
-     ══════════════════════════════════════════════════════════════ */
-  /* Zaobljeni gumb s mekom sjenom (Petar, 2026-09-15: stari su bili ravni,
-     pravokutni, bez sjene i hovera). Hover samo za pravi miš — na dodiru
-     bi zapeo. Pritisak se vidi uvijek: scale(0.97). */
+  /* ── Tipografija ─────────────────────────────────────────────── */
+  .t-display {
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 0.96;
+    font-size: clamp(3.1rem, 13.4vw, 6rem);
+  }
+  .t-h2 {
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+    font-size: clamp(2.125rem, 8.6vw, 3.75rem);
+  }
+  .t-h3 {
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    line-height: 1.2;
+    font-size: 1.125rem;
+  }
+  .t-lede {
+    color: var(--color-fg-2);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    max-width: 44ch;
+  }
+
+  /* Naslov prelazi iz sive u bijelu, redak po redak (predložak).
+     Širina = širina teksta, pa prijelaz uvijek pokrije prva slova. */
+  .fade-line {
+    display: block;
+    width: fit-content;
+    background: linear-gradient(90deg, var(--color-fade) 0%, var(--color-fg) 36%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Zadnja riječ se puni kromom slijeva nadesno (odluka 15. 9., sada u kromu) */
+  .fill-word {
+    background-image: var(--chrome), linear-gradient(var(--color-fg), var(--color-fg));
+    background-size: 100% 100%, 100% 100%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: fill-word 1.15s var(--ease-io) 0.75s both;
+  }
+  @keyframes fill-word {
+    from { background-size: 0% 100%, 100% 100%; }
+  }
+
+  .chrome-text {
+    background: var(--chrome);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ── Oznake ─────────────────────────────────────────────────── */
+  .pill-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.3rem 0.8rem 0.3rem 0.65rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-line);
+    background: rgb(255 255 255 / 0.035);
+    font-size: 0.8125rem;
+    color: var(--color-fg-2);
+    width: fit-content;
+  }
+  .pill-eyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-fg);
+    box-shadow: 0 0 8px rgb(255 255 255 / 0.8);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.25rem 0.85rem 0.25rem 0.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-line);
+    background: rgb(255 255 255 / 0.035);
+    font-size: 0.8125rem;
+    color: var(--color-fg-2);
+    width: fit-content;
+  }
+  .badge b {
+    background: var(--color-fg);
+    color: var(--color-void);
+    border-radius: 999px;
+    padding: 0.18rem 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0 0.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-line-2);
+    font-size: 0.8125rem;
+    color: var(--color-fg-2);
+  }
+
+  /* ── Gumbi ──────────────────────────────────────────────────── */
   .btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    min-height: 3.125rem;
-    padding: 0.9rem 1.6rem;
-    /* 16 px: malo više od 14 px na karticama i slikama (Petar, 2026-09-15) */
-    border-radius: 16px;
-    font-weight: 600;
-    font-size: 0.95rem;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.875rem;
+    padding: 0 1.25rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.9375rem;
     letter-spacing: -0.01em;
-    border: 1px solid transparent;
+    white-space: nowrap;
     -webkit-tap-highlight-color: transparent;
-    transition: transform 0.16s cubic-bezier(0.23, 1, 0.32, 1),
-                box-shadow 0.22s ease, background-color 0.2s ease,
-                color 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.16s var(--ease-out), background-color 0.2s ease,
+                color 0.2s ease, box-shadow 0.2s ease;
   }
-  .btn svg { transition: transform 0.22s cubic-bezier(0.23, 1, 0.32, 1); }
-
-  .btn-primary {
-    background: var(--color-ink);
-    color: var(--color-limestone);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 1px 2px rgb(20 17 14 / 0.2),
-                0 10px 22px -12px rgb(20 17 14 / 0.55);
-  }
-  .btn-ghost {
-    border-color: var(--color-line-strong);
-    color: var(--color-ink);
-    background: var(--color-paper);
-    box-shadow: 0 1px 2px rgb(20 17 14 / 0.06);
-  }
-  .btn-on-dark {
-    background: var(--color-limestone);
-    color: var(--color-ink);
-    box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.65);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    /* Tamni rust (#97321F) prolazi AA s vapnencem; obični rust ne bi */
-    .btn-primary:hover {
-      background: var(--color-rust-ink);
-      transform: translateY(-1px);
-      box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 2px 4px rgb(20 17 14 / 0.18),
-                  0 16px 30px -14px rgb(151 50 31 / 0.6);
-    }
-    .btn-ghost:hover {
-      border-color: var(--color-ink);
-      transform: translateY(-1px);
-      box-shadow: 0 10px 22px -14px rgb(20 17 14 / 0.4);
-    }
-    .btn-on-dark:hover { background: #fff; transform: translateY(-1px); }
-    .btn:hover svg { transform: translate(2px, -2px); }
-  }
-
-  /* Na kraju, da pobijedi hover: pritisak se uvijek osjeti */
   .btn:active { transform: scale(0.97); }
-
-  /* Poveznica koja se podvlači iz lijeva */
-  .ulink {
-    position: relative;
-    display: inline-block;
+  .btn svg { width: 1.05rem; height: 1.05rem; flex: none; }
+  .btn-primary {
+    background: var(--color-fg);
+    color: var(--color-void);
+    box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.14), 0 10px 26px -10px rgb(255 255 255 / 0.3);
   }
-  .ulink::after {
+  .btn-glass { color: var(--color-fg); }
+  .btn-lg { min-height: 3.25rem; padding: 0 1.5rem; font-size: 1rem; }
+  .btn-sm { min-height: 2.25rem; padding: 0 0.95rem; font-size: 0.875rem; }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover {
+      background: #fff;
+      box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.14), 0 14px 34px -10px rgb(255 255 255 / 0.45);
+    }
+    .btn-glass:hover { --g-bg: rgb(255 255 255 / 0.12); }
+  }
+
+  /* ── Tekuće staklo ──────────────────────────────────────────── *
+   * Zamućenje + zasićenje + svijetli rub gore (svjetlo pada na materijal).
+   * Lom svjetla na rubu dodaje GlassRefraction, samo u Chromiumu;
+   * Safari i iPhone ostaju na ovome — pa ovo mora izgledati dobro samo. */
+  .glass {
+    position: relative;
+    background: var(--g-bg);
+    -webkit-backdrop-filter: blur(var(--g-blur)) saturate(var(--g-sat));
+    backdrop-filter: blur(var(--g-blur)) saturate(var(--g-sat));
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.42),
+      inset 0 -1px 1px rgb(255 255 255 / 0.1),
+      inset 0 0 0 1px rgb(255 255 255 / 0.07),
+      0 10px 28px -8px rgb(0 0 0 / 0.55);
+    isolation: isolate;
+    transition: background-color 0.2s ease;
+  }
+  .glass::before {
     content: "";
     position: absolute;
-    left: 0; bottom: -2px;
-    width: 100%; height: 1px;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.35s var(--ease-out-expo);
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, rgb(255 255 255 / 0.55) 0%, rgb(255 255 255 / 0) 32%,
+                rgb(255 255 255 / 0) 64%, rgb(255 255 255 / 0.33) 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
   }
-  .ulink:hover::after { transform: scaleX(1); }
+  .glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(120% 90% at 22% 0%, rgb(255 255 255 / 0.11), transparent 55%);
+    pointer-events: none;
+    z-index: -1;
+  }
 
-  /* Preskoči na sadržaj — obavezno za tipkovnicu */
+  /* Poveznica "preskoči na sadržaj" — vidljiva samo na tipkovnici */
   .skip {
     position: absolute;
-    left: -9999px;
-    z-index: 100;
-    /* Meta za dodir mora biti ≥44px i dok je izvan kadra */
+    left: 1rem;
+    top: -4rem;
+    z-index: 70;
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
+    min-height: 2.75rem;
+    padding: 0 1.1rem;
+    border-radius: 999px;
+    background: var(--color-fg);
+    color: var(--color-void);
+    font-size: 0.875rem;
+    font-weight: 500;
   }
-  /* Vidi se samo kad netko tipka Tab (čitač ekrana, tipkovnica). Mišem se
-     ne može doseći. Izgleda kao naš gumb, da ne strši kad iskoči. */
-  .skip:focus {
-    left: 1rem; top: 1rem;
-    padding: 0.75rem 1.25rem;
-    border-radius: 16px;
-    font-weight: 600;
-    background: var(--color-ink);
-    color: var(--color-limestone);
-    box-shadow: 0 12px 24px -12px rgba(20, 17, 14, 0.6);
+  .skip:focus { top: 1rem; }
+
+  /* ── Kartica (puna, ne staklo) ──────────────────────────────── */
+  .card {
+    position: relative;
+    border-radius: 1.375rem;
+    background: linear-gradient(180deg, var(--color-card-hi), var(--color-card));
+    border: 1px solid var(--color-line);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+    overflow: hidden;
+  }
+
+  /* ── Mreža i svjetlo iza heroja (predložak) ─────────────────── */
+  .grid-light { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .grid-light::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(var(--color-line) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(80% 60% at 70% 25%, #000, transparent 75%);
+    mask-image: radial-gradient(80% 60% at 70% 25%, #000, transparent 75%);
+    opacity: 0.55;
+  }
+  .grid-light::after {
+    content: "";
+    position: absolute;
+    left: -20%;
+    right: -20%;
+    top: -10%;
+    height: 75%;
+    background: radial-gradient(50% 55% at 68% 32%, rgb(255 255 255 / 0.11), transparent 70%);
   }
 }
 
 /* ══════════════════════════════════════════════════════════════
-   REDUCED MOTION — sve staje, sadržaj ostaje čitljiv
+   HERO — uvod u CSS-u (pravilo: nikad GSAP na heroju)
+   ══════════════════════════════════════════════════════════════ */
+.rise {
+  animation: rise 0.72s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 75ms + 120ms);
+}
+/* Naslov kreće VIDLJIV (15 %), ne s nule: LCP ga broji od prvog okvira */
+.rise-h {
+  animation: rise-h 0.8s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 75ms + 120ms);
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); filter: blur(7px); }
+}
+@keyframes rise-h {
+  from { opacity: 0.15; transform: translateY(0.22em); filter: blur(10px); }
+}
+
+.zip-sheen { animation: zip-sheen 1.7s var(--ease-io) 1s both; }
+@keyframes zip-sheen {
+  from { transform: translateX(0); }
+  to { transform: translateX(380px); }
+}
+
+/* ── Patentni zatvarač (odluka 7C) ─────────────────────────────
+ * Samo pri prvom posjetu u sesiji: skripta u layoutu stavi
+ * data-zz="run" na <html> prije prvog iscrtavanja. Bez toga, ili uz
+ * smanjeni pokret, sloja nema i stranica je odmah tu. Sloj ne hvata
+ * klikove, a tekst ispod je pravi tekst od prve milisekunde. */
+@property --zp {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+.zz { display: none; }
+html[data-zz="run"] .zz {
+  display: block;
+  position: absolute;
+  inset: 0 0 auto;
+  height: 100svh;
+  z-index: 60;
+  pointer-events: none;
+  --zp: 1;
+  animation: zz-open 1.45s var(--ease-io) 0.35s both, zz-out 0.45s ease 1.85s both;
+}
+@keyframes zz-open { from { --zp: 0; } to { --zp: 1; } }
+@keyframes zz-out {
+  from { opacity: 1; visibility: visible; }
+  to { opacity: 0; visibility: hidden; }
+}
+.zz-l, .zz-r {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: #0b0b0d repeating-linear-gradient(45deg, rgb(255 255 255 / 0.028) 0 2px, transparent 2px 7px);
+}
+.zz-l {
+  left: 0;
+  clip-path: polygon(0 0, calc(100% - var(--zp) * 100%) 0, 100% calc(var(--zp) * 112%), 100% 100%, 0 100%);
+  transform: translateX(calc(var(--zp) * -14%));
+}
+.zz-r {
+  right: 0;
+  clip-path: polygon(calc(var(--zp) * 100%) 0, 100% 0, 100% 100%, 0 100%, 0 calc(var(--zp) * 112%));
+  transform: translateX(calc(var(--zp) * 14%));
+}
+.zz-t {
+  position: absolute;
+  left: 50%;
+  width: 16px;
+  translate: -50% 0;
+  top: calc(var(--zp) * 112%);
+  bottom: 0;
+  background:
+    repeating-linear-gradient(180deg, var(--c2) 0 5px, transparent 5px 10px) left top / 8px 100% no-repeat,
+    repeating-linear-gradient(180deg, transparent 0 5px, var(--c6) 5px 10px) right top / 8px 100% no-repeat;
+}
+.zz-p {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--zp) * 112% - 34px);
+  translate: -50% 0;
+  width: 26px;
+  height: 60px;
+  border-radius: 10px;
+  background: var(--chrome);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.6), inset 0 0 0 1px rgb(255 255 255 / 0.4);
+}
+.zz-p::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  bottom: 9px;
+  height: 19px;
+  border-radius: 6px;
+  background: #0b0b0d;
+}
+/* Dok se zatvarač otvara, tekst izranja iza njega */
+html[data-zz="run"] .rise,
+html[data-zz="run"] .rise-h { animation-delay: calc(var(--i, 0) * 75ms + 1.25s); }
+html[data-zz="run"] .fill-word { animation-delay: 2.05s; }
+html[data-zz="run"] .zip-sheen { animation-delay: 2.2s; }
+
+/* ══════════════════════════════════════════════════════════════
+   TRAKA CERTIFIKATA
+   ══════════════════════════════════════════════════════════════ */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee-track {
+  display: flex;
+  gap: 2.25rem;
+  width: max-content;
+  animation: marquee 36s linear infinite;
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ══════════════════════════════════════════════════════════════
+   BENTO PROVJERE — prsten „nekoliko sekundi"
+   ══════════════════════════════════════════════════════════════ */
+.ring-fill { stroke-dasharray: 201; stroke-dashoffset: 201; }
+.ring-fill.is-on { animation: ring-fill 3s linear 0.3s forwards; }
+@keyframes ring-fill { to { stroke-dashoffset: 0; } }
+
+/* ══════════════════════════════════════════════════════════════
+   HARMONIKA (FAQ) — visina kroz grid-rows, ne height
+   ══════════════════════════════════════════════════════════════ */
+.acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s var(--ease-out);
+}
+.acc-panel > div { overflow: hidden; }
+.acc[data-open="true"] .acc-panel { grid-template-rows: 1fr; }
+.acc-plus::before,
+.acc-plus::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 1.5px;
+  background: currentColor;
+  translate: -50% -50%;
+  transition: transform 0.25s var(--ease-out);
+}
+.acc-plus::after { transform: rotate(90deg); }
+.acc[data-open="true"] .acc-plus::after { transform: rotate(0deg); }
+
+/* ══════════════════════════════════════════════════════════════
+   IZBORNIK I DONJA KAPSULA
+   ══════════════════════════════════════════════════════════════ */
+.menu-panel {
+  transform-origin: top right;
+  opacity: 0;
+  transform: scale(0.94);
+  filter: blur(4px);
+  pointer-events: none;
+  transition: opacity 0.22s var(--ease-out), transform 0.28s var(--ease-out), filter 0.22s var(--ease-out);
+}
+.menu-panel[data-open="true"] { opacity: 1; transform: none; filter: none; pointer-events: auto; }
+
+/* Staklo koje stiže: zamućenje i veličina zajedno, kao materijal */
+.sticky-cta {
+  opacity: 0;
+  transform: translateY(14px) scale(0.94);
+  filter: blur(6px);
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-out), transform 0.45s var(--ease-drawer), filter 0.3s var(--ease-out);
+}
+.sticky-cta[data-show="true"] { opacity: 1; transform: none; filter: none; pointer-events: auto; }
+
+/* ══════════════════════════════════════════════════════════════
+   NAGNUTE PLOČICE (radovi i činjenice)
+   ══════════════════════════════════════════════════════════════ */
+.tile {
+  transition: transform 0.55s var(--ease-drawer), box-shadow 0.3s ease;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SMANJENI POKRET I SMANJENA PROZIRNOST
    ══════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-  html.js-anim [data-reveal] { opacity: 1 !important; }
+  html { scroll-behavior: auto; }
+  .rise, .rise-h { animation: fade 0.3s ease both; }
+  .fill-word { animation: none; }
+  .zip-sheen, .marquee-track, .ring-fill.is-on { animation: none; }
+  .ring-fill { stroke-dashoffset: 0; }
+  .tile, .menu-panel, .sticky-cta { transition-duration: 0.01s; }
+  @keyframes fade { from { opacity: 0; } }
 }
-
-/* ══════════════════════════════════════════════════════════════
-   TRAKA SNIMKI — beskonačna, čisti CSS, jedan transform
-   Lista je udvostručena u komponenti pa je petlja bez šava.
-   ══════════════════════════════════════════════════════════════ */
-.reel {
-  animation: reel 46s linear infinite;
-  will-change: transform;
-}
-.reel:hover { animation-play-state: paused; }
-
-@keyframes reel {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reel { animation: none; }
-}
-
-/* ══════════════════════════════════════════════════════════════
-   ISPIS — /cv se sprema kao jednostranični A4
-   Fine razlike po elementima rješavaju Tailwind `print:` varijante
-   u samoj komponenti; ovdje je samo ono što mora biti globalno.
-   ══════════════════════════════════════════════════════════════ */
-@media print {
-  @page {
-    size: A4;
-    margin: 11mm;
-  }
-
-  html, body {
-    background: #fff !important;
-    color: #000 !important;
-    font-size: 9pt;
-    line-height: 1.35;
-  }
-
-  /* Boje pozadina i obruba moraju se stvarno otisnuti */
-  * {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  /* Zrno, plutajući gumbi i preskoči-na-sadržaj nemaju što na papiru */
-  .grain,
-  .skip {
-    display: none !important;
-  }
-
-  /* Kursor uz oznake je ekranska gesta, ne mrlja na papiru */
-  .caret::after { display: none !important; }
-
-  /* Poveznice u tinti — rust na papiru izgleda isprano */
-  a { color: #000 !important; text-decoration: none !important; }
-  .ulink::after { display: none !important; }
-
-  /* Pobočni stupac ne smije biti ljepljiv u ispisu */
-  aside { position: static !important; }
-
-  /* Ništa se ne animira */
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: #1d1d20 !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
   }
 }

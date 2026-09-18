@@ -1,33 +1,38 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import Strip from "@/components/Strip";
+import Check from "@/components/Check";
 import Work from "@/components/Work";
-import Pricing from "@/components/Pricing";
 import Process from "@/components/Process";
+import Packages from "@/components/Packages";
+import Facts from "@/components/Facts";
 import About from "@/components/About";
-import BookCall from "@/components/BookCall";
+import Faq from "@/components/Faq";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import StickyCta from "@/components/StickyCta";
 
 /**
- * Redoslijed prati Petrovo pravilo (2026-09-15): prvo besplatno (provjera u
- * heroju), pa edukacija (priča u heroju, radovi, kako radi), pa naplata
- * (paketi) → tko je → kako počinjem. Offer (9 usluga) je sažet u pakete.
- *
- * "How it works" je prije bio na 71 % dubine iako sadrži dvije rečenice koje
- * ubijaju najveće strahove ("No hidden costs", "You get full ownership").
+ * Redizajn 2026-09-18, redom kako ih je Petar izabrao u artifactu:
+ * prvo besplatno (hero, provjera), pa dokaz i edukacija (radovi, koraci),
+ * pa naplata (paketi, činjenice) → tko smo → pitanja → kontakt.
+ * Recenzija nema dok ne stigne prva prava (odluka 14A).
  */
 export default function Home() {
   return (
     <>
       <Nav />
       <main id="main">
-        <span id="top" />
         <Hero />
+        <Strip />
+        <Check />
         <Work />
         <Process />
-        <Pricing />
+        <Packages />
+        <Facts />
         <About />
-        <BookCall />
+        <Faq />
+        <Contact />
       </main>
       <Footer />
       <StickyCta />

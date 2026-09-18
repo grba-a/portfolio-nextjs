@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import Strip from "@/components/Strip";
+import Check from "@/components/Check";
 import Work from "@/components/Work";
-import Pricing from "@/components/Pricing";
 import Process from "@/components/Process";
+import Packages from "@/components/Packages";
+import Facts from "@/components/Facts";
 import About from "@/components/About";
-import BookCall from "@/components/BookCall";
+import Faq from "@/components/Faq";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import StickyCta from "@/components/StickyCta";
 import { hr, hrMeta } from "@/data/content-hr";
@@ -26,26 +30,24 @@ export const metadata: Metadata = {
 };
 
 /**
- * /hr — ISTA stranica kao naslovnica, samo na hrvatskom (Petar, 2026-09-15).
- *
- * Nema vlastitog rasporeda ni vlastitih komponenti: iste komponente dobiju
- * hrvatsku kopiju kao prop. Kad se naslovnica promijeni, /hr se mijenja s
- * njom — jedina razlika ostaje jezik.
- *
- * Tekst je u src/data/content-hr.ts (nacrt, čeka Petrovo odobrenje).
+ * /hr — ISTA stranica kao naslovnica, samo na hrvatskom. Iste komponente
+ * dobiju hrvatsku kopiju kao prop; nikad ne dodavati sekciju samo ovdje.
  */
 export default function HrPage() {
   return (
     <div lang="hr">
       <Nav t={hr} />
       <main id="main">
-        <span id="top" />
         <Hero t={hr} />
+        <Strip t={hr} />
+        <Check t={hr} />
         <Work t={hr} />
         <Process t={hr} />
-        <Pricing t={hr} />
+        <Packages t={hr} />
+        <Facts t={hr} />
         <About t={hr} />
-        <BookCall t={hr} />
+        <Faq t={hr} />
+        <Contact t={hr} />
       </main>
       <Footer t={hr} />
       <StickyCta t={hr} />

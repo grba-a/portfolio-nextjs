@@ -150,3 +150,72 @@ export function Printer({ className }: IconProps) {
     </svg>
   );
 }
+
+export function Search({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
+    </svg>
+  );
+}
+
+export function Tick({ className }: IconProps) {
+  return (
+    <svg {...base} strokeWidth={2.2} className={className}>
+      <path d="M5 12.5l4.5 4.5L19 7.5" />
+    </svg>
+  );
+}
+
+export function Dash({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M8 12h8" />
+    </svg>
+  );
+}
+
+export function Window({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <rect x="3" y="4" width="18" height="16" rx="3" />
+      <path d="M3 9h18" />
+    </svg>
+  );
+}
+
+export function Calendar({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <rect x="3" y="5" width="18" height="16" rx="3" />
+      <path d="M3 10h18M8 3v4M16 3v4" />
+    </svg>
+  );
+}
+
+export function Loop({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5" />
+    </svg>
+  );
+}
+
+/** Četverokraka iskra — razdjelnik u traci certifikata */
+export function Spark({ className }: IconProps) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" className={className}>
+      <path d="M8 0c.6 3.7 2.3 5.4 8 8-5.7 2.6-7.4 4.3-8 8-.6-3.7-2.3-5.4-8-8 5.7-2.6 7.4-4.3 8-8z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** Kursor miša u mini sučelju provjere */
+export function Pointer({ className }: IconProps) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" className={className}>
+      <path d="M4 3l16 7.5-7 1.8L10 20z" fill="#fff" stroke="#000" strokeWidth="1.2" strokeLinejoin="round" />
+    </svg>
+  );
+}

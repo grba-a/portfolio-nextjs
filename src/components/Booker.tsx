@@ -97,11 +97,10 @@ export default function Booker({ t = content }: { t?: Copy }) {
     requestAnimationFrame(() => timesRef.current?.scrollIntoView({ block: "nearest" }));
   };
 
-  /* Svijetla tema: popup je vapnenasta ploha kao i onaj s certifikatima,
-     pa bi tamni Cal.com obrazac u njemu izgledao kao tuđi ekran zalijepljen
-     ispod našeg zaglavlja. */
+  /* Tamna tema: popup je sada tamna ploha kao cijela stranica (redizajn
+     2026-09-18), pa bi svijetli Cal.com obrazac u njemu izgledao kao tuđi ekran. */
   const calUrl = slot && site.booking
-    ? `${site.booking}?embed=true&theme=light&slot=${encodeURIComponent(slot)}`
+    ? `${site.booking}?embed=true&theme=dark&slot=${encodeURIComponent(slot)}`
     : null;
 
   /* Naslov prozora kaže KOJI termin je odabran — prazan "Confirm your call"
@@ -121,16 +120,16 @@ export default function Booker({ t = content }: { t?: Copy }) {
 
   return (
     <div>
-      <div className="rounded-[14px] border border-limestone/20 p-4 sm:p-6">
+      <div className="rounded-[14px]">
         {/* Zaglavlje mjeseca */}
         <div className="flex items-center justify-between gap-4">
           {ready ? (
-            <p className="font-display text-lg font-extrabold tracking-[-0.02em]">
+            <p className="text-lg font-semibold tracking-[-0.02em]">
               {shown.toLocaleString(t.locale, { month: "long" })}{" "}
-              <span className="text-limestone/60">{shown.getFullYear()}</span>
+              <span className="text-fg-3">{shown.getFullYear()}</span>
             </p>
           ) : (
-            <span className="block h-7 w-36 rounded-[8px] bg-limestone/10" aria-hidden="true" />
+            <span className="block h-7 w-36 rounded-[8px] bg-white/[0.06]" aria-hidden="true" />
           )}
 
           <div className="-mr-2 flex">
@@ -145,7 +144,7 @@ export default function Booker({ t = content }: { t?: Copy }) {
                   onClick={() => setMonthShift((m) => m + dir)}
                   disabled={disabled}
                   aria-label={dir === -1 ? "Previous month" : "Next month"}
-                  className="grid h-11 w-11 place-items-center text-limestone/70 transition-opacity hover:text-limestone disabled:opacity-25"
+                  className="grid h-11 w-11 place-items-center text-fg-2 transition-opacity hover:text-fg disabled:opacity-25"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -160,7 +159,7 @@ export default function Booker({ t = content }: { t?: Copy }) {
         {/* Nazivi dana — jedno slovo, jer na 360px sedam riječi ne stane */}
         <div className="mt-4 grid grid-cols-7">
           {t.week.map((d, i) => (
-            <p key={i} className="pb-2 text-center text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-limestone/60">
+            <p key={i} className="pb-2 text-center text-[0.6875rem] font-semibold uppercase tracking-[0.06em] text-fg-3">
               <span aria-hidden="true">{d}</span>
               <span className="sr-only">{t.weekFull[i]}</span>
             </p>
@@ -176,7 +175,7 @@ export default function Booker({ t = content }: { t?: Copy }) {
           {!ready &&
             Array.from({ length: 35 }, (_, i) => (
               <div key={`s${i}`} className="p-[2px]" aria-hidden="true">
-                <div className="h-11 rounded-[8px] bg-limestone/5" />
+                <div className="h-11 rounded-[8px] bg-white/[0.04]" />
               </div>
             ))}
 
@@ -201,15 +200,15 @@ export default function Booker({ t = content }: { t?: Copy }) {
                     // Puna inverzija za odabrani dan: polutransparentna svijetla
                     // ploha s tamnim tekstom daje ~1:1 kontrast na tinti.
                     (isSel
-                      ? "bg-limestone font-semibold text-ink"
+                      ? "bg-fg font-semibold text-void"
                       : free
-                        ? "bg-limestone/10 text-limestone hover:bg-limestone/25"
-                        : "cursor-default text-limestone/60")
+                        ? "bg-white/[0.07] text-fg hover:bg-white/15"
+                        : "cursor-default text-fg-3/70")
                   }
                 >
                   {i + 1}
                   {isToday && !isSel && (
-                    <span className="absolute bottom-1 h-1 w-1 rounded-full bg-(--color-rust-light)" aria-hidden="true" />
+                    <span className="absolute bottom-1 h-1 w-1 rounded-full bg-fg-2" aria-hidden="true" />
                   )}
                 </button>
               </div>
@@ -221,7 +220,7 @@ export default function Booker({ t = content }: { t?: Copy }) {
       {/* Termini odabranog dana */}
       <div ref={timesRef} className="mt-5 min-h-[6.5rem]">
         {state === "loading" && (
-          <p className="text-sm text-limestone/60">{t.book.loadingTimes}</p>
+          <p className="text-sm text-fg-3">{t.book.loadingTimes}</p>
         )}
 
         {state === "empty" && (
@@ -229,7 +228,7 @@ export default function Booker({ t = content }: { t?: Copy }) {
             href={site.booking ?? "#contact"}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-on-dark w-full justify-center sm:w-auto"
+            className="btn btn-primary w-full sm:w-auto"
           >
             {t.book.calendarCta}
           </a>
@@ -238,10 +237,10 @@ export default function Booker({ t = content }: { t?: Copy }) {
         {state === "ready" && selected && (
           <>
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <p className="eyebrow !text-limestone/70">
+              <p className="text-sm font-medium text-fg-2">
                 {t.book.timesOn} {longDay(selected)}
               </p>
-              <p className="text-xs text-limestone/60">
+              <p className="text-xs text-fg-3">
                 {localZone.replace("_", " ")}
               </p>
             </div>
@@ -252,7 +251,7 @@ export default function Booker({ t = content }: { t?: Copy }) {
                   key={iso}
                   type="button"
                   onClick={() => openSlot(iso)}
-                  className="inline-flex min-h-11 items-center rounded-[10px] border border-limestone/40 px-4 text-sm font-medium tabular-nums text-limestone transition-[colors,transform] duration-150 hover:border-limestone hover:bg-limestone/10 active:scale-[0.97]"
+                  className="inline-flex min-h-11 items-center rounded-full border border-line-2 px-4 text-sm font-medium tabular-nums text-fg transition-[colors,transform] duration-150 hover:border-fg hover:bg-white/10 active:scale-[0.97]"
                 >
                   {time(iso)}
                 </button>
@@ -268,11 +267,11 @@ export default function Booker({ t = content }: { t?: Copy }) {
           <div className="relative">
             {!calLoaded && (
               <div className="absolute inset-0 grid content-start gap-3 p-5" aria-hidden="true">
-                <div className="h-5 w-2/3 rounded-[3px] bg-ink/5" />
-                <div className="h-11 rounded-[3px] bg-ink/5" />
-                <div className="h-11 rounded-[3px] bg-ink/5" />
-                <div className="h-24 rounded-[3px] bg-ink/5" />
-                <p className="text-sm text-muted">{t.book.loadingForm}</p>
+                <div className="h-5 w-2/3 rounded-[3px] bg-white/[0.06]" />
+                <div className="h-11 rounded-[3px] bg-white/[0.06]" />
+                <div className="h-11 rounded-[3px] bg-white/[0.06]" />
+                <div className="h-24 rounded-[3px] bg-white/[0.06]" />
+                <p className="text-sm text-fg-3">{t.book.loadingForm}</p>
               </div>
             )}
             <iframe

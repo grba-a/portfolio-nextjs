@@ -1,76 +1,80 @@
+import Link from "next/link";
 import { content, type Copy } from "@/data/content";
+import { waHref } from "@/data/site";
+import FadeHeading from "@/components/ui/FadeHeading";
+import ZipChrome from "@/components/ZipChrome";
 import ZipLogo from "@/components/ZipLogo";
-import { site } from "@/data/site";
-import { Facebook, GitHub, Instagram, LinkedIn } from "@/components/icons";
 
-/** Znak po nazivu mreže iz site.socials — bez ovog para popis i ikone se raziđu. */
-const socialIcon: Record<string, (p: { className?: string }) => React.ReactElement> = {
-  LinkedIn,
-  GitHub,
-  Instagram,
-  Facebook,
-};
-
-/** Podnožje. Tamno, nastavlja zaključni blok — bez farme poveznica. */
+/**
+ * Podnožje s golemim kromiranim zipom, odrezanim na dnu (odluka 18A,
+ * kao "SEOtalos" na predlošku). Bez osobnih profila i bez CV-a: stranica
+ * je samo za firmu. Namjerno bez godine — prerender bi zapekao godinu builda.
+ */
 export default function Footer({ t = content }: { t?: Copy }) {
-  // Namjerno bez godine: ovo je statički prerender, pa bi se new Date()
-  // zapekao u trenutak builda i mjesecima prikazivao staru godinu.
-  return (
-    <footer data-dark className="bg-ink text-limestone">
-      <div className="shell border-t border-limestone/12 py-10 sm:py-12">
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            {/* Logotip je i povratak na vrh — zaseban redak „Back to top" je
-                bio još jedna poveznica za istu radnju. Natpis ostaje za
-                čitače ekrana, jer im sama slika ne kaže kamo vodi. */}
-            <a
-              href={`${t.home}#top`}
-              className="-my-2 inline-flex min-h-11 items-center"
-              aria-label={`zip — ${t.footer.backToTop}`}
-            >
-              <ZipLogo id="zip-foot" className="h-12 w-auto" />
-            </a>
-            <p className="mt-1.5 text-sm text-limestone/75">{t.footer.tagline}</p>
-          </div>
+  const { footer: f, nav } = t;
+  const whatsappHref = waHref(t.whatsappText);
 
-          <div className="flex flex-col gap-5 sm:items-end">
-            {/* CV je ovdje, ne u sekciji O meni: kupac weba ne kupuje životopis */}
-            <div className="flex gap-5 self-start sm:self-end">
-              <a
-                href={t.footer.langHref}
-                lang={t.lang === "hr" ? "en" : "hr"}
-                className="ulink -my-2 inline-flex min-h-11 items-center text-sm text-limestone/75"
-              >
-                {t.footer.langLabel}
-              </a>
-              <a href={site.cv} className="ulink -my-2 inline-flex min-h-11 items-center text-sm text-limestone/75">
-                {t.footer.cv}
-              </a>
-            </div>
-            <ul className="-mx-2.5 flex flex-wrap">
-              {site.socials.map((sn) => {
-                const Icon = socialIcon[sn.label];
-                return (
-                  <li key={sn.label}>
-                    <a
-                      href={sn.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={sn.label}
-                      className="grid h-11 w-11 place-items-center text-limestone/70 transition-colors hover:text-limestone"
-                    >
-                      {Icon ? <Icon /> : sn.label}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
+  return (
+    <footer className="relative overflow-hidden border-t border-line pt-20 sm:pt-28">
+      <div className="shell">
+        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end" data-cta>
+          <div className="grid gap-4">
+            <FadeHeading lines={f.heading} as="p" />
+            <p className="t-lede">{f.body}</p>
           </div>
+          <a
+            href={whatsappHref ?? "#contact"}
+            target={whatsappHref ? "_blank" : undefined}
+            rel={whatsappHref ? "noopener noreferrer" : undefined}
+            className="btn btn-primary btn-lg w-full sm:w-fit"
+          >
+            {f.cta}
+          </a>
         </div>
 
-        <p className="mt-9 text-xs text-limestone/60">
-          © {site.name}. {t.footer.copyright}
-        </p>
+        <div className="mt-16 grid grid-cols-2 gap-8 border-t border-line pt-10 text-[0.9375rem] sm:grid-cols-[1.4fr_1fr_1fr]">
+          <div className="col-span-2 grid content-start gap-3 sm:col-span-1">
+            <Link href={t.home} aria-label="zip" className="flex min-h-11 w-fit items-center text-fg">
+              <ZipLogo id="zip-foot" pitch={16} className="h-7 w-auto" />
+            </Link>
+            <p className="max-w-[28ch] text-sm text-fg-3">{f.tagline}</p>
+          </div>
+          <nav aria-label={f.site} className="grid content-start">
+            <p className="mb-1 text-[0.8125rem] text-fg-3">{f.site}</p>
+            {nav.links.map((l) => (
+              <a key={l.href} href={l.href} className="inline-flex min-h-11 w-fit items-center text-fg-2 transition-colors duration-200 hover:text-fg">
+                {l.label}
+              </a>
+            ))}
+          </nav>
+          <nav aria-label={f.more} className="grid content-start">
+            <p className="mb-1 text-[0.8125rem] text-fg-3">{f.more}</p>
+            <Link href="/work" className="inline-flex min-h-11 w-fit items-center text-fg-2 transition-colors duration-200 hover:text-fg">
+              {f.allWork}
+            </Link>
+            <a href={`${t.home}#faq`} className="inline-flex min-h-11 w-fit items-center text-fg-2 transition-colors duration-200 hover:text-fg">
+              {f.questions}
+            </a>
+            <a
+              href={f.langHref}
+              hrefLang={t.lang === "en" ? "hr" : "en"}
+              className="inline-flex min-h-11 w-fit items-center text-fg-2 transition-colors duration-200 hover:text-fg"
+            >
+              {f.langLabel}
+            </a>
+          </nav>
+        </div>
+
+        <p className="mt-12 text-[0.8125rem] text-fg-3">© zip. {f.copyright}</p>
+      </div>
+
+      {/* Odrezan na dnu kao "SEOtalos" na predlošku: vidi se točka i gornji
+          dio slova, pa zip ne pojede cijeli ekran na desktopu. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none mx-auto mt-10 aspect-[236/92] max-w-[1080px] overflow-hidden px-[2vw]"
+      >
+        <ZipChrome id="zip-footer" pitch={8} className="h-auto w-full" />
       </div>
     </footer>
   );

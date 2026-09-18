@@ -54,39 +54,40 @@ export default async function ProspectPage({ params }: Props) {
   const three = p.findings.length === 3;
 
   return (
-    <main lang="hr" className="min-h-[100svh] pb-20">
-      <header className="shell flex min-h-16 items-center border-b border-line">
+    <main lang="hr" className="relative min-h-[100svh] pb-20">
+      <div className="grid-light" aria-hidden="true" />
+      <header className="shell relative flex min-h-20 items-center border-b border-line">
         <Link href="/" className="-my-2 inline-flex min-h-11 items-center">
-          <ZipLogo id="zip-p" pitch={17} className="h-9 w-auto" />
+          <ZipLogo id="zip-p" pitch={17} className="h-8 w-auto text-fg" />
         </Link>
       </header>
 
-      <div className="shell pt-12 sm:pt-16">
+      <div className="shell relative pt-12 sm:pt-16">
         <div className="max-w-2xl">
-          <p className="eyebrow">Za: {p.name}</p>
-          <p className="mt-2 text-sm font-medium text-muted">
+          <p className="pill-eyebrow">Za: {p.name}</p>
+          <p className="mt-3 text-sm font-medium text-fg-3">
             Provjereno {hrDate(p.checkedOn)}
           </p>
 
-          <h1 className="mt-6 text-[clamp(2.5rem,11vw,4.5rem)]">
+          <h1 className="t-h2 mt-6">
             {three ? "Tri stvari koje vaša stranica radi krivo." : "Što sam našao na vašoj stranici."}
           </h1>
 
-          <p className="mt-6 max-w-[46ch] text-[1.0625rem] leading-relaxed text-muted">
+          <p className="t-lede mt-6 max-w-[46ch]">
             Pogledali smo {p.site ? `${host(p.site)}, ` : ""}vaš Google profil i put do rezervacije.
             Svaku od ovih stvari možete sami provjeriti za minutu.
           </p>
 
-          <ol className="mt-10 divide-y divide-line border-y border-line">
+          <ol className="mt-10 grid gap-2.5">
             {p.findings.map((f, i) => (
-              <li key={i} className="grid grid-cols-[2rem_1fr] gap-x-3 py-6">
-                <span className="font-display text-2xl font-extrabold leading-none text-rust-ink">{i + 1}</span>
+              <li key={i} className="card grid grid-cols-[2rem_1fr] gap-x-3 p-5 sm:p-6">
+                <span className="chrome-text text-2xl font-semibold leading-none">{i + 1}</span>
                 <div>
-                  <p className="text-[1.125rem] font-semibold leading-snug text-ink">{f.title}</p>
-                  <p className="mt-3 text-sm font-medium text-muted">
+                  <p className="text-[1.125rem] font-semibold leading-snug text-fg">{f.title}</p>
+                  <p className="mt-3 text-sm font-medium text-fg-3">
                     Kako provjeriti
                   </p>
-                  <p className="mt-1 text-[1rem] leading-relaxed text-muted">{f.check}</p>
+                  <p className="mt-1 text-[1rem] leading-relaxed text-fg-2">{f.check}</p>
                 </div>
               </li>
             ))}
@@ -99,7 +100,7 @@ export default async function ProspectPage({ params }: Props) {
                 href={p.concept}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ulink -my-2 inline-flex min-h-11 items-center gap-1 font-semibold"
+                className="-my-2 inline-flex min-h-11 items-center gap-1 font-semibold underline underline-offset-4"
               >
                 Pogledajte prijedlog
                 <ArrowUpRight className="h-3.5 w-3.5" />
@@ -107,9 +108,9 @@ export default async function ProspectPage({ params }: Props) {
             </p>
           )}
 
-          <div className="mt-12 border-t border-line-strong pt-8">
-            <p className="font-display text-2xl font-extrabold tracking-[-0.02em]">Pitanja? Javite se.</p>
-            <p className="mt-2 max-w-[44ch] text-[1rem] leading-relaxed text-muted">
+          <div className="mt-12 border-t border-line pt-8">
+            <p className="text-2xl font-semibold tracking-[-0.03em]">Pitanja? Javite se.</p>
+            <p className="mt-2 max-w-[44ch] text-[1rem] leading-relaxed text-fg-2">
               Provjera je besplatna i ni na što vas ne obvezuje. Odgovaramo u roku od 24 sata.
             </p>
 
@@ -119,23 +120,23 @@ export default async function ProspectPage({ params }: Props) {
                   href={wa}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-primary justify-center sm:justify-start"
+                  className="btn btn-primary btn-lg"
                 >
                   Javite se na WhatsApp
                 </a>
               )}
               <a
                 href={`tel:${site.phone}`}
-                className="ulink -my-2 inline-flex min-h-11 items-center justify-center text-sm font-medium text-muted"
+                className="-my-2 inline-flex min-h-11 items-center justify-center text-sm font-medium text-fg-2 underline underline-offset-4"
               >
                 ili nazovite {site.phoneDisplay}
               </a>
             </div>
           </div>
 
-          <p className="mt-14 text-sm text-muted">
+          <p className="mt-14 text-sm text-fg-3">
             zip · web dizajn ·{" "}
-            <Link href="/" className="ulink -my-2 inline-flex min-h-11 items-center">
+            <Link href="/" className="-my-2 inline-flex min-h-11 items-center underline underline-offset-4">
               donebyzip.com
             </Link>
           </p>
