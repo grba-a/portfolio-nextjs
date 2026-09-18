@@ -235,7 +235,8 @@ export const hr: Copy = {
   },
 
   footer: {
-    heading: ["Želite znati što", "vaša stranica griješi?"],
+    // Slogan = domena (donebyzip.com), isti i na /hr (Petar, 2026-09-18)
+    heading: ["Get it done", "by zip."],
     body: "Pošaljite nam adresu. Provjera je besplatna.",
     cta: "Besplatna provjera",
     site: "Stranica",

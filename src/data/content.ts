@@ -246,7 +246,8 @@ export const content = {
   },
 
   footer: {
-    heading: ["Want to know what", "yours gets wrong?"],
+    // Slogan = domena (donebyzip.com), isti i na /hr (Petar, 2026-09-18)
+    heading: ["Get it done", "by zip."],
     body: "Send us the address. The check is free.",
     cta: "Get the free check",
     site: "Site",
