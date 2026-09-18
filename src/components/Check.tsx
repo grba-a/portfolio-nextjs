@@ -97,7 +97,7 @@ export default function Check({ t = content }: { t?: Copy }) {
           {/* Besplatno — jedina radnja */}
           <article className="card col-span-2 grid content-between gap-6 p-5 sm:p-7">
             <div className="grid gap-2">
-              <p className="text-[2.25rem] font-semibold leading-none tracking-[-0.04em] sm:text-5xl">{check.free.title}</p>
+              <p className="t-h2">{check.free.title}</p>
               <p className="max-w-[30ch] text-[0.9375rem] text-fg-2">{check.free.body}</p>
             </div>
             <a

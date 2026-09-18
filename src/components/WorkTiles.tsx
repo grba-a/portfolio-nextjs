@@ -86,7 +86,7 @@ export default function WorkTiles({
               {isUp && (
                 <Link
                   href={`/work#${w.slug}`}
-                  className="pointer-events-auto mt-1.5 text-[0.75rem] font-medium text-white underline underline-offset-4"
+                  className="pointer-events-auto mt-1.5 text-[0.8125rem] font-medium text-white underline underline-offset-4"
                 >
                   {labels.details}
                 </Link>

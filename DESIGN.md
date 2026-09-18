@@ -63,6 +63,11 @@ typography:
     fontSize: "0.8125rem"
     fontWeight: 400
     lineHeight: 1.4
+  micro:
+    fontFamily: "Geist, ui-sans-serif, system-ui, -apple-system, sans-serif"
+    fontSize: "0.6875rem"
+    fontWeight: 600
+    lineHeight: 1.3
 rounded:
   field: "12px"
   inset: "14px"

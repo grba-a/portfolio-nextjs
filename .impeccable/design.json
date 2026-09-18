@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-18T00:00:00Z",
+  "generatedAt": "2026-09-18T12:34:46.735804+00:00",
   "title": "Design System: zip",
   "extensions": {
     "colorMeta": {
@@ -318,6 +318,10 @@
       "label": {
         "displayName": "Label",
         "purpose": "Chips, badges, captions, status text. Sentence case, never uppercase."
+      },
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "Tags and status inside pills and tiles: the white 'Free' tag, tile status line, weekday initials in the booker. Never for running text."
       }
     },
     "gradients": [
@@ -533,7 +537,8 @@
       "Glass floats, cards sit: liquid glass only on what hovers above the page.",
       "Pills everywhere a control or label lives; soft 22px cards for content.",
       "45° stripes as the brand's single recurring pattern.",
-      "One motion moment: a CSS hero intro (and, first visit per session, a CSS zipper), plus press feedback."
+      "One motion moment: a CSS hero intro (and, first visit per session, a CSS zipper), plus press feedback.",
+      "A small glass-edged pill with a glowing dot (.pill-eyebrow, ui/Eyebrow.tsx) names each section above its headline. The craft floor bans eyebrows, but these are a template element the owner chose on 2026-09-18; keep them unless he says otherwise."
     ],
     "rules": [
       {
