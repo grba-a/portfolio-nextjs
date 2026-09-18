@@ -5,6 +5,9 @@
  *   node scripts/email-assets.mjs
  *
  * Mail ih učitava s https://donebyzip.com/email/… — rade tek kad su objavljene.
+ *
+ * Sam mail (predložak ponude) živi u vaultu: ~/vault/40-Projects/zip-offers/.
+ * Ovaj repo je javan, pa ponuda s imenom klijenta i cijenom ovdje ne smije biti.
  */
 import { chromium } from "playwright";
 import { fileURLToPath } from "node:url";
