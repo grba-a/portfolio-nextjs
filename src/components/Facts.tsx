@@ -26,7 +26,7 @@ export default function Facts({ t = content }: { t?: Copy }) {
           <p className="t-lede">{f.sub}</p>
         </div>
 
-        <ul className="relative mt-10 h-[400px] [perspective:1000px] sm:h-[460px] lg:mt-16 lg:grid lg:h-auto lg:grid-cols-4 lg:gap-5">
+        <ul className="relative isolate mt-10 h-[400px] [perspective:1000px] [transform:translateZ(0)] sm:h-[460px] lg:mt-16 lg:grid lg:h-auto lg:grid-cols-4 lg:gap-5">
           {f.items.map((it, i) => (
             <li
               key={it.label}

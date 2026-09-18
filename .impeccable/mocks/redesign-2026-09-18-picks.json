@@ -1,0 +1,39 @@
+{
+  "artifact": "https://claude.ai/artifact/ANKaQ6WB3fAJJipg7Ahj85",
+  "decidedOn": "2026-09-18",
+  "by": "Petar",
+  "choices": {
+    "repo": "a · new branch in the same repo",
+    "palette": "a · pure mono",
+    "font": "geist",
+    "glass": "float · glass only on the floating layer",
+    "motion": "a · one moment (CSS hero intro + press feedback)",
+    "nav": "a · floating glass capsule",
+    "hero": "c · zipper intro, 100svh",
+    "strip": "b · certificates and tools",
+    "check": "a · bento with mini UIs",
+    "work": "a · tilted tiles + 'All work' card from b",
+    "process": "a · vertical line",
+    "packages": "c · comparison table, no prices",
+    "facts": "a · tilted glass tiles, four true facts",
+    "reviews": "a · none until a real one arrives",
+    "about": "a · company only, Zagreb",
+    "faq": "a · accordion, open item white",
+    "contact": "b · WhatsApp first",
+    "footer": "a · giant chrome zip, cropped",
+    "sticky": "a · glass capsule; header CTA hidden on mobile"
+  },
+  "notes": {
+    "about": "Zagreb, Croatia, not Dubrovnik",
+    "sticky": "hide the header CTA on mobile when the sticky CTA exists",
+    "strip": "hero is 100svh",
+    "work": "tiles from A, 'All work' block from B"
+  },
+  "answers": {
+    "team": "nobody from the team appears; the site is for the company only; no personal CV",
+    "reviews": "none yet",
+    "chrome": "code, not a rendered image (speed)",
+    "portrait": "not needed"
+  },
+  "skipped": "impeccable concept-seed roll: the owner chose the direction himself in the artifact"
+}

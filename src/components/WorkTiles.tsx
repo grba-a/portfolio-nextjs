@@ -31,7 +31,9 @@ export default function WorkTiles({
   const [up, setUp] = useState<string | null>(null);
 
   return (
-    <div className="relative h-[clamp(430px,125vw,560px)] [perspective:900px] sm:h-[600px] lg:h-[520px]">
+    // translateZ(0) spljošti 3D pločice u ravninu kontejnera: bez toga ih Safari
+    // crta preko fiksne donje kapsule (nagnuti rub "izađe" prema ekranu).
+    <div className="relative isolate h-[clamp(430px,125vw,560px)] [perspective:900px] [transform:translateZ(0)] sm:h-[600px] lg:h-[520px]">
       {items.map((w, i) => {
         const m = MOBILE[i % MOBILE.length];
         const isUp = up === w.slug;
