@@ -6,9 +6,9 @@ import { certs } from "./site";
  * Tip `Copy` to čuva: ako engleska kopija dobije novi ključ, ovdje puca
  * build dok se ne prevede.
  *
- * NACRT: tekst je napisao Claude (redizajn 2026-09-18; postojeće rečenice
- * preuzete iz prethodne /hr). Bez pretpostavljanja roda čitatelja. Petar
- * ga odobrava ili prepravlja svojim riječima.
+ * Tekst je napisao Claude (redizajn 2026-09-18; postojeće rečenice preuzete
+ * iz prethodne /hr), Petar ga je odobrio 2026-09-18. Bez pretpostavljanja
+ * roda čitatelja.
  */
 export const hr: Copy = {
   lang: "hr",

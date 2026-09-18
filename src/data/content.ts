@@ -253,7 +253,7 @@ export const content = {
     certs: "Google Ads & Analytics certified",
   },
 
-  // Naslov je nacrt; svaki odgovor je rečenica koja već stoji na stranici
+  // Naslov odobrio Petar (2026-09-18); svaki odgovor je rečenica koja već stoji na stranici
   faq: {
     eyebrow: "Questions",
     heading: ["Before you send", "the address."],
