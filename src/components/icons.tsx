@@ -219,3 +219,37 @@ export function Pointer({ className }: IconProps) {
     </svg>
   );
 }
+
+export function Pin({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" />
+      <circle cx="12" cy="9" r="2.5" />
+    </svg>
+  );
+}
+
+export function Megaphone({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1zM16 8a5 5 0 0 1 0 8" />
+    </svg>
+  );
+}
+
+export function Sparkle({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z" />
+      <path d="M18 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" />
+    </svg>
+  );
+}
+
+export function Plus({ className }: IconProps) {
+  return (
+    <svg {...base} strokeWidth={2.2} className={className}>
+      <path d="M12 5v14M5 12h14" />
+    </svg>
+  );
+}

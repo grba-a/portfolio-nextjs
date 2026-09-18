@@ -283,6 +283,9 @@ A glass capsule under the thumb: label plus a white circular chat button. It arr
 ### Accordion (FAQ)
 Rows of 18px radius on card-hi at 60% with a hairline; the open row turns solid Paper White with black text. Height opens via grid rows, never animated height; the plus rotates to minus.
 
+### Package Cards
+Three cards, never priced. **Website** and **Growth** are dark cards (parts that work on their own); **System** sits in the middle as the one white card (the paper-white gradient over a solid `#f2f2f5` base, lifted 20px on desktop, first on mobile) because it joins both. Each card: title, one-line promise, module pills with icons (the System's pills are "zipped" by a strip of alternating teeth, `.zipline`), a tick list (the System's list opens with "Everything in Website and Growth, plus:"), a quiet foot line and its own WhatsApp button whose prefilled message names the package.
+
 ### Tilted Tiles (signature)
 Work screenshots (9:16, 18px) and fact tiles (glass, 22px) sit in a perspective scatter tilted about 14 to 22° on X and -3 to -14° on Z. Hover (fine pointer) or tap straightens and lifts a tile; captions ride on a glass strip inside the tile. Facts carry one chrome figure each.
 

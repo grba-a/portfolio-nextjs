@@ -20,8 +20,11 @@ running. The site's one job is to get an owner to ask for the free written check
 booking path — three findings, in writing, no pitch. Free first, then teach, then charge.
 
 ## Capabilities and Constraints
-- Three packages without amounts: The website · Website + bookings · Care, monthly.
-  Ads, SEO, copy, identity and analytics on top, priced separately.
+- Three packages without amounts (2026-09-18): **Website** (site + booking + Google profile +
+  analytics) and **Growth** (SEO, Google and Meta ads, copy, monthly report) are parts that work
+  on their own; **System** joins both with AI and automation (assistant, automatic replies,
+  booking reminders, review requests, translations, one inbox for enquiries, automatic monthly
+  report) plus monthly care. The direction is automated systems that run for the client.
 - **No price, no figure of cost anywhere on the site** (decision 2026-09-14).
 - First contact: WhatsApp with a prepared message. Also phone, e-mail, a Cal.com call picker
   (`/api/slots`) and an e-mail form (Formspree).

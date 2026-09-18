@@ -465,6 +465,17 @@ html[data-zz="run"] .zip-sheen { animation-delay: 2.2s; }
 @keyframes ring-fill { to { stroke-dashoffset: 0; } }
 
 /* ══════════════════════════════════════════════════════════════
+   PAKET SYSTEM — zupci zatvarača spajaju module (45° motiv zipa)
+   ══════════════════════════════════════════════════════════════ */
+.zipline {
+  height: 10px;
+  opacity: 0.55;
+  background:
+    repeating-linear-gradient(90deg, var(--color-void) 0 5px, transparent 5px 10px) center top / 100% 4px no-repeat,
+    repeating-linear-gradient(90deg, transparent 0 5px, var(--color-void) 5px 10px) center bottom / 100% 4px no-repeat;
+}
+
+/* ══════════════════════════════════════════════════════════════
    HARMONIKA (FAQ) — visina kroz grid-rows, ne height
    ══════════════════════════════════════════════════════════════ */
 .acc-panel {

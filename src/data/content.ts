@@ -143,30 +143,90 @@ export const content = {
     ],
   },
 
-  // Tablica (odluka 12C), izvedena samo iz opisa paketa. Nijedne cifre
-  // (Petar, 2026-09-14: "ne želim da se igdje vidi točna cijena").
+  // Tri paketa (Petar, 2026-09-18, druga runda): Website i Growth su dijelovi,
+  // System u sredini ih spaja uz AI i automatizaciju. Nijedne cijene; svaki
+  // paket ima svoj gumb, a WhatsApp poruka nosi ime paketa. AI stavke je
+  // Petar potvrdio kvačicama kao nešto što isporučujemo.
   packages: {
     eyebrow: "Packages",
-    heading: ["Build it. Book it.", "And keep it running."],
-    columns: [
-      { name: "The website", short: "Web" },
-      { name: "Website + bookings", short: "Web + book" },
-      { name: "Care, monthly", short: "Care" },
+    heading: ["One part,", "or the whole system."],
+    sub: "Every part works on its own, and better together.",
+    tiers: [
+      {
+        id: "website",
+        name: "Website",
+        promise: "A website that takes bookings.",
+        modules: [
+          { icon: "web", label: "Website" },
+          { icon: "cal", label: "Booking" },
+          { icon: "pin", label: "Google profile" },
+        ],
+        includes: "",
+        items: [
+          "Design, build and launch, fast on a phone",
+          "Booking system connected",
+          "Google Business profile linked",
+          "Analytics, so you see what it does",
+        ],
+        foot: "The foundation.",
+        cta: "Start with the website",
+        whatsapp: "Hello! I'm interested in the Website package. My site: ",
+        highlight: false,
+        tag: "",
+      },
+      {
+        id: "system",
+        name: "System",
+        promise: "Website, search, ads and AI, working as one.",
+        modules: [
+          { icon: "web", label: "Website" },
+          { icon: "cal", label: "Booking" },
+          { icon: "search", label: "SEO" },
+          { icon: "ads", label: "Ads" },
+          { icon: "ai", label: "AI" },
+          { icon: "auto", label: "Automation" },
+        ],
+        includes: "Everything in Website and Growth, plus:",
+        items: [
+          "AI assistant on your site",
+          "Automatic replies to enquiries",
+          "Booking confirmations and reminders",
+          "Review requests after a visit",
+          "AI translations of your site",
+          "Every enquiry in one place",
+          "A monthly report, built automatically",
+          "Care, monthly: hosting and updates",
+        ],
+        foot: "The system that sells for you.",
+        cta: "Get the system",
+        whatsapp: "Hello! I'm interested in the System package. My site: ",
+        highlight: true,
+        tag: "The whole system",
+      },
+      {
+        id: "growth",
+        name: "Growth",
+        promise: "More of the right people find you.",
+        modules: [
+          { icon: "search", label: "SEO" },
+          { icon: "ads", label: "Google Ads" },
+          { icon: "ads", label: "Meta Ads" },
+        ],
+        includes: "",
+        items: [
+          "Local SEO and your Google Business profile",
+          "Google Ads and Meta Ads, run for you",
+          "Copywriting for pages and ads",
+          "A report every month",
+        ],
+        foot: "Works with a site you already have.",
+        cta: "Start growing",
+        whatsapp: "Hello! I'm interested in the Growth package. My site: ",
+        highlight: false,
+        tag: "",
+      },
     ],
-    rows: [
-      { label: "Design, build and launch", has: [true, true, false] },
-      { label: "Hosting set up", has: [true, true, true] },
-      { label: "Analytics", has: [true, true, false] },
-      { label: "Booking system connected", has: [false, true, false] },
-      { label: "Updates", has: [false, false, true] },
-      { label: "Google Business profile kept right", has: [false, false, true] },
-    ],
-    included: "Included",
-    notIncluded: "Not included",
-    reassure: "Exact price in writing after the free check. No hidden costs.",
-    timeline: "Timeline in writing too, with the quote.",
-    extra: "Ads and SEO on top, priced separately: Google and Meta ads, local SEO and your Google Business profile, copywriting, logo and identity, GA4 analytics.",
-    cta: "Get the free check",
+    note: "No hidden costs. Every project starts with the free check.",
   },
 
   // Predložak tu ima 200 % i 50K+. Mi nemamo takve brojke, pa stoje četiri
@@ -208,7 +268,7 @@ export const content = {
       { q: "Croatian or English?", a: "Croatian or English, whichever suits you." },
       {
         q: "Do you do ads and SEO?",
-        a: "Yes, priced separately: Google and Meta ads, local SEO and your Google Business profile, copywriting, logo and identity, GA4 analytics.",
+        a: "Yes. Google and Meta ads, local SEO, your Google Business profile and copywriting are the Growth package, and part of the System. Logo and identity too, on request.",
       },
     ],
   },
