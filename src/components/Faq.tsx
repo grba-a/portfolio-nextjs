@@ -10,8 +10,15 @@ import Eyebrow from "@/components/ui/Eyebrow";
  * Svaki odgovor je rečenica koja već stoji na stranici. Visina se otvara
  * kroz grid-template-rows (.acc-panel), ne animiranjem height.
  */
-export default function Faq({ t = content }: { t?: Copy }) {
-  const { faq } = t;
+export default function Faq({
+  t = content,
+  items,
+}: {
+  t?: Copy;
+  /** Vlastita pitanja podstranice; naslov ostaje isti kao na naslovnici */
+  items?: { q: string; a: string }[];
+}) {
+  const faq = items ? { ...t.faq, items } : t.faq;
   const [open, setOpen] = useState<number | null>(0);
 
   return (

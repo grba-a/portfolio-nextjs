@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { track } from "@vercel/analytics";
 import { content, type Copy } from "@/data/content";
 import { site } from "@/data/site";
 import Modal from "@/components/Modal";
@@ -114,6 +115,8 @@ export default function Booker({ t = content }: { t?: Copy }) {
     : t.book.confirmLabel;
 
   const openSlot = (iso: string) => {
+    // Potvrda se događa u Cal.com okviru, koji ne vidimo; mjeri se odabir termina
+    track("Call slot picked", { lang: t.lang });
     setCalLoaded(false);
     setSlot(iso);
   };

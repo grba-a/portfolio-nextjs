@@ -6,11 +6,19 @@ import Eyebrow from "@/components/ui/Eyebrow";
 import FadeHeading from "@/components/ui/FadeHeading";
 import { content } from "@/data/content";
 import { work } from "@/data/work";
+import { ogImage } from "@/components/RootShell";
+
+// Naslov i opis iz kolegina previewa (Petar odobrio 2026-10-14). openGraph
+// i twitter moraju biti ovdje, inače se /work dijeli kao naslovnica (audit).
+const TITLE = "Work: websites for small businesses | zip";
+const DESC = "Websites we have built for small businesses: apartments, a hair studio, a heavy equipment company and a sports club.";
 
 export const metadata: Metadata = {
-  title: "Work | zip",
-  description: "Websites built by zip. Open any project for the details and the live site.",
+  title: TITLE,
+  description: DESC,
   alternates: { canonical: "/work" },
+  openGraph: { title: TITLE, description: DESC, url: "https://donebyzip.com/work", siteName: "zip", images: [ogImage], locale: "en_US", type: "website" },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: [ogImage.url] },
 };
 
 /** Svi radovi. Klik otvara popup; svaki popup ima vlastiti link (/work#slug). */

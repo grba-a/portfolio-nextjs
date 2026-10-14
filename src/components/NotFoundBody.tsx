@@ -1,21 +1,17 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import { waHref } from "@/data/site";
 import { content } from "@/data/content";
 import { ArrowRight } from "@/components/icons";
 
-export const metadata: Metadata = {
-  title: "Page not found | zip",
-  robots: { index: false, follow: false },
-};
-
 /**
  * 404 u stilu zipa (Petar, 2026-09-18). "404" je u kromu i izrezan kosim
  * crtama pod 45°, kao slova u logu. Tekst je nacrt. Engleski je glavni, a
  * hrvatski posjetitelj ima svoju poveznicu, jer 404 je jedna za cijelu stranicu.
+ * Od 2026-10-14 tijelo dijele global-not-found (nepoznata adresa) i
+ * (en)/not-found (notFound() na /p/[slug]).
  */
-export default function NotFound() {
+export default function NotFoundBody() {
   const whatsappHref = waHref(content.whatsappText);
   return (
     <>

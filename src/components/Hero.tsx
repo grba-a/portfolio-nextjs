@@ -40,7 +40,7 @@ export default function Hero({ t = content }: { t?: Copy }) {
           <h1 className="t-display">
             <span className="fade-line rise-h" style={{ "--i": 1 } as React.CSSProperties}>
               {hero.line1}
-            </span>
+            </span>{" "}
             <span className="fade-line rise-h" style={{ "--i": 2 } as React.CSSProperties}>
               {hero.line2} <span className="fill-word">{hero.line2Fill}</span>
             </span>

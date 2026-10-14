@@ -13,7 +13,14 @@ import ZipLogo from "@/components/ZipLogo";
  * na mobitelu se ne prikazuje, jer dolje već stoji staklena kapsula s istom
  * radnjom (Petar, 2026-09-18). Od 768 px: poveznice u sredini, jezik i CTA.
  */
-export default function Nav({ t = content }: { t?: Copy }) {
+export default function Nav({
+  t = content,
+  langHref,
+}: {
+  t?: Copy;
+  /** Ista stranica na drugom jeziku; bez nje prekidač vodi na naslovnicu */
+  langHref?: string;
+}) {
   const { nav, footer } = t;
   const [open, setOpen] = useState(false);
   const panel = useRef<HTMLDivElement>(null);
@@ -45,7 +52,7 @@ export default function Nav({ t = content }: { t?: Copy }) {
       style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 12px)" }}
     >
       <a href="#main" className="skip">
-        Skip to content
+        {t.nav.skip}
       </a>
 
       <div
@@ -70,7 +77,7 @@ export default function Nav({ t = content }: { t?: Copy }) {
         <span className="flex-1 md:hidden" />
 
         <a
-          href={footer.langHref}
+          href={langHref ?? footer.langHref}
           hrefLang={t.lang === "en" ? "hr" : "en"}
           className="hidden min-h-11 items-center px-3 text-sm text-fg-3 transition-colors duration-200 hover:text-fg md:inline-flex"
         >
@@ -120,7 +127,7 @@ export default function Nav({ t = content }: { t?: Copy }) {
             </a>
           ))}
           <a
-            href={footer.langHref}
+            href={langHref ?? footer.langHref}
             hrefLang={t.lang === "en" ? "hr" : "en"}
             className="rounded-[14px] px-3 py-3 text-[1.0625rem] font-medium tracking-[-0.015em] text-fg"
           >

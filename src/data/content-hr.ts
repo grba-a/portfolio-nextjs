@@ -24,11 +24,13 @@ export const hr: Copy = {
       { href: "/hr#how", label: "Kako radi" },
       { href: "/hr#about", label: "O nama" },
       { href: "/hr#contact", label: "Kontakt" },
+      { href: "/hr/blog", label: "Blog" },
     ],
     cta: "Besplatna provjera",
     openMenu: "Otvori izbornik",
     closeMenu: "Zatvori izbornik",
     langCaption: "Jezik",
+    skip: "Preskoči na sadržaj",
   },
 
   hero: {
@@ -37,29 +39,25 @@ export const hr: Copy = {
     line1: "Sustavi",
     line2: "koji",
     line2Fill: "prodaju.",
-    sub: "Vaša stranica, Google profil i put do rezervacije, složeni u jedno. Provjerimo sve troje, napismeno i besplatno.",
+    sub: "Izrađujemo nove web stranice i popravljamo stare. Uz stranicu sredimo i Google profil i put do upita, da sve troje radi kao jedno. Provjerimo sve troje, napismeno i besplatno.",
     ctaPrimary: "Besplatna provjera",
     ctaSecondary: "Pogledajte radove",
   },
 
   strip: {
-    label: "Google Ads i Analytics certifikati",
+    label: "Certificirani. Sve napismeno.",
     items: [
       "Google Ads certifikat",
       "Google Analytics certifikat",
       "HubSpot certifikati",
-      "Google Business profil",
-      "Meta oglasi",
-      "Next.js",
-      "Vercel",
-      "Cal.com",
+      "Bez skrivenih troškova",
+      "Odgovor za 24 h, od čovjeka",
+      "100 % vaše pri predaji",
     ],
   },
 
   check: {
-    eyebrow: "Kako radi besplatna provjera",
-    heading: ["Provjerimo", "sve troje."],
-    sub: "Tri nalaza o vašem profilu, stranici i putu do rezervacije, napismeno.",
+    sub: "Tri nalaza o vašem profilu, stranici i putu do upita, napismeno.",
     found: {
       title: "Pronađeno.",
       body: "Prvo što vide najčešće je vaš Google profil. Vodi li on na vašu stranicu?",
@@ -74,12 +72,18 @@ export const hr: Copy = {
     },
     booked: {
       title: "Rezervirano.",
-      body: "Jedan pokvaren korak do rezervacije i gost rezervira kod drugoga.",
-      path: ["Traži", "Web", "Rezerviraj"],
+      body: "Jedan pokvaren korak do upita i kupac ode drugome.",
+      path: ["Traži", "Web", "Pošalji upit"],
     },
-    free: {
-      title: "Besplatno.",
-      body: "Tri nalaza, napismeno. Bez prodajnog razgovora.",
+    sample: {
+      tag: "Primjer",
+      title: "Što dobijete",
+      findings: [
+        "Google profil nema poveznicu na stranicu, pa ljudi kliknu „Upute“ i nikad je ne vide.",
+        "Na mobitelu je gumb za upit tri ekrana niže.",
+        "Obrazac traži osam polja. Dovoljna su tri.",
+      ],
+      note: "Besplatno. Napismeno, za 48 do 72 sata. Bez prodajnog razgovora.",
       cta: "Besplatna provjera",
     },
   },
@@ -123,7 +127,7 @@ export const hr: Copy = {
       {
         num: "01",
         title: "Besplatna provjera",
-        desc: "Pošaljite nam adresu svoje stranice. Dobit ćete tri nalaza o Google profilu, stranici i putu do rezervacije, napismeno. Besplatno i bez ikakve obveze.",
+        desc: "Pošaljite nam adresu svoje stranice. Za 48 do 72 sata dobit ćete tri nalaza o Google profilu, stranici i putu do upita, napismeno. Besplatno i bez ikakve obveze.",
       },
       {
         num: "02",
@@ -147,16 +151,16 @@ export const hr: Copy = {
       {
         id: "website",
         name: "Website",
-        promise: "Stranica koja prima rezervacije.",
+        promise: "Stranica koja donosi upite i rezervacije.",
         modules: [
           { icon: "web", label: "Stranica" },
-          { icon: "cal", label: "Rezervacije" },
+          { icon: "cal", label: "Upiti" },
           { icon: "pin", label: "Google profil" },
         ],
         includes: "",
         items: [
           "Dizajn, izrada i objava, brza na mobitelu",
-          "Povezan sustav za rezervacije",
+          "Povezani upiti ili rezervacije",
           "Povezan Google Business profil",
           "Analitika, da vidite što radi",
         ],
@@ -172,7 +176,7 @@ export const hr: Copy = {
         promise: "Stranica, pretraga, oglasi i AI, složeni u jedno.",
         modules: [
           { icon: "web", label: "Stranica" },
-          { icon: "cal", label: "Rezervacije" },
+          { icon: "cal", label: "Upiti" },
           { icon: "search", label: "SEO" },
           { icon: "ads", label: "Oglasi" },
           { icon: "ai", label: "AI" },
@@ -248,15 +252,22 @@ export const hr: Copy = {
     items: [
       {
         q: "Što pokriva besplatna provjera?",
-        a: "Tri nalaza o vašem Google profilu, stranici i putu do rezervacije, napismeno. Besplatno i bez ikakve obveze.",
+        a: "Tri nalaza o vašem Google profilu, stranici i putu do upita, napismeno, za 48 do 72 sata. Besplatno i bez ikakve obveze.",
       },
-      { q: "Koliko košta stranica?", a: "Točna cijena napismeno nakon besplatne provjere. Bez skrivenih troškova." },
-      { q: "Koliko traje izrada?", a: "I rok napismeno, uz ponudu." },
+      {
+        q: "Koliko košta izrada web stranice?",
+        a: "Ovisi o četiri stvari: broju stranica, trebate li rezervacije ili obrazac za upite, tko piše tekstove i na koliko jezika. Točan iznos dobijete napismeno nakon besplatne provjere, prije bilo kakvog posla.",
+      },
+      { q: "Koliko traje izrada web stranice?", a: "I rok napismeno, uz ponudu." },
       { q: "Čija je stranica?", a: "Vaša. Na kraju sve prelazi u vaše vlasništvo: datoteke, računi i pristup svemu." },
       { q: "Hrvatski ili engleski?", a: "Hrvatski ili engleski, kako vam odgovara." },
       {
-        q: "Radite li oglase i SEO?",
+        q: "Radite li Google oglase i lokalni SEO?",
         a: "Da. Google i Meta oglasi, lokalni SEO, Google Business profil i tekstovi čine paket Growth i dio su paketa System. Logo i vizualni identitet također, na upit.",
+      },
+      {
+        q: "Već imam stranicu, ali ne donosi upite. Možete li je popraviti?",
+        a: "Da. Besplatna provjera pokaže što je koči. Zatim vam napismeno kažemo isplati li se popraviti postojeću ili napraviti novu, i zašto.",
       },
     ],
   },
@@ -264,7 +275,7 @@ export const hr: Copy = {
   book: {
     eyebrow: "Besplatna provjera stranice",
     heading: ["Pošaljite nam", "svoju stranicu."],
-    sub: "Tri nalaza o vašoj stranici, Google profilu i putu do rezervacije, napismeno. Besplatno i bez prodajnog razgovora.",
+    sub: "Tri nalaza o vašoj stranici, Google profilu i putu do upita, napismeno. Besplatno i bez prodajnog razgovora.",
     whatsappLabel: "Besplatna provjera na WhatsAppu",
     stickyLabel: "Provjera na WhatsAppu",
     callLabel: "Ili nazovite",
@@ -302,6 +313,7 @@ export const hr: Copy = {
     more: "Više",
     allWork: "Svi radovi",
     questions: "Pitanja",
+    services: "Usluge",
     tagline: "Marketing i rast za male poslove.",
     copyright: "Sva prava pridržana.",
     langHref: "/",
@@ -309,9 +321,12 @@ export const hr: Copy = {
   },
 };
 
-/** Meta oznake hrvatske stranice — bez "agencije", kao i engleski naslov. */
+/**
+ * Meta oznake hrvatske stranice. Naslov iz kolegina previewa (Petar odobrio
+ * 2026-10-14); "zip / marketing genius" ostaje (Petar: Ne na brisanje "marketinga").
+ */
 export const hrMeta = {
-  title: "Besplatna provjera stranice | zip",
+  title: "Izrada web stranica i Google profila za male tvrtke | zip",
   description:
-    "zip / marketing genius. Pomažemo malim poslovima rasti, počevši od besplatne pisane provjere vaše stranice, Google profila i puta do rezervacije.",
+    "zip / marketing genius. Nove web stranice i redizajn za male tvrtke, uz Google profil i put do upita. Počnite s besplatnom pisanom provjerom.",
 };

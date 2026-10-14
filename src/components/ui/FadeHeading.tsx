@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from "react";
+import { Fragment, type ElementType, type ReactNode } from "react";
 
 /**
  * Naslov čiji svaki redak prelazi iz sive u bijelu (element s predloška).
@@ -17,10 +17,12 @@ export default function FadeHeading({
 }) {
   return (
     <Tag id={id} className={className}>
+      {/* Razmak između redaka: bez njega tražilice čitaju "Systemsthat sell." */}
       {lines.map((line, i) => (
-        <span key={i} className="fade-line">
-          {line}
-        </span>
+        <Fragment key={i}>
+          {i > 0 && " "}
+          <span className="fade-line">{line}</span>
+        </Fragment>
       ))}
     </Tag>
   );

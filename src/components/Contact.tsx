@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { track } from "@vercel/analytics";
 import { content, type Copy } from "@/data/content";
 import { site, waHref } from "@/data/site";
 import FadeHeading from "@/components/ui/FadeHeading";
@@ -55,6 +56,7 @@ export default function Contact({ t = content }: { t?: Copy }) {
       });
       if (!res.ok) throw new Error("bad response");
       setStatus("sent");
+      track("Form sent", { lang: t.lang });
       form.reset();
     } catch {
       setStatus("error");

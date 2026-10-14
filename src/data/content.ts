@@ -24,11 +24,13 @@ export const content = {
       { href: "/#how", label: "How it works" },
       { href: "/#about", label: "About" },
       { href: "/#contact", label: "Contact" },
+      { href: "/blog", label: "Blog" },
     ],
     cta: "Free check",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     langCaption: "Language",
+    skip: "Skip to content",
   },
 
   // Naslov ostaje (odluka 15. 9.); zadnja riječ se puni kromom
@@ -38,32 +40,29 @@ export const content = {
     line1: "Systems",
     line2: "that",
     line2Fill: "sell.",
-    sub: "Your website, Google listing and booking path, working as one. We check all three, in writing and for free.",
+    sub: "We build new websites and fix old ones for small businesses, with your Google listing and the path to an enquiry working as one. We check all three, in writing and for free.",
     ctaPrimary: "Get the free check",
     ctaSecondary: "See the work",
   },
 
-  // Umjesto tuđih logotipa s predloška: ono što stvarno imamo (odluka 8B)
+  // Certifikati + obećanja kupcu umjesto alata (Next.js, Vercel, Cal.com vlasniku
+  // ne znače ništa). Iz kolegina previewa, Petar odobrio 2026-10-14.
   strip: {
-    label: "Google Ads & Analytics certified",
+    label: "Certified. Everything in writing.",
     items: [
       "Google Ads certified",
       "Google Analytics certified",
       "HubSpot certified",
-      "Google Business Profile",
-      "Meta ads",
-      "Next.js",
-      "Vercel",
-      "Cal.com",
+      "No hidden costs",
+      "Reply within 24 h, from a person",
+      "100% yours at launch",
     ],
   },
 
   // Bento: svaka kartica je dio provjere (odluka 9A). Mini sučelja su
   // ilustracija, bez ijedne brojke o nečijem poslu.
   check: {
-    eyebrow: "How the free check works",
-    heading: ["We check", "all three."],
-    sub: "Three findings about your listing, your site and your booking path, in writing.",
+    sub: "Three findings about your listing, your site and your path to an enquiry, in writing.",
     found: {
       title: "Found.",
       body: "Often the first thing they see is your Google listing. Does it lead to your site?",
@@ -78,12 +77,20 @@ export const content = {
     },
     booked: {
       title: "Booked.",
-      body: "One broken step between them and the booking, and they book someone else.",
-      path: ["Search", "Website", "Book now"],
+      body: "One broken step between them and getting in touch, and they go to someone else.",
+      path: ["Search", "Website", "Get in touch"],
     },
-    free: {
-      title: "Free.",
-      body: "Three findings, in writing. No pitch attached.",
+    // Uzorak provjere (Petar 2026-10-14: oblik A, pisano). Nalazi su
+    // ilustracija i tako su označeni; nisu ni o čijem stvarnom poslu.
+    sample: {
+      tag: "Example",
+      title: "What you get",
+      findings: [
+        "Your Google listing has no link to your website, so people tap Directions and never see it.",
+        "On a phone, the enquiry button is three screens down.",
+        "The contact form asks for eight fields. Three are enough.",
+      ],
+      note: "Free. In writing, within 48 to 72 hours. No pitch attached.",
       cta: "Get the free check",
     },
   },
@@ -128,7 +135,7 @@ export const content = {
       {
         num: "01",
         title: "The free check",
-        desc: "Send us your address. You get three findings about your Google listing, your website and your booking path, in writing. Free, and it commits you to nothing.",
+        desc: "Send us your address. Within 48 to 72 hours you get three findings about your Google listing, your website and your path to an enquiry, in writing. Free, and it commits you to nothing.",
       },
       {
         num: "02",
@@ -155,16 +162,16 @@ export const content = {
       {
         id: "website",
         name: "Website",
-        promise: "A website that takes bookings.",
+        promise: "A website that brings enquiries and bookings.",
         modules: [
           { icon: "web", label: "Website" },
-          { icon: "cal", label: "Booking" },
+          { icon: "cal", label: "Enquiries" },
           { icon: "pin", label: "Google profile" },
         ],
         includes: "",
         items: [
           "Design, build and launch, fast on a phone",
-          "Booking system connected",
+          "Enquiries or bookings connected",
           "Google Business profile linked",
           "Analytics, so you see what it does",
         ],
@@ -180,7 +187,7 @@ export const content = {
         promise: "Website, search, ads and AI, working as one.",
         modules: [
           { icon: "web", label: "Website" },
-          { icon: "cal", label: "Booking" },
+          { icon: "cal", label: "Enquiries" },
           { icon: "search", label: "SEO" },
           { icon: "ads", label: "Ads" },
           { icon: "ai", label: "AI" },
@@ -253,22 +260,30 @@ export const content = {
     certs: "Google Ads & Analytics certified",
   },
 
-  // Naslov odobrio Petar (2026-09-18); svaki odgovor je rečenica koja već stoji na stranici
+  // Naslov odobrio Petar (2026-09-18). Odgovori iz kolegina previewa, Petar
+  // odobrio 2026-10-14: cijena bez brojke, ali s četiri stvari koje je određuju.
   faq: {
     eyebrow: "Questions",
     heading: ["Before you send", "the address."],
     items: [
       {
         q: "What does the free check cover?",
-        a: "Three findings about your Google listing, your website and your booking path, in writing. Free, and it commits you to nothing.",
+        a: "Three findings about your Google listing, your website and your path to an enquiry, in writing, within 48 to 72 hours. Free, and it commits you to nothing.",
       },
-      { q: "How much does a website cost?", a: "Exact price in writing after the free check. No hidden costs." },
-      { q: "How long does it take?", a: "Timeline in writing too, with the quote." },
+      {
+        q: "How much does a website cost?",
+        a: "It depends on four things: how many pages, whether you need bookings or an enquiry form, who writes the copy, and how many languages. You get the exact amount in writing after the free check, before any work starts.",
+      },
+      { q: "How long does a new website take?", a: "Timeline in writing too, with the quote." },
       { q: "Who owns the site?", a: "You do. At launch you get full ownership: files, accounts, access to everything." },
       { q: "Croatian or English?", a: "Croatian or English, whichever suits you." },
       {
-        q: "Do you do ads and SEO?",
+        q: "Do you do Google Ads and local SEO?",
         a: "Yes. Google and Meta ads, local SEO, your Google Business profile and copywriting are the Growth package, and part of the System. Logo and identity too, on request.",
+      },
+      {
+        q: "I already have a website, but it doesn't bring enquiries. Can you fix it?",
+        a: "Yes. The free check shows what's holding it back. Then we tell you in writing whether it's worth fixing or better rebuilt, and why.",
       },
     ],
   },
@@ -276,7 +291,7 @@ export const content = {
   book: {
     eyebrow: "Free website check",
     heading: ["Send us", "your website."],
-    sub: "Three findings about your site, your Google listing and the path to a booking, in writing. Free, and no pitch attached.",
+    sub: "Three findings about your site, your Google listing and the path to an enquiry, in writing. Free, and no pitch attached.",
     whatsappLabel: "Get the free check on WhatsApp",
     stickyLabel: "Free check on WhatsApp",
     callLabel: "Or call",
@@ -314,6 +329,7 @@ export const content = {
     more: "More",
     allWork: "All work",
     questions: "Questions",
+    services: "Services",
     tagline: "Marketing and growth for small businesses.",
     copyright: "All rights reserved.",
     langHref: "/hr",

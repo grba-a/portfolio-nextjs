@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   devIndicators: false,
+  // Dva root layouta ((en) i (hr), zbog lang="hr") traže globalnu 404
+  experimental: { globalNotFound: true },
   // Sigurnosna zaglavlja (QA-5). Bez script-src: bez nonceova bi srušio
   // Nextove inline skripte. Forma šalje fetchom, pa form-action ne smeta.
   async headers() {
