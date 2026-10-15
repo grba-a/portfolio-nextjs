@@ -68,18 +68,13 @@ const orgLd = {
 };
 
 /*
- * Zatvarač u heroju ide samo pri prvom posjetu u sesiji i nikad uz smanjeni
- * pokret; "?zip" u adresi ga uvijek pokrene, za pregled. Mora se odlučiti
- * PRIJE prvog iscrtavanja, pa je ovo sinkrona skripta na vrhu <body>, a ne efekt. Nakon 2,6 s atribut se miče, da
- * povratak na naslovnicu klijentskom navigacijom ne pokrene zatvarač opet.
+ * Zatvarač pri ulasku (odluka 7C) maknut je 2026-10-15 na Petrovu riječ:
+ * prepolovio je Speed Index na mobitelu (3,2 s → 1,5 s) i davao CLS 0,05.
  */
-const zipperGate = `try{var s=sessionStorage,d=document.documentElement;if((!s.getItem("zz")||location.search.indexOf("zip")>-1)&&!matchMedia("(prefers-reduced-motion: reduce)").matches){d.dataset.zz="run";setTimeout(function(){delete d.dataset.zz},2600)}s.setItem("zz","1")}catch(e){}`;
-
 export default function RootShell({ lang, children }: { lang: "en" | "hr"; children: React.ReactNode }) {
   return (
     <html lang={lang} className={geist.variable} suppressHydrationWarning>
       <body>
-        <script dangerouslySetInnerHTML={{ __html: zipperGate }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }} />
         {children}
         <GlassRefraction />

@@ -4,11 +4,9 @@ import ZipChrome from "@/components/ZipChrome";
 import { ArrowRight } from "@/components/icons";
 
 /**
- * Hero — cijeli ekran (100svh, Petar 2026-09-18) i patentni zatvarač (odluka 7C).
- *
- * Zatvarač je čisti CSS (.zz u globals.css) i ide samo pri prvom posjetu u
- * sesiji; odluku donosi skripta u layoutu prije prvog iscrtavanja. Ispod
- * njega je pravi tekst od prve milisekunde, pa LCP ne čeka animaciju.
+ * Hero — cijeli ekran (100svh, Petar 2026-09-18). Patentni zatvarač pri
+ * ulasku (odluka 7C) maknut je 2026-10-15: Speed Index na mobitelu pao je
+ * s 3,2 s na 1,5 s. Tekst izranja u CSS-u i kreće vidljiv (15 %), zbog LCP-a.
  *
  * Kromirani zip stoji dolje na mobitelu (prigušen, da ne otima naslovu)
  * i desno na desktopu, gdje ima mjesta biti u punom sjaju.
@@ -65,14 +63,6 @@ export default function Hero({ t = content }: { t?: Copy }) {
             </a>
           </div>
         </div>
-      </div>
-
-      {/* Patentni zatvarač — vidljiv samo uz html[data-zz="run"] */}
-      <div className="zz" aria-hidden="true">
-        <div className="zz-l" />
-        <div className="zz-r" />
-        <div className="zz-t" />
-        <div className="zz-p" />
       </div>
     </section>
   );
