@@ -34,7 +34,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: BASE, priority: 1, alternates: pair("", "/hr") },
     { url: `${BASE}/hr`, priority: 0.9, alternates: pair("", "/hr") },
-    { url: `${BASE}/work`, priority: 0.7 },
+    { url: `${BASE}/work`, priority: 0.7, alternates: pair("/work", "/hr/radovi") },
+    { url: `${BASE}/hr/radovi`, priority: 0.7, alternates: pair("/work", "/hr/radovi") },
     ...landing,
     { url: `${BASE}/blog`, priority: 0.7, alternates: pair("/blog", "/hr/blog") },
     { url: `${BASE}/hr/blog`, priority: 0.7, alternates: pair("/blog", "/hr/blog") },

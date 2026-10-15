@@ -24,9 +24,12 @@ type Item = Pick<WorkItem, "slug" | "name" | "status"> & { kind: string; shot: s
 export default function WorkTiles({
   items,
   labels,
+  href = "/work",
 }: {
   items: Item[];
   labels: { live: string; dev: string; details: string };
+  /** /work ili /hr/radovi */
+  href?: string;
 }) {
   const [up, setUp] = useState<string | null>(null);
 
@@ -85,7 +88,7 @@ export default function WorkTiles({
               </span>
               {isUp && (
                 <Link
-                  href={`/work#${w.slug}`}
+                  href={`${href}#${w.slug}`}
                   className="pointer-events-auto mt-1.5 text-[0.8125rem] font-medium text-white underline underline-offset-4"
                 >
                   {labels.details}

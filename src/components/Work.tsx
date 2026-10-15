@@ -35,11 +35,11 @@ export default function Work({ t = content }: { t?: Copy }) {
         </div>
 
         <div className="mt-12 lg:mt-16">
-          <WorkTiles items={items} labels={{ live: w.statusLive, dev: w.statusDev, details: w.details }} />
+          <WorkTiles items={items} href={t.workHref} labels={{ live: w.statusLive, dev: w.statusDev, details: w.details }} />
         </div>
 
         <Link
-          href="/work"
+          href={t.workHref}
           className="card group mt-6 flex items-end justify-between gap-4 p-5 transition-colors duration-200 sm:p-7 lg:mt-10"
         >
           <span className="grid gap-1">

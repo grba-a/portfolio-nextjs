@@ -13,6 +13,8 @@ export const content = {
   lang: "en",
   locale: "en-GB",
   home: "/",
+  /** Stranica svih radova na ovom jeziku */
+  workHref: "/work",
   /** Pripremljena poruka: vlasnik dopiše samo adresu. */
   whatsappText: "Hello! I'd like the free website check. My site: ",
   week: ["S", "M", "T", "W", "T", "F", "S"],
@@ -234,6 +236,14 @@ export const content = {
       },
     ],
     note: "No hidden costs. Every project starts with the free check.",
+  },
+
+  // Unutarnje poveznice na stranice djelatnosti i usluga (2026-10-15, SEO)
+  forWhom: {
+    eyebrow: "Who we work for",
+    heading: ["A page for", "your kind of business."],
+    sub: "One page for each kind of business, plus new websites and redesigns.",
+    services: "Services",
   },
 
   // Predložak tu ima 200 % i 50K+. Mi nemamo takve brojke, pa stoje četiri

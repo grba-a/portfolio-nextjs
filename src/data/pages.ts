@@ -69,7 +69,7 @@ const grbicHr = {
   heading: "Primjer",
   name: "Apartments Grbić",
   body: "Naš obiteljski smještaj na Jadranu. Stranica je složena oko jedne radnje: provjeri slobodne termine, pa rezerviraj.",
-  href: "/work#apartments-grbic",
+  href: "/hr/radovi#apartments-grbic",
   label: "Pogledajte projekt",
 };
 

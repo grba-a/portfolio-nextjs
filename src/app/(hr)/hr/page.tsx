@@ -5,6 +5,7 @@ import Strip from "@/components/Strip";
 import Work from "@/components/Work";
 import Process from "@/components/Process";
 import Packages from "@/components/Packages";
+import ForWhom from "@/components/ForWhom";
 import Facts from "@/components/Facts";
 import About from "@/components/About";
 import Faq from "@/components/Faq";
@@ -48,6 +49,7 @@ export default function HrPage() {
         <Work t={hr} />
         <Process t={hr} />
         <Packages t={hr} />
+        <ForWhom t={hr} />
         <Facts t={hr} />
         <About t={hr} />
         <Faq t={hr} />

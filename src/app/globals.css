@@ -342,13 +342,15 @@
   animation: rise 0.72s var(--ease-out) both;
   animation-delay: calc(var(--i, 0) * 75ms + 120ms);
 }
-/* Naslov kreće VIDLJIV (15 %), ne s nule: LCP ga broji od prvog okvira */
+/* Naslov i ostali tekst heroja kreću VIDLJIVI (15 %), ne s nule: Chrome ne broji
+   element naslikan s opacity 0 kao LCP, a naslov (tekst s background-clip) ne broji
+   uopće. S rise od nule PageSpeed je na mobitelu javljao NO_LCP (2026-10-15). */
 .rise-h {
   animation: rise-h 0.8s var(--ease-out) both;
   animation-delay: calc(var(--i, 0) * 75ms + 120ms);
 }
 @keyframes rise {
-  from { opacity: 0; transform: translateY(14px); filter: blur(7px); }
+  from { opacity: 0.15; transform: translateY(14px); filter: blur(7px); }
 }
 @keyframes rise-h {
   from { opacity: 0.15; transform: translateY(0.22em); filter: blur(10px); }

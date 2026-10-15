@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { content } from "@/data/content";
-import { work, type WorkItem } from "@/data/work";
+import { content, type Copy } from "@/data/content";
+import { work as all, inLang, type WorkItem } from "@/data/work";
 import Modal from "@/components/Modal";
 import { ArrowUpRight } from "@/components/icons";
 
@@ -18,14 +18,16 @@ import { ArrowUpRight } from "@/components/icons";
  * - popup je nativni <dialog> (Modal): fokus, Escape, zaključan scroll
  * - "tall" snimka u okviru kroz koji se skrola: više od jednog ekrana
  */
-export default function WorkGallery() {
-  const { workPage: t, work: w } = content;
+export default function WorkGallery({ t: copy = content }: { t?: Copy }) {
+  const { workPage: t, work: w } = copy;
+  const work = all.map((it) => inLang(it, copy.lang));
   const [open, setOpen] = useState<number | null>(null);
 
   // Link /work#slug otvara taj projekt; zatvaranje briše hash
   useEffect(() => {
     const fromHash = () => {
-      const i = work.findIndex((x) => `#${x.slug}` === window.location.hash);
+      // Redoslijed i slugovi isti su na oba jezika, pa je dovoljan izvorni popis
+      const i = all.findIndex((x) => `#${x.slug}` === window.location.hash);
       setOpen(i >= 0 ? i : null);
     };
     fromHash();

@@ -70,7 +70,7 @@ export default function Footer({
           </nav>
           <nav aria-label={f.more} className="grid content-start">
             <p className="mb-1 text-[0.8125rem] text-fg-3">{f.more}</p>
-            <Link href="/work" className="inline-flex min-h-11 w-fit items-center text-fg-2 transition-colors duration-200 hover:text-fg">
+            <Link href={t.workHref} className="inline-flex min-h-11 w-fit items-center text-fg-2 transition-colors duration-200 hover:text-fg">
               {f.allWork}
             </Link>
             <a href={`${t.home}#faq`} className="inline-flex min-h-11 w-fit items-center text-fg-2 transition-colors duration-200 hover:text-fg">

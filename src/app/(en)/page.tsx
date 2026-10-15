@@ -4,6 +4,7 @@ import Strip from "@/components/Strip";
 import Work from "@/components/Work";
 import Process from "@/components/Process";
 import Packages from "@/components/Packages";
+import ForWhom from "@/components/ForWhom";
 import Facts from "@/components/Facts";
 import About from "@/components/About";
 import Faq from "@/components/Faq";
@@ -28,6 +29,7 @@ export default function Home() {
         <Work />
         <Process />
         <Packages />
+        <ForWhom />
         <Facts />
         <About />
         <Faq />

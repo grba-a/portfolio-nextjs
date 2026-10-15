@@ -14,6 +14,7 @@ export const hr: Copy = {
   lang: "hr",
   locale: "hr-HR",
   home: "/hr",
+  workHref: "/hr/radovi",
   whatsappText: "Dobar dan! Želim besplatnu provjeru stranice. Moja stranica: ",
   week: ["N", "P", "U", "S", "Č", "P", "S"],
   weekFull: ["nedjelja", "ponedjeljak", "utorak", "srijeda", "četvrtak", "petak", "subota"],
@@ -223,6 +224,13 @@ export const hr: Copy = {
       },
     ],
     note: "Bez skrivenih troškova. Svaki projekt počinje besplatnom provjerom.",
+  },
+
+  forWhom: {
+    eyebrow: "Za koga radimo",
+    heading: ["Stranica za", "vašu vrstu posla."],
+    sub: "Po jedna stranica za svaku djelatnost, plus izrada i redizajn web stranica.",
+    services: "Usluge",
   },
 
   facts: {
